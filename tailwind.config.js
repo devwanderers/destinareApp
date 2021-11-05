@@ -60,7 +60,7 @@ module.exports = {
             yellow: { ...colors.yellow, 1: '#f9a24f' },
             gray: colors.trueGray,
             white: '#ffffff',
-            primary: '#ffce50',
+            primary: '#EEF769',
             // secondary: '',
             info: '#00B5EB',
             transparent: 'transparent',
@@ -155,6 +155,7 @@ module.exports = {
         extend: {
             scale: ['active', 'group-hover'],
             textColor: ['active', 'hover'],
+            borderWidth: ['active', 'hover'],
         },
     },
     plugins: [],

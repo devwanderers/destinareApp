@@ -3,6 +3,7 @@ import { Route } from 'react-router-dom'
 import PublicRoute from './CustomRoutes/PublicRoute'
 import * as paths from '../constants/routerConstants'
 import SignInLayout from './../components/Layouts/SignInLayout'
+import MarketLayout from '../components/Layouts/MarketLayout'
 
 const routes = [
     // {
@@ -40,6 +41,15 @@ const routes = [
             routes: [],
         },
         layout: SignInLayout,
+    },
+    {
+        name: 'MarketView',
+        path: paths.MarketPath,
+        route: Route,
+        componentProps: {
+            routes: [],
+        },
+        layout: MarketLayout,
     },
     // {
     //     name: 'TripvixiaIFrame',
