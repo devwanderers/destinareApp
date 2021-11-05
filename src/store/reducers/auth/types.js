@@ -1,0 +1,5 @@
+export const LOG_OUT = 'logout'
+export const USER_AUTH = 'auth/setData'
+export const SIGN_UP = 'auth/signup'
+export const SIGN_IN = 'auth/signin'
+export const SENDUSER_DATA = 'signup/sendUserData'
