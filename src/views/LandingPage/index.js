@@ -281,7 +281,7 @@ const LandingPage = ({ authenticated, userData, logout }) => {
                 </section>
                 <section>
                     <div className="section px-0 lg:px-25px flex mx-auto py-10 lg:pt-16 lg:pb-20">
-                        <div className="flex-1 bg-gray-200 py-10 px-6 md:px-12 lg:px-20 xl:px-24">
+                        <div className="flex-1 bg-gray-400 py-10 px-6 md:px-12 lg:px-20 xl:px-24">
                             <div className="font-bebas-nue text-2xl md:text-3xl lg:text-4xl xl:text-5xl text-black-1">
                                 STAY WITH US, GET OUR NEWSLETTER
                             </div>

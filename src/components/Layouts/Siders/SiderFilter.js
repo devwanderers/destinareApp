@@ -24,7 +24,7 @@ export const SiderFilter = () => {
     }
     return (
         <Sider
-            className="bg-gray-200"
+            className="bg-gray-400"
             collapsible
             collapsed={collapsed}
             onCollapse={handleCollapse}

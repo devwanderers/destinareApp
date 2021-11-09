@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import { PropTypes } from 'prop-types'
 import { Layout } from 'antd'
-import DefaultFooter from '../Footers/DefaultFooter'
+// import DefaultFooter from '../Footers/DefaultFooter'
 import SiderMarket from './Siders/SiderMarket'
+import ConnectWalletHeader from './../Headers/ConnectWalletHeader'
 
 const { Content } = Layout
 const MarketLayout = ({ children, ...rest }) => {
@@ -10,13 +11,14 @@ const MarketLayout = ({ children, ...rest }) => {
     const handleOnCollapse = () => setCollapsed(!collapsed)
 
     return (
-        <Layout className="overflow-x-hidden flex flex-col min-h-screen">
+        <Layout className="overflow-x-hidden flex flex-col min-h-screen dark:bg-blue-1 bg-white">
             <SiderMarket collapsed={collapsed} onCollapse={handleOnCollapse} />
-            <Layout className="h-full">
-                <Content className="bg-white flex flex-1 flex-shrink flex-grow">
+            <Layout className="h-screen overflow-y-auto dark:bg-blue-1 bg-white">
+                <Content className="flex flex-col flex-1 flex-shrink flex-grow">
+                    <ConnectWalletHeader />
                     {children}
                 </Content>
-                <DefaultFooter className="bg-white flex-1 flex-shrink flex-grow" />
+                {/* <DefaultFooter className="bg-white flex-1 flex-shrink flex-grow" /> */}
             </Layout>
         </Layout>
     )

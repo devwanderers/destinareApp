@@ -1,11 +1,11 @@
 import { useState, useCallback } from 'react'
 import Cookies from 'js-cookie'
 
-export default function useCookie(name, defaultValue) {
+export default function useCookie(name, defaultValue, config = {}) {
     const [value, setValue] = useState(() => {
         const cookie = Cookies.get(name)
         if (cookie) return cookie
-        Cookies.set(name, defaultValue)
+        Cookies.set(name, defaultValue, config)
         return defaultValue
     })
 
