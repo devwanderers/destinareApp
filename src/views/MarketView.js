@@ -11,9 +11,9 @@ const MarketView = (props) => {
     return (
         <div className="pl-4 pr-8">
             <div className="pt-8">
-                <div className=" text-gray-500 font-semibold text-center  relative">
+                <div className="text-gray-5 font-semibold text-center relative">
                     <div className="absolute right-0 bottom-0">
-                        <button className="bg-transparent rounded-md ring-primary text-primary ring-1 dark:bg-blue-1 bg-white text-lg px-4 py-1">
+                        <button className="bg-transparent rounded-md ring-primary text-primary ring-1 dark:bg-blue-1 bg-white  text-lg px-4 py-1">
                             <span className="flex flex-row">
                                 Quick menu{' '}
                                 <IoIosArrowForward
@@ -28,7 +28,7 @@ const MarketView = (props) => {
                         Choose reservation day by 7 of June 2021
                     </div>
                 </div>
-                <div className="text-2xl text-white font-semibold">
+                <div className="text-2xl text-gray-10 dark:text-white font-semibold">
                     Reservation Days
                 </div>
                 <TabsButton

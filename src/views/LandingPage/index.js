@@ -282,7 +282,7 @@ const LandingPage = ({ authenticated, userData, logout }) => {
                 <section>
                     <div className="section px-0 lg:px-25px flex mx-auto py-10 lg:pt-16 lg:pb-20">
                         <div className="flex-1 bg-gray-400 py-10 px-6 md:px-12 lg:px-20 xl:px-24">
-                            <div className="font-bebas-nue text-2xl md:text-3xl lg:text-4xl xl:text-5xl text-black-1">
+                            <div className="font-bebas-nue text-2xl md:text-3xl lg:text-4xl xl:text-5xl text-gray-9">
                                 STAY WITH US, GET OUR NEWSLETTER
                             </div>
                             <div className="mb-10">
@@ -308,7 +308,7 @@ const LandingPage = ({ authenticated, userData, logout }) => {
                                     xs={10}
                                     className="flex justify-end md:justify-center "
                                 >
-                                    <div className="text-black-1 h-8 lg:h-50px pt-1">
+                                    <div className="text-gray-9 h-8 lg:h-50px pt-1">
                                         <Logo
                                             color="black"
                                             height="100%"

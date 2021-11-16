@@ -86,12 +86,12 @@ const Login = ({ onSubmit, showError, errorMessage }) => {
                         <div className="login-links flex flex-col text-center">
                             <a
                                 type="link"
-                                className="text-sm h-auto py-0 text-black-1 hover:text-info"
+                                className="text-sm h-auto py-0 text-gray-9 hover:text-info"
                             >
                                 Forgot password?
                             </a>
                             <span
-                                className="text-black-1 text-sm h-auto py-0 relative"
+                                className="text-gray-9 text-sm h-auto py-0 relative"
                                 style={{ top: '-7px' }}
                             >
                                 {"Don't have an account? "}

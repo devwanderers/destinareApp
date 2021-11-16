@@ -6,15 +6,15 @@ import { RiLock2Line } from 'react-icons/ri'
 
 const CardReserve = () => {
     return (
-        <div className="bg-gray-4 pt-4 pb-4 px-4 rounded-xl relative">
+        <div className="bg-gray dark:bg-gray-4 border border-gray-11 dark:border-gray-4 pt-4 pb-4 px-4 rounded-xl relative">
             <div className="absolute top-0 right-0 pt-4 pr-4">
                 <span className="text-green-1 text-3xl">
                     <AiOutlineCheckCircle />
                 </span>
             </div>
-            <div className="border-b pb-2">
-                <div className="text-white flex flex-row">
-                    <div className=" text-3xl leading-none">
+            <div className="border-b border-gray-7 pb-2">
+                <div className="text-gray-10 dark:text-white flex flex-row">
+                    <div className="text-3xl leading-none">
                         <span>
                             <strong>5.000.00</strong> SWAPP
                         </span>
@@ -24,23 +24,27 @@ const CardReserve = () => {
                     <span>05/10/2021 - Day 2 (UTC)</span>
                 </div>
             </div>
-            <div className="border-b flex flex-row justify-between py-3 text-lg text-gray-5">
+            <div className="border-b border-gray-7 flex flex-row justify-between py-3 text-lg text-gray-5">
                 <div className="flex flex-row">
                     <div className="relative pl-2 pr-4" style={{ top: '2px' }}>
                         <AiOutlineUser />
                     </div>
                     Total user
                 </div>
-                <div className="font-medium text-white">28</div>
-            </div>{' '}
-            <div className="border-b flex flex-row justify-between py-3 text-lg text-gray-5">
+                <div className="font-medium text-gray-10 dark:text-white">
+                    28
+                </div>
+            </div>
+            <div className="border-b border-gray-7 flex flex-row justify-between py-3 text-lg text-gray-5">
                 <div className="flex flex-row">
                     <div className="relative pl-2 pr-4" style={{ top: '2px' }}>
                         <FaEthereum />
                     </div>
                     Total Ether
                 </div>
-                <div className="font-medium text-white">8.22</div>
+                <div className="font-medium text-gray-10 dark:text-white">
+                    8.22
+                </div>
             </div>
             <div className="my-9 flex justify-center">
                 <button
@@ -65,13 +69,17 @@ const CardReserve = () => {
             <div className="flex flex-row justify-between leading-none">
                 <div>
                     <div className="text-gray-5">Your share</div>
-                    <div className="text-white text-xl">0.00% SWAPP</div>
+                    <div className="text-gray-10 dark:text-white text-xl">
+                        0.00% SWAPP
+                    </div>
                 </div>
                 <div className="flex flex-col items-end">
                     <div className="text-gray-5 text-end">
                         Your contribution
                     </div>
-                    <div className="text-white text-xl">0.00 ETH</div>
+                    <div className="text-gray-10 dark:text-white text-xl">
+                        0.00 ETH
+                    </div>
                 </div>
             </div>
         </div>

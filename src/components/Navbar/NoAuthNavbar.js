@@ -29,7 +29,7 @@ const NoAuthNavBar = ({ logout, authenticated, ...rest }) => {
                 <React.Fragment>
                     <Button
                         type="link"
-                        className="h-full flex-1 btn tracking-wide text-xs lg:text-lg leading-none text-black-1 font-light hover:text-black-1 active:text-black-1 focus:text-black-1"
+                        className="h-full flex-1 btn tracking-wide text-xs lg:text-lg leading-none text-gray-9 font-light hover:text-gray-9 active:text-gray-9 focus:text-gray-9"
                     >
                         <span>WHITE PAPER</span>
                     </Button>{' '}

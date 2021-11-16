@@ -73,7 +73,7 @@ const NextSection = (props) => {
                 </div>
             </div>
             <div className="flex md:justify-end flex-1">
-                <div className="w-full md:w-6/12 bg-black-1">
+                <div className="w-full md:w-6/12 bg-gray-9">
                     <div className="w-full bg-yellow-1 h-1  md:h-1.5 xl:h-2 "></div>
                 </div>
             </div>

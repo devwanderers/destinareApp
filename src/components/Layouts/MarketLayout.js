@@ -11,9 +11,9 @@ const MarketLayout = ({ children, ...rest }) => {
     const handleOnCollapse = () => setCollapsed(!collapsed)
 
     return (
-        <Layout className="overflow-x-hidden flex flex-col min-h-screen dark:bg-blue-1 bg-white">
+        <Layout className="overflow-x-hidden flex flex-col min-h-screen dark:bg-blue-1 bg-light-2">
             <SiderMarket collapsed={collapsed} onCollapse={handleOnCollapse} />
-            <Layout className="h-screen overflow-y-auto dark:bg-blue-1 bg-white">
+            <Layout className="h-screen overflow-y-auto dark:bg-blue-1 bg-light-2">
                 <Content className="flex flex-col flex-1 flex-shrink flex-grow">
                     <ConnectWalletHeader />
                     {children}

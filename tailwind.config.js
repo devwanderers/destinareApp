@@ -66,8 +66,17 @@ module.exports = {
                 4: '#343640',
                 5: '#808080',
                 6: '#40424F',
+                7: '#d1d1d1',
+                8: '#c9c9c9',
+                9: '#24262D',
+                10: '#333333',
+                11: '#e5e5e5',
             },
             white: '#ffffff',
+            light: {
+                1: '#fafafa',
+                2: '#f7f7f7',
+            },
             primary: '#527aee',
             danger: '#B82D4D',
             // secondary: '',
@@ -84,9 +93,7 @@ module.exports = {
                 1: '#2A2C34',
                 2: '#21232B',
             },
-            black: {
-                1: '#21232B',
-            },
+            black: '#000000',
         },
         fontSize: {
             xs: '.75rem',

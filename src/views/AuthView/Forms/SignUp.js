@@ -143,7 +143,7 @@ const SigUp = ({ onSubmit, showError, errorMessage }) => {
 
             <div className="login-links text-center">
                 <span
-                    className="text-black-1 text-sm h-auto py-0 relative"
+                    className="text-gray-9 text-sm h-auto py-0 relative"
                     style={{ top: '-7px' }}
                 >
                     Already have an account.

@@ -13,9 +13,11 @@ const DefaultNavbar = ({ authenticated, userData, logout, ...rest }) => {
     const { width } = useWindowSize()
     const handleShowDrawer = () => setShowDrawer(!showDrawer)
 
-    let avatarTitle = `${userData.firstName
-        .substring(0, 1)
-        .toUpperCase()}${userData.lastName.substring(0, 1).toUpperCase()}`
+    let avatarTitle = userData?.firstName
+        ? `${userData.firstName
+              .substring(0, 1)
+              .toUpperCase()}${userData.lastName.substring(0, 1).toUpperCase()}`
+        : ''
     let name = `${userData.firstName} ${userData.lastName}`
 
     if (name.length > 26) name = `${name.substring(0, 25)}...`

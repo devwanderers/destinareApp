@@ -47,7 +47,7 @@ const GenericNavbarMobile = ({
                         >
                             <div
                                 // onClick={onClickBurguer}
-                                className="flex h-full cursor-pointer text-black-1"
+                                className="flex h-full cursor-pointer text-gray-9"
                             >
                                 <LogoSVG />
                             </div>
