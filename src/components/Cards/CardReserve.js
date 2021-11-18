@@ -16,7 +16,7 @@ const CardReserve = () => {
                 <div className="text-gray-10 dark:text-white flex flex-row">
                     <div className="text-3xl leading-none">
                         <span>
-                            <strong>5.000.00</strong> SWAPP
+                            <strong>833,333</strong> SWAPP
                         </span>
                     </div>
                 </div>

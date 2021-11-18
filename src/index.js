@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
+// import { DAppProvider } from '@usedapp/core'
 import App from './App'
 // import { ThemeSwitcherProvider } from 'react-css-theme-switcher'
 import reportWebVitals from './reportWebVitals'
@@ -14,13 +15,19 @@ const store = configureStore()
 //     light: `${process.env.PUBLIC_URL}/themes/light-theme.css`,
 // }
 
+// const config = {
+//     // supportedChains: [ChainId.Mainnet],
+// }
+
 ReactDOM.render(
     <React.StrictMode>
         <Provider store={store.store}>
             <PersistGate loading={null} persistor={store.persistor}>
+                {/* <DAppProvider config={config}> */}
                 {/* <ThemeSwitcherProvider themeMap={themes} defaultTheme="light"> */}
                 <App />
                 {/* </ThemeSwitcherProvider> */}
+                {/* </DAppProvider> */}
             </PersistGate>
         </Provider>
     </React.StrictMode>,

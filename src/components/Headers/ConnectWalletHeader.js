@@ -1,5 +1,7 @@
 import React from 'react'
-import withWalletConnect from './../../HOCS/withWalletConnect'
+// import { useEthers, useEtherBalance } from '@usedapp/core'
+// import { formatEther } from '@ethersproject/units'
+// import useSupply from './../../hooks/useSupply'
 
 const SupplyCard = ({ title, supply }) => {
     return (
@@ -12,7 +14,16 @@ const SupplyCard = ({ title, supply }) => {
     )
 }
 
-const ConnectWalletHeader = (props) => {
+const ConnectWalletHeader = () => {
+    // const { status, connect, account } = useMetaMask()
+    // const value = useSupply()
+    // const { activateBrowserWallet, deactivate, account, error } = useEthers()
+    // const etherBalance = useEtherBalance(account)
+    // // console.log({ value })
+    // console.log({ account })
+    // console.log({ etherBalance })
+    // console.log({ error })
+
     return (
         <div className="w-full pt-4 dark:bg-blue-1 bg-light-2 border-b border-gray-11 dark:border-gray-1 pl-4 pr-8 select-none">
             <div className="flex justify-between pb-6">
@@ -28,15 +39,34 @@ const ConnectWalletHeader = (props) => {
                         title="Circulating Supply:"
                         supply="195,344,403"
                     />
-                    <div>
-                        <button className="bg-primary text-white font-semibold   border-none text-xl px-6 py-4 rounded-md hover:ring-blue-2 hover:ring-2 ">
-                            Connect Wallet
-                        </button>
+                    {/* <div className="text-white">
+                        {etherBalance &&
+                            parseFloat(formatEther(etherBalance)).toFixed(
+                                3
+                            )}{' '}
+                        ETH
                     </div>
+                    <div>
+                        {!account ? (
+                            <button
+                                onClick={activateBrowserWallet}
+                                className="bg-primary text-white font-semibold   border-none text-xl px-6 py-4 rounded-md hover:ring-blue-2 hover:ring-2 "
+                            >
+                                Connect Wallet
+                            </button>
+                        ) : (
+                            <button
+                                onClick={deactivate}
+                                className="bg-primary text-white font-semibold   border-none text-xl px-6 py-4 rounded-md hover:ring-blue-2 hover:ring-2 "
+                            >
+                                Disconnect
+                            </button>
+                        )}
+                    </div> */}
                 </div>
             </div>
         </div>
     )
 }
 
-export default withWalletConnect(ConnectWalletHeader)
+export default ConnectWalletHeader
