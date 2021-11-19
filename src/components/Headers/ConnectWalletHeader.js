@@ -1,6 +1,7 @@
 import React from 'react'
 // import { useEthers, useEtherBalance } from '@usedapp/core'
 // import { formatEther } from '@ethersproject/units'
+// import Web3 from 'web3'
 // import useSupply from './../../hooks/useSupply'
 
 const SupplyCard = ({ title, supply }) => {
@@ -17,12 +18,23 @@ const SupplyCard = ({ title, supply }) => {
 const ConnectWalletHeader = () => {
     // const { status, connect, account } = useMetaMask()
     // const value = useSupply()
+    const connectWallet = async () => {
+        if (typeof window.ethereum !== 'undefined') {
+            const ethereum = window.ethereum
+
+            const accounts = await ethereum.request({
+                method: 'eth_requestAccounts',
+            })
+            console.log({ accounts })
+        }
+    }
     // const { activateBrowserWallet, deactivate, account, error } = useEthers()
     // const etherBalance = useEtherBalance(account)
-    // // console.log({ value })
+    // // // console.log({ value })
     // console.log({ account })
     // console.log({ etherBalance })
     // console.log({ error })
+    // // console.log({ value })
 
     return (
         <div className="w-full pt-4 dark:bg-blue-1 bg-light-2 border-b border-gray-11 dark:border-gray-1 pl-4 pr-8 select-none">
@@ -45,8 +57,14 @@ const ConnectWalletHeader = () => {
                                 3
                             )}{' '}
                         ETH
-                    </div>
-                    <div>
+                    </div> */}
+                    <button
+                        onClick={connectWallet}
+                        className="bg-primary text-white font-semibold   border-none text-xl px-6 py-4 rounded-md hover:ring-blue-2 hover:ring-2 "
+                    >
+                        Connect Wallet
+                    </button>
+                    {/* <div>
                         {!account ? (
                             <button
                                 onClick={activateBrowserWallet}
