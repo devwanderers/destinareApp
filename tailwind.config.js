@@ -9,6 +9,7 @@ module.exports = {
     theme: {
         spacing: {
             ...defaultTheme.spacing,
+            '4px': '4px',
             '40px': '40px',
             '50px': '50px',
             37: '9.25rem',
@@ -45,6 +46,7 @@ module.exports = {
         },
         maxWidth: {
             '1000px': '1000px',
+            '1650px': '1650px',
             full: '100%',
         },
         fontFamily: {

@@ -77,8 +77,8 @@ const ConnectWalletHeader = () => {
     if (!initiated) return null
 
     return (
-        <div className="w-full pt-4 dark:bg-blue-1 bg-light-2 border-b border-gray-11 dark:border-gray-1 px-12 select-none">
-            <div className="flex justify-between pb-6">
+        <div className="w-full pt-4 dark:bg-blue-1 bg-light-2 border-b border-gray-11 dark:border-gray-1 select-none">
+            <div className=" max-w-1650px flex justify-between pb-6">
                 <div className="font-medium text-3xl">
                     <span className="text-gray-10 dark:text-white">
                         Welcome to
