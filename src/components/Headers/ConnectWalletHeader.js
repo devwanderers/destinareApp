@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useWeb3React } from '@web3-react/core'
 // import { useEthers, useEtherBalance } from '@usedapp/core'
 // import { formatEther } from '@ethersproject/units'
-// import Web3 from 'web3'
 // import useSupply from './../../hooks/useSupply'
+import { injected } from './../../wallet/connectors'
+// import DestinareContract from '../../abi/DestinareContract.json'
+import { useLocalStorage } from '@usedapp/core'
+import useEffectOnce from './../../hooks/useEffectOnce'
 
 const SupplyCard = ({ title, supply }) => {
     return (
@@ -16,28 +20,64 @@ const SupplyCard = ({ title, supply }) => {
 }
 
 const ConnectWalletHeader = () => {
-    // const { status, connect, account } = useMetaMask()
-    // const value = useSupply()
-    const connectWallet = async () => {
-        if (typeof window.ethereum !== 'undefined') {
-            const ethereum = window.ethereum
+    const [initiated, setInitiated] = useState(false)
+    const [walletActive, setValue] = useLocalStorage('wallet', false)
+    const { active, account, library, activate, connector, deactivate, error } =
+        useWeb3React()
 
-            const accounts = await ethereum.request({
-                method: 'eth_requestAccounts',
-            })
-            console.log({ accounts })
+    async function connect() {
+        try {
+            await activate(injected)
+            if (!walletActive) setValue(true)
+        } catch (ex) {
+            console.log({ ex })
         }
     }
-    // const { activateBrowserWallet, deactivate, account, error } = useEthers()
-    // const etherBalance = useEtherBalance(account)
-    // // // console.log({ value })
-    // console.log({ account })
-    // console.log({ etherBalance })
-    // console.log({ error })
-    // // console.log({ value })
+
+    async function disconnect() {
+        try {
+            deactivate()
+        } catch (ex) {
+            console.log(ex)
+        }
+    }
+
+    // async function circulatingSupply() {
+    //     try {
+    //         console.log(process.env.REACT_APP_DESTINARE_CONTRACT_ADDRESS)
+    //         const contract = new library.eth.Contract(
+    //             DestinareContract,
+    //             process.env.REACT_APP_DESTINARE_CONTRACT_ADDRESS
+    //         )
+    //         const _circulatingSupply = await contract.methods
+    //             .circulatingSupply()
+    //             .call()
+    //         const getPresaleInfo = await contract.methods
+    //             .getPresaleInfo()
+    //             .call()
+    //         const getUserInfo = await contract.methods.getUserInfo().call()
+    //         console.log({ _circulatingSupply })
+    //         console.log({ getPresaleInfo })
+    //         console.log({ getUserInfo })
+    //     } catch (ex) {
+    //         console.log(ex)
+    //     }
+    // }
+
+    useEffectOnce(async () => {
+        if (walletActive) await connect()
+        setInitiated(true)
+    })
+
+    console.log({ active })
+    console.log({ connector })
+    console.log({ error })
+    console.log({ library })
+
+    if (!initiated) return null
 
     return (
-        <div className="w-full pt-4 dark:bg-blue-1 bg-light-2 border-b border-gray-11 dark:border-gray-1 pl-4 pr-8 select-none">
+        <div className="w-full pt-4 dark:bg-blue-1 bg-light-2 border-b border-gray-11 dark:border-gray-1 px-12 select-none">
             <div className="flex justify-between pb-6">
                 <div className="font-medium text-3xl">
                     <span className="text-gray-10 dark:text-white">
@@ -58,29 +98,37 @@ const ConnectWalletHeader = () => {
                             )}{' '}
                         ETH
                     </div> */}
-                    <button
+                    {/* <button
                         onClick={connectWallet}
                         className="bg-primary text-white font-semibold   border-none text-xl px-6 py-4 rounded-md hover:ring-blue-2 hover:ring-2 "
                     >
                         Connect Wallet
-                    </button>
-                    {/* <div>
+                    </button> */}
+                    <div>
                         {!account ? (
                             <button
-                                onClick={activateBrowserWallet}
+                                onClick={connect}
                                 className="bg-primary text-white font-semibold   border-none text-xl px-6 py-4 rounded-md hover:ring-blue-2 hover:ring-2 "
                             >
                                 Connect Wallet
                             </button>
                         ) : (
                             <button
-                                onClick={deactivate}
+                                onClick={disconnect}
                                 className="bg-primary text-white font-semibold   border-none text-xl px-6 py-4 rounded-md hover:ring-blue-2 hover:ring-2 "
                             >
                                 Disconnect
                             </button>
                         )}
-                    </div> */}
+                    </div>
+                    {/* {account && (
+                        <button
+                            onClick={circulatingSupply}
+                            className="bg-primary text-white font-semibold   border-none text-xl px-6 py-4 rounded-md hover:ring-blue-2 hover:ring-2 "
+                        >
+                            Supply
+                        </button>
+                    )} */}
                 </div>
             </div>
         </div>

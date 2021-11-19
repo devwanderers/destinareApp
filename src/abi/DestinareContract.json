@@ -207,6 +207,19 @@
         "type": "function"
     },
     {
+        "inputs": [],
+        "name": "reserveTokens",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "payable",
+        "type": "function"
+    },
+    {
         "inputs": [
             {
                 "internalType": "address",
@@ -348,12 +361,56 @@
     },
     {
         "inputs": [],
+        "name": "circulatingSupply",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
         "name": "decimals",
         "outputs": [
             {
                 "internalType": "uint8",
                 "name": "",
                 "type": "uint8"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "getPresaleInfo",
+        "outputs": [
+            {
+                "internalType": "uint256[30]",
+                "name": "_totalUsers",
+                "type": "uint256[30]"
+            },
+            {
+                "internalType": "uint256[30]",
+                "name": "_totalEth",
+                "type": "uint256[30]"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "getUserInfo",
+        "outputs": [
+            {
+                "internalType": "uint256[30]",
+                "name": "_totalEthUser",
+                "type": "uint256[30]"
             }
         ],
         "stateMutability": "view",

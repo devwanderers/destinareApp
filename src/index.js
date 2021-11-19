@@ -2,6 +2,9 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
+import { Web3ReactProvider } from '@web3-react/core'
+import Web3 from 'web3'
+
 // import { DAppProvider } from '@usedapp/core'
 import App from './App'
 // import { ThemeSwitcherProvider } from 'react-css-theme-switcher'
@@ -19,15 +22,21 @@ const store = configureStore()
 //     // supportedChains: [ChainId.Mainnet],
 // }
 
+function getLibrary(provider) {
+    return new Web3(provider)
+}
+
 ReactDOM.render(
     <React.StrictMode>
         <Provider store={store.store}>
             <PersistGate loading={null} persistor={store.persistor}>
-                {/* <DAppProvider config={config}> */}
-                {/* <ThemeSwitcherProvider themeMap={themes} defaultTheme="light"> */}
-                <App />
-                {/* </ThemeSwitcherProvider> */}
-                {/* </DAppProvider> */}
+                <Web3ReactProvider getLibrary={getLibrary}>
+                    {/* <DAppProvider config={config}> */}
+                    {/* <ThemeSwitcherProvider themeMap={themes} defaultTheme="light"> */}
+                    <App />
+                    {/* </ThemeSwitcherProvider> */}
+                    {/* </DAppProvider> */}
+                </Web3ReactProvider>
             </PersistGate>
         </Provider>
     </React.StrictMode>,

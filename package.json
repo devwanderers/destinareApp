@@ -5,6 +5,8 @@
     "proxy": "http://127.0.0.1:8080",
     "dependencies": {
         "@craco/craco": "^6.3.0",
+        "@drizzle/react-plugin": "^1.5.3",
+        "@drizzle/store": "^1.5.3",
         "@ethersproject/units": "^5.5.0",
         "@loadable/component": "^5.15.0",
         "@reduxjs/toolkit": "^1.6.1",
@@ -13,6 +15,8 @@
         "@testing-library/user-event": "^12.1.10",
         "@usedapp/core": "^0.6.0",
         "@walletconnect/web3-provider": "^1.6.6",
+        "@web3-react/core": "^6.1.9",
+        "@web3-react/injected-connector": "^6.0.7",
         "antd": "^4.16.13",
         "autoprefixer": "^9.8.6",
         "axios": "^0.21.4",
