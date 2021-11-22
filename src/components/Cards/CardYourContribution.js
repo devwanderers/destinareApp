@@ -6,10 +6,14 @@ const CardYourContribution = () => {
             <div>
                 <div className="mb-2 text-gray-10 dark:text-white flex flex-row justify-between">
                     <div className="text-xl leading-none">
-                        <span className="text-white">Your contribution</span>
+                        <span className="text-gray-10 dark:text-white ">
+                            Your contribution
+                        </span>
                     </div>
                     <div className="text-2xl leading-none">
-                        <span className="text-white">0.00 ETH</span>
+                        <span className="text-gray-10 dark:text-white">
+                            0.00 ETH
+                        </span>
                     </div>
                 </div>
             </div>

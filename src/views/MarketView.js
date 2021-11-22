@@ -6,15 +6,52 @@ import CardDailyReserve from '../components/Cards/CardDailyReserve'
 // import { IoIosArrowForward } from 'react-icons/io'
 import CardClaimingDay from './../components/Cards/CardClaimingDay'
 import CardYourContribution from './../components/Cards/CardYourContribution'
+import useSCInteractions from './../hooks/useSCInteractions'
+
+const RenderCards = ({ initDate }) => {
+    const { data } = useSCInteractions()
+    const cards = []
+    for (let index = 0; index < 30; index++) {
+        const date = new Date(initDate)
+        date.setDate(date.getDate() + index)
+        const currentDay = new Date()
+
+        if (currentDay.getDate() === date.getDate()) {
+            continue
+        }
+        const component = (
+            <Col key={`cardPresale${index}`} sm={12} className="mb-4">
+                <CardReserve
+                    day={index + 1}
+                    date={`${date.getUTCDate()}/${date.getUTCMonth()}/${date.getUTCFullYear()}`}
+                    totalUser={
+                        data.getPresaleInfo[0].length > 0
+                            ? data.getPresaleInfo[0][index]
+                            : 0
+                    }
+                    totalEther={
+                        data.getPresaleInfo[1].length > 0
+                            ? data.getPresaleInfo[1][index]
+                            : 0
+                    }
+                />
+            </Col>
+        )
+        cards.push(component)
+    }
+    return <React.Fragment>{cards}</React.Fragment>
+}
 
 const MarketView = (props) => {
-    // const handleOnChangeTab = (key) => {
-    //     console.log(key)
-    // }
+    // connect()
+    // const initDate = new Date()
+    // console.log({ active })
+    const initDate = new Date()
+    // const
     return (
         <div className="">
             <div className="border-b border-gray-11 dark:border-gray-1 pb-8">
-                <div className="pt-6 max-w-1650px">
+                <div className="pt-6 max-w-1650px mx-auto">
                     <div className="text-gray-5 font-semibold text-center relative dark:bg-blue-1 bg-light-2 mb-5">
                         {/* <div className="absolute right-0 bottom-0">
                         <button className="bg-transparent rounded-md ring-primary text-primary ring-1 dark:bg-blue-1 bg-white  text-lg px-4 py-1">
@@ -34,13 +71,13 @@ const MarketView = (props) => {
                     </div>
                 </div>
             </div>
-            <div className="pt-6 section3 border-b border-gray-11 dark:border-gray-1 pb-8">
+            <div className="pt-6 max-w-1650px mx-auto border-b border-gray-11 dark:border-gray-1 pb-8">
                 <Row gutter={20}>
                     <Col span="17">
-                        <CardDailyReserve />
+                        <CardDailyReserve initDate={initDate} />
                     </Col>
                     <Col span="7" className="flex">
-                        <CardClaimingDay />
+                        <CardClaimingDay initDate={initDate} />
                     </Col>
                 </Row>
                 <Row gutter={20} className="mt-5">
@@ -51,18 +88,24 @@ const MarketView = (props) => {
                                     Reservation Days
                                 </div>
                             </Col>
-                            <Col sm={8} className="mb-4">
-                                <CardReserve />
-                            </Col>
-                            <Col sm={8} className="mb-4">
-                                <CardReserve />
-                            </Col>
-                            <Col sm={8} className="mb-4">
-                                <CardReserve />
-                            </Col>
-                            <Col sm={8} className="mb-4">
-                                <CardReserve />
-                            </Col>
+                            <RenderCards initDate={initDate} />
+                            {/* {data.getPresaleInfo?['0'] &&
+                                data.getPresaleInfo['0'].map((info, key) => {
+                                    let date = initDate
+                                    if (key > 0) {
+                                        date = initDate * (24 * 60 * 60)
+                                    }
+                                    console.log(date.toUTCString())
+                                    return (
+                                        <Col
+                                            key={`cardPresale${info}`}
+                                            sm={12}
+                                            className="mb-4"
+                                        >
+                                            <CardReserve />
+                                        </Col>
+                                    )
+                                })} */}
                         </Row>
                     </Col>
                     <Col span="7">

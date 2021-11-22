@@ -141,6 +141,7 @@ module.exports = {
                 clouds: "url('/src/assets/images/backgrounds/fondo-nubes.jpg')",
             },
             margin: {
+                '-18px': '-18px',
                 '-24px': '-24px',
                 84: '21rem',
                 88: '22rem',
@@ -170,9 +171,10 @@ module.exports = {
         extend: {
             scale: ['active', 'group-hover'],
             textColor: ['active', 'hover'],
-            borderWidth: ['active', 'hover'],
+            borderWidth: ['active', 'hover', 'dark'],
             ringWidth: ['hover', 'active'],
             ringColor: ['hover', 'active'],
+            overflow: ['hover', 'focus', 'dark'],
         },
     },
     plugins: [],

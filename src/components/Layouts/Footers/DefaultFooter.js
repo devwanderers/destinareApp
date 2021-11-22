@@ -131,7 +131,7 @@ const DefaultFooter = (props) => {
                     <div className="row-2 border-t border-gray-200 border-opacity-50 sm:mx-6 sm:px-20 pt-5">
                         <div className="flex flex-row flex-wrap justify-center">
                             <div className="copyright xs:mx-auto sm:mx-0">
-                                <span>COPYRIGHT © 2021 SWAPP.</span>
+                                <span>COPYRIGHT © 2021 Destinare.</span>
                             </div>
                             {/* <div className="social xs:mx-auto xs:mt-4 sm:mx-0 sm:mt-0"></div> */}
                         </div>

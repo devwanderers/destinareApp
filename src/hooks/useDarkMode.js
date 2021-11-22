@@ -16,7 +16,6 @@ const useDarkMode = () => {
     }, [themeMode])
 
     const switchDarkMode = useCallback(() => {
-        console.log('Entro', themeMode)
         if (themeMode === 'light') {
             updateCookie('dark')
         } else {
