@@ -1,15 +1,17 @@
 import React, { useState } from 'react'
-import { Button, Dropdown, Avatar } from 'antd'
-import { useHistory } from 'react-router'
+// import { Button, Dropdown, Avatar } from 'antd'
+import { Button, Avatar } from 'antd'
+// import { useHistory } from 'react-router'
 import GenericNavBar from './GenericNavbar'
-import { LoginInPath } from '../../constants/routerConstants'
+// import { LoginInPath } from '../../constants/routerConstants'
 import useWindowSize from './../../hooks/useWindowSize'
 import GenericNavbarMobile from './GenericNavbarMobile'
 import MenuNavbar from './MenuNavbar'
 
 const DefaultNavbar = ({ authenticated, userData, logout, ...rest }) => {
+    console.log('res', rest)
     const [showDrawer, setShowDrawer] = useState(false)
-    const history = useHistory()
+    // const history = useHistory()
     const { width } = useWindowSize()
     const handleShowDrawer = () => setShowDrawer(!showDrawer)
 
@@ -38,11 +40,29 @@ const DefaultNavbar = ({ authenticated, userData, logout, ...rest }) => {
                 <React.Fragment>
                     <Button
                         type="link"
-                        className="h-full flex-1 btn tracking-wide text-xs lg:text-lg leading-none text-white font-light hover:text-white active:text-white focus:text-white"
+                        className="h-full flex-1 btn text-xs lg:text-lg leading-none text-black-3 font-normal hover:text-blue-3 active:text-blue-3 focus:text-blue-3"
                     >
-                        <span>WHITE PAPER</span>
+                        <span>About</span>
                     </Button>
-                    {!authenticated && (
+                    <Button
+                        type="link"
+                        className="h-full flex-1 btn text-xs lg:text-lg leading-none text-black-3 font-normal hover:text-blue-3 active:text-blue-3 focus:text-blue-3"
+                    >
+                        <span>Team</span>
+                    </Button>
+                    <Button
+                        type="link"
+                        className="h-full flex-1 btn text-xs lg:text-lg leading-none text-black-3 font-normal hover:text-blue-3 active:text-blue-3 focus:text-blue-3"
+                    >
+                        <span>Roadmap</span>
+                    </Button>
+                    <Button
+                        type="link"
+                        className="h-full flex-1 btn text-xs lg:text-lg leading-none text-black-3 font-normal hover:text-blue-3 active:text-blue-3 focus:text-blue-3"
+                    >
+                        <span>Whitepaper</span>
+                    </Button>
+                    {/* {!authenticated && (
                         <Button
                             type="primary"
                             className="gradient-g focus:bg-red-300 focus:ring-2 ring-red-300 text-lg lg:text-xl leading-none h-full px-8 lg:px-10 tracking-wide rounded-none border-none p-0 m-0"
@@ -72,7 +92,7 @@ const DefaultNavbar = ({ authenticated, userData, logout, ...rest }) => {
                                 </a>
                             </Dropdown>
                         </div>
-                    )}
+                    )} */}
                 </React.Fragment>
             }
         />

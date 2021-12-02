@@ -1,9 +1,11 @@
 import React from 'react'
-import { Layout, Button, Row, Col, Input } from 'antd'
-
-import Paragraph from '../../components/DisplayText/Paragraph'
-import PromotionsSection from './Sections/PromotionSections'
 import { FaCheck } from 'react-icons/fa'
+import { Layout, Button, Row, Col, Input } from 'antd'
+import Paragraph from '../../components/DisplayText/Paragraph'
+import DefaultNavbar from '../../components/Navbar/DefaultNavbar'
+import DefaultFooter from '../../components/Footers/DefaultFooter'
+import PromotionsSection from './Sections/PromotionSections'
+import NextSection from './Sections/NextSection/index'
 import Logo from '../../assets/svg/brand/Logo'
 import LogoIconSVG from './../../assets/svg/brand/LogoIconSVG'
 import {
@@ -11,13 +13,9 @@ import {
     LeftLogoSVG,
     MembersSVG,
 } from '../../assets/svg/utilities'
-// // import { LogoTextSVG } from '../../assets/svg/brand'
 import LogoText from '../../assets/svg/brand/LogoText'
 import useWindowSize from './../../hooks/useWindowSize'
 import { returnValueByScreenWidth } from '../../services/stylesServices'
-import NextSection from './Sections/NextSection/index'
-import DefaultNavbar from '../../components/Navbar/DefaultNavbar'
-import DefaultFooter from '../../components/Footers/DefaultFooter'
 
 const { Content } = Layout
 
@@ -107,15 +105,64 @@ const LandingPage = ({ authenticated, userData, logout }) => {
                 userData={userData}
                 logout={logout}
                 authenticated={authenticated}
-                className="bg-transparent"
+                className="bg-white"
             />
             <Content>
-                <section className="bg-travellerbg relative bg-cover bg-center bg-no-repeat -mt-16 md:-mt-20 ">
-                    <div
+                <section className="bg-gray-12 relative bg-cover bg-center bg-no-repeat -mt-16 md:-mt-20 ">
+                    <Row
+                        className="h-screen"
+                        justify="space-around"
+                        align="middle"
+                    >
+                        <Col xs={24} sm={12}>
+                            <div className="title">
+                                <Paragraph
+                                    className="blue-gradient font-extrabold mb-4"
+                                    base="base"
+                                    md="2xl"
+                                    lg="6xl"
+                                >
+                                    Travel mad simple
+                                </Paragraph>
+                                <Paragraph
+                                    className="text-black-3 font-extrabold mb-4"
+                                    base="base"
+                                    md="2xl"
+                                    lg="6xl"
+                                >
+                                    Discover the world and pay with your crypto
+                                </Paragraph>
+                                <Paragraph
+                                    className="text-black-3 mb-4"
+                                    base="base"
+                                    md="xl"
+                                    lg="2xl"
+                                >
+                                    Lorem ipsum dolor sit amet, consectetuer
+                                    adipiscing elit, sed diam nonummy nibh
+                                    euismod tincidunt ut laoreet dolore magna
+                                    aliquam erat volutpat.
+                                </Paragraph>
+                                <Paragraph
+                                    className="text-black-3 mb-4"
+                                    base="base"
+                                    md="xl"
+                                    lg="2xl"
+                                >
+                                    Lorem ipsum dolor sit amet, consectetuer
+                                    adipiscing elit, sed diam nonummy nibh
+                                    euismod tincidunt ut laoreet dolore magna
+                                    aliquam erat volutpat.
+                                </Paragraph>
+                            </div>
+                        </Col>
+                        <Col xs={24} sm={12}></Col>
+                    </Row>
+                    {/* <div
                         className="absolute top-0 left-0 right-0 bottom-0 "
                         style={{ backgroundColor: '#211915', opacity: 0.15 }}
-                    ></div>
-                    <div
+                    ></div> */}
+                    {/* <div
                         className="flex flex-col h-screen section px-0 justify-center mx-auto relative "
                         style={{ minHeight: '640px' }}
                     >
@@ -141,7 +188,7 @@ const LandingPage = ({ authenticated, userData, logout }) => {
                                 SEE MORE
                             </Button>
                         </div>
-                    </div>
+                    </div> */}
                 </section>
                 <section className=" relative">
                     <div className="absolute bottom-0 right-0 top-0 md:w-5/12 lg:w-6/12 xl:w-4/12 2xl:w-3/12 pt-20 hidden md:flex justify-end items-end  overflow-hidden">

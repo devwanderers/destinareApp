@@ -66,14 +66,13 @@ module.exports = {
             montserrat: ['Montserrat', 'sans-serif'],
         },
         colors: {
-            // ...colors,
             red: colors.red,
             yellow: { ...colors.yellow },
             gray: {
                 ...colors.trueGray,
                 1: '#4B4E5D',
                 2: '#292929',
-                3: '#1C1C1C', //
+                3: '#1C1C1C',
                 4: '#343640',
                 5: '#808080',
                 6: '#40424F',
@@ -82,6 +81,7 @@ module.exports = {
                 9: '#24262D',
                 10: '#333333',
                 11: '#e5e5e5',
+                12: '#fafafa',
             },
             white: '#ffffff',
             light: {
@@ -90,21 +90,23 @@ module.exports = {
             },
             primary: '#527aee',
             danger: '#B82D4D',
-            // secondary: '',
             info: '#00B5EB',
             transparent: 'transparent',
             dark: '#171230',
             darker: '#090416',
-            // aqua: {
-            //     1: '#7CC4D1',
-            // },
             green: { ...colors.green, 1: '#7AC385' },
             blue: {
                 ...colors.blue,
                 1: '#2A2C34',
                 2: '#21232B',
+                3: '#0091C2',
+                4: '#7ABCCF',
             },
-            black: '#000000',
+            black: {
+                1: '#000000',
+                2: '#333',
+                3: '#595959',
+            },
         },
         fontSize: {
             xs: '.75rem',
@@ -138,6 +140,9 @@ module.exports = {
             2.7: '2.7rem',
             3.5: '3.5rem',
         },
+        backgroundColor: (theme) => ({
+            ...theme('colors'),
+        }),
         extend: {
             backgroundImage: {
                 travellerbg:
