@@ -22,7 +22,7 @@ const DefaultNavbar = ({ authenticated, userData, logout, ...rest }) => {
 
     if (name.length > 26) name = `${name.substring(0, 25)}...`
     if (avatarTitle === '') avatarTitle = 'U'
-    console.log({ avatarTitle })
+    // console.log({ avatarTitle })
     const menu = (
         <MenuNavbar
             isMobile={width < 768}

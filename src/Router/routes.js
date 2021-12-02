@@ -15,13 +15,13 @@ const routes = [
     //     routes: []
     //     layout: NoAuthLayout
     // },
-    // {
-    //     name: 'LandingPage',
-    //     path: paths.HomePath,
-    //     route: Route,
-    //     componentProps: { routes: [] },
-    //     exact: true,
-    // },
+    {
+        name: 'LandingPage',
+        path: paths.HomePath,
+        route: Route,
+        componentProps: { routes: [] },
+        exact: true,
+    },
     // {
     //     name: 'AuthView',
     //     path: paths.LoginInPath,
@@ -44,7 +44,7 @@ const routes = [
     // },
     {
         name: 'MarketView',
-        path: paths.HomePath,
+        path: paths.MarketPath,
         route: Route,
         componentProps: {
             routes: [],

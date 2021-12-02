@@ -1,42 +1,45 @@
-import { useState } from 'react'
+/* eslint-disable no-unused-vars */
+import { useState, useCallback } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { useWeb3React } from '@web3-react/core'
-// import { useDispatch } from 'react-redux'
-import { injected } from './../wallet/connectors'
-import { useLocalStorage } from './useStorage'
 import DestinareContract from '../abi/DestinareContract.json'
-import useEffectOnce from './useEffectOnce'
+import useDeepCompareEffect from './useDeepCompareEffect'
+import * as scActions from '../store/reducers/scInteractionReducer/actions'
+import { scInteractionReducerSelector } from '../store/reducers/scInteractionReducer/selectors'
+import useInterval from './useInterval'
 
 const useSCInteractions = () => {
-    const [data, setData] = useState({
-        circulatingSupply: 0,
-        totalSupply: 0,
-        getPresaleInfo: { 0: [], 1: [] },
-    })
+    const [initData, setinitData] = useState(false)
+    // Estado traido del reducer
+    const scInteractions = useSelector(scInteractionReducerSelector)
+    const dispatch = useDispatch()
 
-    const { active, library, activate, deactivate, error } = useWeb3React()
-    const [walletActive, setValue] = useLocalStorage('wallet', false)
+    // Acciones conectadas con dispatch
+    const setData = (data) => dispatch(scActions.setData(data))
 
-    async function connect() {
-        try {
-            await activate(injected)
+    const { library, account } = useWeb3React()
 
-            if (!walletActive) setValue(true)
-        } catch (ex) {
-            console.log({ ex })
-        }
-    }
+    const reserveToken = useCallback(
+        async (amount) => {
+            try {
+                const contract = new library.eth.Contract(
+                    DestinareContract,
+                    process.env.REACT_APP_DESTINARE_CONTRACT_ADDRESS
+                )
+                const tx = await contract.methods
+                    .reserveTokens()
+                    .send({ from: account, value: amount * 1e18 })
+                    .then((res) => res)
+                if (tx.status) setinitData(false)
+            } catch (err) {
+                console.log({ err })
+            }
+        },
+        [library]
+    )
 
-    async function disconnect() {
-        try {
-            deactivate()
-        } catch (ex) {
-            console.log(ex)
-        }
-    }
-
-    useEffectOnce(async () => {
-        if (walletActive) await connect()
-        if (library?.eth) {
+    const getData = async () => {
+        if (!initData && library?.eth) {
             const contract = new library.eth.Contract(
                 DestinareContract,
                 process.env.REACT_APP_DESTINARE_CONTRACT_ADDRESS
@@ -49,19 +52,31 @@ const useSCInteractions = () => {
             const getPresaleInfo = await contract.methods
                 .getPresaleInfo()
                 .call()
-            const getUserInfo = await contract.methods.getUserInfo().call()
-            // console.log({ getPresaleInfo })
-            console.log({ getUserInfo })
-            setData((state) => ({
-                ...state,
+            const getUserInfo = await contract.methods
+                .getUserInfo()
+                .call({ from: account })
+            setData({
                 circulatingSupply,
                 totalSupply,
-                getPresaleInfo: { ...getPresaleInfo },
-            }))
+                getPresaleInfo,
+                getUserInfo,
+            })
+            setinitData(true)
         }
-    })
+    }
 
-    return { connect, disconnect, active, error, data }
+    useDeepCompareEffect(() => {
+        getData()
+    }, [library])
+
+    useInterval(
+        () => {
+            getData()
+        },
+        !initData ? 500 : null
+    )
+
+    return { data: scInteractions.data, reserveToken }
 }
 
 export default useSCInteractions

@@ -11,11 +11,7 @@ const { Sider } = Layout
 const menuItems = [
     {
         icon: FaHome,
-        name: 'Test',
-    },
-    {
-        icon: FaHome,
-        name: 'Test',
+        name: 'Dashboard',
     },
 ]
 
@@ -30,7 +26,7 @@ const SiderMarket = ({ collapsed, onCollapse }) => {
             collapsible
             collapsed={collapsed}
             onCollapse={onCollapse}
-            className="px-0 h-screen bg-light-1 dark:bg-gray-9 relative"
+            className="px-0 h-screen border-r border-gray-11 dark:border-gray-4 bg-light-1 dark:bg-gray-9 relative"
             trigger={null}
         >
             <div className="logo" />
@@ -93,7 +89,7 @@ const SiderMarket = ({ collapsed, onCollapse }) => {
                 className="absolute left-0 right-0 bottom-0 bg-gray-200 dark:bg-gray-2 flex justify-center items-center cursor-pointer dark:text-white"
                 style={{ height: '45px' }}
             >
-                {collapsed ? <IoIosArrowBack /> : <IoIosArrowForward />}
+                {collapsed ? <IoIosArrowForward /> : <IoIosArrowBack />}
             </div>
         </Sider>
     )

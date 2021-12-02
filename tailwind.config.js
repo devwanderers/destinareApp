@@ -7,6 +7,15 @@ module.exports = {
     purge: [],
     darkMode: 'class', // or 'media' or 'class'
     theme: {
+        screens: {
+            xs: '375px',
+            sm: '640px',
+            md: '768px',
+            lg: '1024px',
+            xl: '1280px',
+            xxl: '1440px',
+            xxxl: '1600px',
+        },
         spacing: {
             ...defaultTheme.spacing,
             '4px': '4px',
@@ -133,7 +142,8 @@ module.exports = {
             backgroundImage: {
                 travellerbg:
                     "url('/src/assets/images/backgrounds/traveller-with-backpack-2021-08-26-15-29-39-utc.jpg')",
-                sunset: "url('/src/assets/images/backgrounds/sunset-2021-08-27-21-13-52-utc.jpg')",
+                sunset:
+                    "url('/src/assets/images/backgrounds/sunset-2021-08-27-21-13-52-utc.jpg')",
                 sunset2:
                     "url('/src/assets/images/backgrounds/sunset-2021-08-31-11-19-12-utc.jpg')",
                 sunset3:
@@ -169,6 +179,7 @@ module.exports = {
     },
     variants: {
         extend: {
+            opacity: ['disabled'],
             scale: ['active', 'group-hover'],
             textColor: ['active', 'hover'],
             borderWidth: ['active', 'hover', 'dark'],
