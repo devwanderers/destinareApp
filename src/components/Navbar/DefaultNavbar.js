@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 // import { Button, Dropdown, Avatar } from 'antd'
 import { Button, Avatar } from 'antd'
+import { FaDiscord, FaFacebookF, FaInstagram, FaTwitter } from 'react-icons/fa'
 // import { useHistory } from 'react-router'
 import GenericNavBar from './GenericNavbar'
 // import { LoginInPath } from '../../constants/routerConstants'
@@ -62,6 +63,22 @@ const DefaultNavbar = ({ authenticated, userData, logout, ...rest }) => {
                     >
                         <span>Whitepaper</span>
                     </Button>
+                    <div className="flex justify-start">
+                        <div className="space-x-4 flex flex-row">
+                            <a className="text-xl blue-gradient leading-none font-extrabold mb-4">
+                                <FaDiscord />
+                            </a>
+                            <a className="text-xl blue-gradient leading-none font-extrabold mb-4">
+                                <FaTwitter />
+                            </a>
+                            <a className="text-xl blue-gradient leading-none font-extrabold mb-4">
+                                <FaFacebookF />
+                            </a>
+                            <a className="text-xl blue-gradient leading-none font-extrabold mb-4">
+                                <FaInstagram />
+                            </a>
+                        </div>
+                    </div>
                     {/* {!authenticated && (
                         <Button
                             type="primary"

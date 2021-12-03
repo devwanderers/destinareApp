@@ -82,11 +82,13 @@ module.exports = {
                 10: '#333333',
                 11: '#e5e5e5',
                 12: '#fafafa',
+                13: '#4B4B4A',
             },
             white: '#ffffff',
             light: {
                 1: '#fafafa',
                 2: '#f7f7f7',
+                3: '#EDEDED',
             },
             primary: '#527aee',
             danger: '#B82D4D',
@@ -106,6 +108,21 @@ module.exports = {
                 1: '#000000',
                 2: '#333',
                 3: '#595959',
+            },
+            orange: {
+                1: '#E09F57',
+                2: '#E18942',
+                3: '#F0CA69',
+            },
+            benefits: {
+                'yellow-1': '#eec32d',
+                'yellow-2': '#f6a223',
+                'blue-1': '#0091c2',
+                'bñue-2': '#7abccf',
+                'green-1': '#00919a',
+                'green-2': '#7abc86',
+                'orange-1': '#ff720a',
+                'orange-2': '#f68e23',
             },
         },
         fontSize: {
@@ -154,6 +171,8 @@ module.exports = {
                 sunset3:
                     "url('/src/assets/images/backgrounds/sunset-2021-08-28-06-23-40-utc.jpg')",
                 clouds: "url('/src/assets/images/backgrounds/fondo-nubes.jpg')",
+                worldmap: "url('/src/assets/svg/home/worldmap.svg')",
+                city: "url('/src/assets/svg/home/city.svg')",
             },
             margin: {
                 '-18px': '-18px',

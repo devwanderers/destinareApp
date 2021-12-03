@@ -1,127 +1,98 @@
 import React from 'react'
 import { Col, Row } from 'antd'
-import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa'
+import { FaDiscord, FaFacebookF, FaInstagram, FaTwitter } from 'react-icons/fa'
+import { ImagotipoSVG } from '../../assets/svg/home'
 
 const DefaultFooter = (props) => {
     return (
-        <footer className="py-12 ">
-            <div className="section ">
-                <div className="flex flex-row justify-between border-b border-gray-300 pb-8">
-                    <div className="flex flex-row justify-between max-h-full w-full lg:w-6/12  items-center">
-                        <div className="flex-1">
-                            <h5 className="text-capitalize text-xl  tracking-wide font-bold mb-5">
-                                Home
-                            </h5>
-                            <ul className="list-none font-saira-condensed font-semibold">
-                                <li className="mb-2">
-                                    <a
-                                        className=" hover:text-gray-400"
-                                        href="https://whitepaper.swapp.ee/"
-                                    >
-                                        Terms of service
-                                    </a>
-                                </li>
-                                <li className=" mb-2">
-                                    <a
-                                        className=" hover:text-gray-400"
-                                        href="https://app.uniswap.org/#/swap?"
-                                    >
-                                        Smart Contract
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div className="flex-1">
-                            <h5 className="text-capitalize text-xl  tracking-wide font-bold mb-5">
-                                Home
-                            </h5>
-                            <ul className="list-none font-saira-condensed font-semibold">
-                                <li className="mb-2">
-                                    <a
-                                        className=" hover:text-gray-400"
-                                        href="https://whitepaper.swapp.ee/"
-                                    >
-                                        Terms of service
-                                    </a>
-                                </li>
-                                <li className=" mb-2">
-                                    <a
-                                        className=" hover:text-gray-400"
-                                        href="https://app.uniswap.org/#/swap?"
-                                    >
-                                        Smart Contract
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div className="flex-1">
-                            <h5 className="text-capitalize text-xl  tracking-wide font-bold mb-5">
-                                Home
-                            </h5>
-                            <ul className="list-none font-saira-condensed font-semibold">
-                                <li className="mb-2">
-                                    <a
-                                        className=" hover:text-gray-400"
-                                        href="https://whitepaper.swapp.ee/"
-                                    >
-                                        Terms of service
-                                    </a>
-                                </li>
-                                <li className=" mb-2">
-                                    <a
-                                        className=" hover:text-gray-400"
-                                        href="https://app.uniswap.org/#/swap?"
-                                    >
-                                        Smart Contract
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div className="flex justify-end my-8">
-                    <div className="space-x-4 flex flex-row text-2xl">
-                        <a>
-                            <span>
-                                <FaFacebook />
-                            </span>
-                        </a>
-                        <a>
-                            <span>
-                                <FaTwitter />
-                            </span>
-                        </a>
-                        <a>
-                            <span>
-                                <FaInstagram />
-                            </span>
-                        </a>
-                    </div>
-                </div>
-                <Row>
-                    <Col xs={12}>
-                        <div></div>
+        <footer className="pt-32 pb-12 bg-gray-13">
+            <div className="section">
+                <Row
+                    className="border-b border-gray-300 relative pb-8"
+                    justify="center"
+                    align="top"
+                >
+                    <Col md={10}>
                         <div>
-                            We are a business located in different parts of the
-                            world. Our team is working remotely
+                            <ImagotipoSVG class="w-1/6 absolute -top-16 left-0" />
+                            <p className="text-gray-8 text-lg mt-7">
+                                We accept Credit Card, Debit Card and
+                                Cryptocurrency payments.
+                            </p>
                         </div>
                     </Col>
-                    <Col xs={12} className="flex justify-end">
-                        <div></div>
-                        <div className="space-x-2">
-                            <a>
-                                <span>Offices</span>
-                            </a>
-                            <a>
-                                <span>WHITE PAPER</span>
-                            </a>
-                            <a>
-                                <span>Marketing & Campaigns </span>
-                            </a>
-                            <a>
-                                <span>Help Center</span>
-                            </a>
+                    <Col md={5}>
+                        <div className="mb-3">
+                            <p className="text-white text-lg font-bold">
+                                Destinare
+                            </p>
                         </div>
+                        <p className="text-gray-8 text-lg mb-3">About us</p>
+                        <p className="text-gray-8 text-lg mb-3">DDOT</p>
+                        <p className="text-gray-8 text-lg mb-3">Team</p>
+                        <p className="text-gray-8 text-lg mb-3">Road map</p>
+                        <p className="text-gray-8 text-lg mb-3">Whitepaper</p>
+                    </Col>
+                    <Col md={5}>
+                        <div className="mb-3">
+                            <p className="text-white text-lg font-bold">
+                                Support
+                            </p>
+                        </div>
+                        <p className="text-gray-8 text-lg mb-3">Help Center</p>
+                        <p className="text-gray-8 text-lg mb-3">My Trip</p>
+                        <p className="text-gray-8 text-lg mb-3">
+                            Terms & Conditions
+                        </p>
+                        <p className="text-gray-8 text-lg mb-3">
+                            Privacy Policy
+                        </p>
+                        <p className="text-gray-8 text-lg mb-3">
+                            Cookie Policy
+                        </p>
+                    </Col>
+                    <Col md={4}>
+                        <div className="mb-3">
+                            <p className="text-white text-lg font-bold">
+                                Community
+                            </p>
+                        </div>
+                        <div className="flex justify-start">
+                            <div className="space-x-4 flex flex-row text-2xl text-gray-8">
+                                <a>
+                                    <span>
+                                        <FaDiscord />
+                                    </span>
+                                </a>
+                                <a>
+                                    <span>
+                                        <FaTwitter />
+                                    </span>
+                                </a>
+                                <a>
+                                    <span>
+                                        <FaFacebookF />
+                                    </span>
+                                </a>
+                                <a>
+                                    <span>
+                                        <FaInstagram />
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
+                    </Col>
+                </Row>
+                <Row className="pt-8">
+                    <Col md={24} className="text-center relative">
+                        <a>
+                            <p className="text-gray-8 text-lg absolute">
+                                Privacity & Politic
+                            </p>
+                        </a>
+                        <p className="text-gray-8 text-lg">
+                            © Copyright 2017 - 2021. Destinare.io
+                        </p>
                     </Col>
                 </Row>
             </div>
