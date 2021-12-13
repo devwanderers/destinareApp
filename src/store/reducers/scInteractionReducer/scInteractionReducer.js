@@ -11,10 +11,20 @@ const initialState = {
 }
 
 const scInteractionReducer = createReducer(initialState, (builder) => {
-    builder.addCase(action.setData, (state, { payload }) => ({
-        ...state,
-        data: { ...state.data, ...payload },
-    }))
+    builder
+        .addCase(action.setData, (state, { payload }) => ({
+            ...state,
+            data: { ...state.data, ...payload },
+        }))
+        .addCase(action.clearData, (state) => ({
+            ...state,
+            data: {
+                circulatingSupply: 0,
+                totalSupply: 0,
+                getPresaleInfo: { 0: [], 1: [] },
+                getUserInfo: [],
+            },
+        }))
 })
 
 export default scInteractionReducer

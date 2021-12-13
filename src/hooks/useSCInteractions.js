@@ -30,6 +30,7 @@ const useSCInteractions = () => {
                     .reserveTokens()
                     .send({ from: account, value: amount * 1e18 })
                     .then((res) => res)
+                console.log({ tx })
                 if (tx.status) setinitData(false)
             } catch (err) {
                 console.log({ err })
@@ -37,6 +38,36 @@ const useSCInteractions = () => {
         },
         [library]
     )
+
+    const claimToken = useCallback(async () => {
+        try {
+            const contract = new library.eth.Contract(
+                DestinareContract,
+                process.env.REACT_APP_DESTINARE_CONTRACT_ADDRESS
+            )
+            const tokens = await contract.methods
+                .claimPresaleTokens()
+                .send({ from: account })
+            console.log('claimToken', tokens)
+        } catch (err) {
+            console.log({ err })
+        }
+    }, [library])
+
+    const getTotalTokens = useCallback(async () => {
+        try {
+            const contract = new library.eth.Contract(
+                DestinareContract,
+                process.env.REACT_APP_DESTINARE_CONTRACT_ADDRESS
+            )
+            const tokens = await contract.methods
+                .totalTokens(account)
+                .call({ from: account })
+            console.log('tokens', tokens)
+        } catch (err) {
+            console.log({ err })
+        }
+    }, [library])
 
     const getData = async () => {
         if (!initData && library?.eth) {
@@ -76,7 +107,12 @@ const useSCInteractions = () => {
         !initData ? 500 : null
     )
 
-    return { data: scInteractions.data, reserveToken }
+    return {
+        data: scInteractions.data,
+        reserveToken,
+        claimToken,
+        getTotalTokens,
+    }
 }
 
 export default useSCInteractions

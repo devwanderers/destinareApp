@@ -6,7 +6,7 @@ import useSCInteractions from './../../hooks/useSCInteractions'
 import useCurrency from '../../hooks/useCurrency'
 
 const CardClaimingDay = ({ initDate }) => {
-    const { data } = useSCInteractions()
+    const { data, claimToken, getTotalTokens } = useSCInteractions()
 
     const totalUser = data.getPresaleInfo[0].reduce(
         (acc, val) => acc + parseFloat(val),
@@ -24,7 +24,7 @@ const CardClaimingDay = ({ initDate }) => {
                 <div className="text-gray-10 dark:text-white flex flex-col">
                     <div className="text-3xl leading-none">
                         <span className="text-primary">Claiming&nbsp;</span>
-                        <span>Day</span>
+                        <span>Pre-sale</span>
                     </div>
                 </div>
                 <div className="flex flex-row my-2">
@@ -59,9 +59,19 @@ const CardClaimingDay = ({ initDate }) => {
             <div className="text-center">
                 <button
                     className="disabled:opacity-50 bg-primary rounded-md py-4px px-1 text-white text-lg w-full xxxl:w-9/12"
-                    disabled
+                    onClick={() => claimToken()}
+                    // disabled
                 >
                     Claim your Destinare token
+                </button>
+            </div>
+            <div className="text-center">
+                <button
+                    className="disabled:opacity-50 bg-primary rounded-md py-4px px-1 text-white text-lg w-full xxxl:w-9/12"
+                    onClick={() => getTotalTokens()}
+                    // disabled
+                >
+                    Total tokens
                 </button>
             </div>
         </div>

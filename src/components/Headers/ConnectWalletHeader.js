@@ -1,6 +1,6 @@
 import React from 'react'
 import { useWeb3React } from '@web3-react/core'
-// import { IoIosArrowForward } from 'react-icons/io'
+import { FaSignOutAlt } from 'react-icons/fa'
 import useSCInteractions from './../../hooks/useSCInteractions'
 import useAuth from '../../hooks/useAuth'
 import useCurrency from '../../hooks/useCurrency'
@@ -26,14 +26,14 @@ const ConnectWalletHeader = () => {
 
     return (
         <div className="mx-5 dark:bg-blue-1 bg-light-2 border-b border-gray-11 dark:border-gray-1 select-none">
-            <div className="w-full mx-auto flex flex-wrap flex-col xl:flex-row justify-between pb-6">
-                <div className="font-medium text-3xl text-center py-4">
+            <div className="w-full mx-auto flex flex-wrap flex-col xl:flex-row justify-end pb-6">
+                {/* <div className="font-medium text-3xl text-center py-4">
                     <span className="text-gray-10 dark:text-white">
                         Welcome to
                     </span>
                     <span className="text-primary">&nbsp;Destinare</span>
-                </div>
-                <div className="flex flex-wrap-reverse flex-row lg:flex-wrap justify-center space-x-0 sm:space-x-5 leading-none py-4">
+                </div> */}
+                <div className="flex flex-wrap-reverse flex-row lg:flex-wrap items-center justify-center space-x-0 sm:space-x-5 leading-none py-4">
                     <SupplyCard
                         title="Total Supply:"
                         supply={useCurrency(decimalsTotalSupply, 0)}
@@ -46,17 +46,24 @@ const ConnectWalletHeader = () => {
                         {!account ? (
                             <button
                                 onClick={() => login()}
-                                className="bg-primary text-white font-semibold border-none text-xl px-6 py-4 rounded-md hover:ring-blue-2 hover:ring-2 "
+                                className="bg-primary text-white font-semibold border-none text-xl px-6 py-4 rounded-md hover:ring-blue-2 hover:ring-2"
                             >
                                 Connect Wallet
                             </button>
                         ) : (
-                            <button
-                                onClick={() => logout()}
-                                className="bg-primary text-white font-semibold border-none text-xl px-6 py-4 rounded-md hover:ring-blue-2 hover:ring-2 "
-                            >
-                                Disconnect
-                            </button>
+                            <div className="ml-7">
+                                <p className="text-base mb-3 dark:text-white">
+                                    {account.substring(0, 4)}...
+                                    {account.slice(-4)}
+                                </p>
+                                <span className="text-primary text-right">
+                                    <FaSignOutAlt
+                                        onClick={() => logout()}
+                                        size={22}
+                                        style={{ marginLeft: 'auto' }}
+                                    />
+                                </span>
+                            </div>
                         )}
                     </div>
                 </div>

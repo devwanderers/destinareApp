@@ -4,24 +4,31 @@ import { FaDiscord, FaFacebookF, FaInstagram, FaTwitter } from 'react-icons/fa'
 import { ImagotipoSVG } from '../../assets/svg/home'
 
 const DefaultFooter = (props) => {
+    const year = new Date().getFullYear()
     return (
-        <footer className="pt-32 pb-12 bg-gray-13">
+        <footer className="pt-16 lg:pt-32 pb-12 bg-gray-13">
             <div className="section">
                 <Row
                     className="border-b border-gray-300 relative pb-8"
                     justify="center"
                     align="top"
                 >
-                    <Col md={10}>
+                    <Col md={24} lg={10} className="mb-10 lg:mb-0">
                         <div>
-                            <ImagotipoSVG class="w-1/6 absolute -top-16 left-0" />
-                            <p className="text-gray-8 text-lg mt-7">
+                            <ImagotipoSVG className="w-1/6 relative lg:absolute mr-auto lg:mr-0 ml-auto lg:ml-0 lg:-top-16 lg:left-0" />
+                            <p className="text-center lg:text-left text-gray-8 text-lg mt-7">
                                 We accept Credit Card, Debit Card and
                                 Cryptocurrency payments.
                             </p>
                         </div>
                     </Col>
-                    <Col md={5}>
+                    <Col
+                        xs={24}
+                        sm={24}
+                        md={8}
+                        lg={5}
+                        className="text-center lg:text-left py-5 md:py-0"
+                    >
                         <div className="mb-3">
                             <p className="text-white text-lg font-bold">
                                 Destinare
@@ -33,14 +40,18 @@ const DefaultFooter = (props) => {
                         <p className="text-gray-8 text-lg mb-3">Road map</p>
                         <p className="text-gray-8 text-lg mb-3">Whitepaper</p>
                     </Col>
-                    <Col md={5}>
+                    <Col
+                        xs={24}
+                        sm={24}
+                        md={8}
+                        lg={5}
+                        className="text-center lg:text-left py-5 md:py-0"
+                    >
                         <div className="mb-3">
                             <p className="text-white text-lg font-bold">
                                 Support
                             </p>
                         </div>
-                        <p className="text-gray-8 text-lg mb-3">Help Center</p>
-                        <p className="text-gray-8 text-lg mb-3">My Trip</p>
                         <p className="text-gray-8 text-lg mb-3">
                             Terms & Conditions
                         </p>
@@ -51,47 +62,63 @@ const DefaultFooter = (props) => {
                             Cookie Policy
                         </p>
                     </Col>
-                    <Col md={4}>
+                    <Col
+                        xs={24}
+                        sm={24}
+                        md={8}
+                        lg={4}
+                        className="text-center lg:text-left py-5 md:py-0"
+                    >
                         <div className="mb-3">
                             <p className="text-white text-lg font-bold">
                                 Community
                             </p>
                         </div>
-                        <div className="flex justify-start">
-                            <div className="space-x-4 flex flex-row text-2xl text-gray-8">
-                                <a>
-                                    <span>
-                                        <FaDiscord />
-                                    </span>
-                                </a>
-                                <a>
-                                    <span>
-                                        <FaTwitter />
-                                    </span>
-                                </a>
-                                <a>
-                                    <span>
-                                        <FaFacebookF />
-                                    </span>
-                                </a>
-                                <a>
-                                    <span>
-                                        <FaInstagram />
-                                    </span>
-                                </a>
-                            </div>
+                        <div className="flex items-center justify-center lg:justify-start space-x-5">
+                            <a
+                                href="https://discord.com/invite/kSQutYY3"
+                                target="_blank"
+                                rel="noreferrer"
+                                className="text-3xl text-gray-8 hover:text-white"
+                            >
+                                <FaDiscord />
+                            </a>
+                            <a
+                                href="https://twitter.com/Destinare_io"
+                                target="_blank"
+                                rel="noreferrer"
+                                className="text-2xl text-gray-8 hover:text-white"
+                            >
+                                <FaTwitter />
+                            </a>
+                            <a
+                                href="https://www.facebook.com/Destinareio-104317588754693"
+                                target="_blank"
+                                rel="noreferrer"
+                                className="text-2xl text-gray-8 hover:text-white"
+                            >
+                                <FaFacebookF />
+                            </a>
+                            <a
+                                href="https://www.instagram.com/destinare.io/"
+                                target="_blank"
+                                rel="noreferrer"
+                                className="text-3xl text-gray-8 hover:text-white"
+                            >
+                                <FaInstagram />
+                            </a>
                         </div>
                     </Col>
                 </Row>
                 <Row className="pt-8">
-                    <Col md={24} className="text-center relative">
+                    <Col xs={24} className="text-center relative">
                         <a>
-                            <p className="text-gray-8 text-lg absolute">
+                            <p className="text-gray-8 text-lg md:absolute my-5 md:my-0">
                                 Privacity & Politic
                             </p>
                         </a>
                         <p className="text-gray-8 text-lg">
-                            © Copyright 2017 - 2021. Destinare.io
+                            © Copyright 2017 - {year}. Destinare.io
                         </p>
                     </Col>
                 </Row>

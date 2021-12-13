@@ -6,15 +6,6 @@ import * as paths from '../constants/routerConstants'
 import MarketLayout from '../components/Layouts/MarketLayout'
 
 const routes = [
-    // {
-    //     name: 'Example',
-    //     path: 'login',
-    //     component: Login,
-    //     auth: false,
-    //     route: PublicRoute,
-    //     routes: []
-    //     layout: NoAuthLayout
-    // },
     {
         name: 'LandingPage',
         path: paths.HomePath,
@@ -45,6 +36,15 @@ const routes = [
     {
         name: 'MarketView',
         path: paths.MarketPath,
+        route: Route,
+        componentProps: {
+            routes: [],
+        },
+        layout: MarketLayout,
+    },
+    {
+        name: 'StakingView',
+        path: paths.StakingView,
         route: Route,
         componentProps: {
             routes: [],

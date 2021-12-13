@@ -70,7 +70,7 @@ const MarketView = (props) => {
                     </div>
                 </div>
             </div>
-            <div className="pt-6 max-w-1650px mx-auto border-b border-gray-11 dark:border-gray-1 pb-8">
+            <div className="pt-6 max-w-1650px mx-auto pb-8">
                 <Row gutter={[20, 20]} className="flex justify-center">
                     <Col xs={24} sm={24} md={24} lg={24} xl={17}>
                         <CardDailyReserve initDate={initDate} />

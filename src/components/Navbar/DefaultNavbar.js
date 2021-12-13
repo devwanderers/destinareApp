@@ -1,18 +1,17 @@
 import React, { useState } from 'react'
 // import { Button, Dropdown, Avatar } from 'antd'
-import { Button, Avatar } from 'antd'
+import { Button } from 'antd'
 import { FaDiscord, FaFacebookF, FaInstagram, FaTwitter } from 'react-icons/fa'
-// import { useHistory } from 'react-router'
+import { useHistory } from 'react-router'
 import GenericNavBar from './GenericNavbar'
-// import { LoginInPath } from '../../constants/routerConstants'
+import { MarketPath } from '../../constants/routerConstants'
 import useWindowSize from './../../hooks/useWindowSize'
 import GenericNavbarMobile from './GenericNavbarMobile'
 import MenuNavbar from './MenuNavbar'
 
 const DefaultNavbar = ({ authenticated, userData, logout, ...rest }) => {
-    console.log('res', rest)
     const [showDrawer, setShowDrawer] = useState(false)
-    // const history = useHistory()
+    const history = useHistory()
     const { width } = useWindowSize()
     const handleShowDrawer = () => setShowDrawer(!showDrawer)
 
@@ -25,16 +24,15 @@ const DefaultNavbar = ({ authenticated, userData, logout, ...rest }) => {
 
     if (name.length > 26) name = `${name.substring(0, 25)}...`
     if (avatarTitle === '') avatarTitle = 'U'
-    // console.log({ avatarTitle })
     const menu = (
         <MenuNavbar
-            isMobile={width < 768}
+            isMobile={width <= 768}
             authenticated={authenticated}
             logout={logout}
         />
     )
 
-    return width >= 768 ? (
+    return width > 768 ? (
         <GenericNavBar
             {...rest}
             rightSection={
@@ -49,7 +47,7 @@ const DefaultNavbar = ({ authenticated, userData, logout, ...rest }) => {
                         type="link"
                         className="h-full flex-1 btn text-xs lg:text-lg leading-none text-black-3 font-normal hover:text-blue-3 active:text-blue-3 focus:text-blue-3"
                     >
-                        <span>Team</span>
+                        <span>Pre-sale</span>
                     </Button>
                     <Button
                         type="link"
@@ -63,21 +61,46 @@ const DefaultNavbar = ({ authenticated, userData, logout, ...rest }) => {
                     >
                         <span>Whitepaper</span>
                     </Button>
-                    <div className="flex justify-start">
-                        <div className="space-x-4 flex flex-row">
-                            <a className="text-xl blue-gradient leading-none font-extrabold mb-4">
-                                <FaDiscord />
-                            </a>
-                            <a className="text-xl blue-gradient leading-none font-extrabold mb-4">
-                                <FaTwitter />
-                            </a>
-                            <a className="text-xl blue-gradient leading-none font-extrabold mb-4">
-                                <FaFacebookF />
-                            </a>
-                            <a className="text-xl blue-gradient leading-none font-extrabold mb-4">
-                                <FaInstagram />
-                            </a>
-                        </div>
+                    <Button
+                        onClick={() => history.push(MarketPath)}
+                        type="link"
+                        className="h-full flex-1 btn text-xs lg:text-lg leading-none text-black-3 font-normal hover:text-blue-3 active:text-blue-3 focus:text-blue-3"
+                    >
+                        <span>APP</span>
+                    </Button>
+                    <div className="flex items-center justify-center">
+                        <Button
+                            href="https://discord.com/invite/kSQutYY3"
+                            target="_blank"
+                            type="link"
+                            className="btn text-2xl leading-none text-blue-3 font-normal hover:text-blue-4 active:text-blue-4 focus:text-blue-4"
+                        >
+                            <FaDiscord />
+                        </Button>
+                        <Button
+                            href="https://twitter.com/Destinare_io"
+                            target="_blank"
+                            type="link"
+                            className="btn text-2xl leading-none text-blue-3 font-normal hover:text-blue-4 active:text-blue-4 focus:text-blue-4"
+                        >
+                            <FaTwitter />
+                        </Button>
+                        <Button
+                            href="https://www.facebook.com/Destinareio-104317588754693"
+                            target="_blank"
+                            type="link"
+                            className="btn text-2xl leading-none text-blue-3 font-normal hover:text-blue-4 active:text-blue-4 focus:text-blue-4"
+                        >
+                            <FaFacebookF />
+                        </Button>
+                        <Button
+                            href="https://www.instagram.com/destinare.io/"
+                            target="_blank"
+                            type="link"
+                            className="btn text-2xl leading-none text-blue-3 font-normal hover:text-blue-4 active:text-blue-4 focus:text-blue-4"
+                        >
+                            <FaInstagram />
+                        </Button>
                     </div>
                     {/* {!authenticated && (
                         <Button
@@ -120,7 +143,7 @@ const DefaultNavbar = ({ authenticated, userData, logout, ...rest }) => {
             onClickBurguer={handleShowDrawer}
             contentDrawer={
                 <React.Fragment>
-                    <div className="flex flex-col">
+                    {/* <div className="flex flex-col">
                         <Avatar
                             className="mb-4"
                             style={{ backgroundColor: '#f9a24f' }}
@@ -129,10 +152,11 @@ const DefaultNavbar = ({ authenticated, userData, logout, ...rest }) => {
                             {avatarTitle}
                         </Avatar>
                         <span className="font-medium mb-3">{name}</span>
-                    </div>
+                    </div> */}
                     {menu}
                 </React.Fragment>
             }
+            hideLogo={true}
         />
     )
 }
