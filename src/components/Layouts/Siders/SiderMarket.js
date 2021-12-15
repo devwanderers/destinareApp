@@ -1,11 +1,13 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useHistory } from 'react-router'
-// import { useSelector, useDispatch } from 'react-redux'
-// import { scInteractionReducerSelector } from '../store/reducers/scInteractionReducer/selectors'
 import { Layout, Menu } from 'antd'
 import useDarkMode from '../../../hooks/useDarkMode'
 import DarkModeSwitch from '../../DarkModeSwitch'
-import { DestinareLogoColorSVG } from '../../../assets/svg/brand/index'
+import {
+    DestinareLogoColorLightSVG,
+    DestinareLogoColorDarkSVG,
+    DestinareLogoIconSVG,
+} from '../../../assets/svg/brand/index'
 import { FaHome } from 'react-icons/fa'
 import { IoIosArrowForward, IoIosArrowBack } from 'react-icons/io'
 import { MdDashboard } from 'react-icons/md'
@@ -48,20 +50,9 @@ const menuItems = [
     },
 ]
 
-const SiderMarket = ({ collapsed, onCollapse }) => {
+const SiderMarket = ({ collapsed, onCollapse, menuKey }) => {
+    const [theme, switchDarkMode] = useDarkMode()
     const history = useHistory()
-    const [theme] = useDarkMode()
-    const [currentKey, setSelectedKey] = useState()
-    console.log({ currentKey })
-    const handleClick = (e) => {
-        console.log('click ', e.key)
-        setSelectedKey(e.key)
-    }
-    // const pathName = history.location.pathname
-    // const [selectedMenu, setselectedMenu] = useState(1)
-    // const handleSelectedMenu = (key) => {
-    //     if (selectedMenu !== key) setselectedMenu(key)
-    // }
     return (
         <Sider
             collapsible
@@ -70,16 +61,28 @@ const SiderMarket = ({ collapsed, onCollapse }) => {
             className="px-0 h-screen border-r border-gray-11 dark:border-gray-4 bg-light-1 dark:bg-gray-9 relative"
             trigger={null}
         >
-            <div className="px-5 mt-4">
-                <DestinareLogoColorSVG />
-            </div>
+            {collapsed ? (
+                <div className="px-5 mt-4">
+                    <DestinareLogoIconSVG
+                        style={{ width: '40px', margin: 'auto' }}
+                    />
+                </div>
+            ) : (
+                <div className="px-5 mt-4">
+                    {theme === 'dark' ? (
+                        <DestinareLogoColorLightSVG />
+                    ) : (
+                        <DestinareLogoColorDarkSVG />
+                    )}
+                </div>
+            )}
+
             <Menu
                 theme={theme}
-                onClick={handleClick}
-                defaultSelectedKeys={['menu-item-dashboard']}
-                selectedKeys={[currentKey]}
+                defaultSelectedKeys={[menuKey]}
+                selectedKeys={[menuKey]}
                 mode="inline"
-                className="border-r-0 mt-10 text-gray-10 dark:text-white bg-light-1 dark:bg-gray-9"
+                className="border-r-0 mt-10"
             >
                 {menuItems.map((menu) => {
                     return menu.group ? (
@@ -92,11 +95,6 @@ const SiderMarket = ({ collapsed, onCollapse }) => {
                                 />
                             }
                             title={menu.name}
-                            // className={menu.items.map((menu) => {
-                            //     return Object.values(menu).includes(pathName)
-                            //         ? 'text-gray-10 hover:text-gray-10 dark:text-primary dark:hover:text-primary dark:focus:text-primary'
-                            //         : 'text-gray-8 hover:text-gray-9 dark:text-gray-6 dark:hover:text-white dark:focus:text-white'
-                            // })}
                         >
                             {menu.items.map((menu) => {
                                 return (
@@ -105,11 +103,6 @@ const SiderMarket = ({ collapsed, onCollapse }) => {
                                         onClick={() =>
                                             history.push(menu.onClick)
                                         }
-                                        // className={`${
-                                        //     pathName === menu.onClick
-                                        //         ? 'text-gray-10 hover:text-gray-10 dark:text-primary dark:hover:text-primary dark:focus:text-primary'
-                                        //         : 'text-gray-8 hover:text-gray-9 dark:text-gray-6 dark:hover:text-white dark:focus:text-white'
-                                        // }`}
                                     >
                                         <div className="flex flex-row items-center">
                                             {menu.name}
@@ -128,11 +121,6 @@ const SiderMarket = ({ collapsed, onCollapse }) => {
                             }
                             key={`menu-item-${menu.key}`}
                             onClick={() => history.push(menu.onClick)}
-                            // className={`${
-                            //     pathName === menu.onClick
-                            //         ? 'text-gray-10 hover:text-gray-10 dark:text-primary dark:hover:text-primary'
-                            //         : 'text-gray-8 hover:text-gray-9 dark:text-gray-6 dark:hover:text-white'
-                            // }`}
                         >
                             <div className="flex flex-row items-center">
                                 {menu.name}
@@ -141,55 +129,8 @@ const SiderMarket = ({ collapsed, onCollapse }) => {
                     )
                 })}
             </Menu>
-            {/* <div className="flex flex-col justify-between">
-                <div className="flex flex-col pl-4">
-                    {menuItems.map((menuItem, key) => (
-                        <div
-                            key={`menu-item-${menuItem.name}`}
-                            className={`flex${
-                                !collapsed
-                                    ? ' flex-row items-center justify-between'
-                                    : ''
-                            }  relative  mb-5`}
-                        >
-                            <a
-                                href="#"
-                                className={`flex flex-row items-center w-full h-12 border-none ${
-                                    pathName === menuItem.onClick
-                                        ? 'text-gray-10 hover:text-gray-10 dark:text-primary dark:hover:text-primary'
-                                        : 'text-gray-8 hover:text-gray-9 dark:text-gray-6 dark:hover:text-white'
-                                }`}
-                                onClick={(e) => {
-                                    e.preventDefault()
-                                    handleSelectedMenu(key)
-                                    // console.log(menuItem.onClick)
-                                    history.push(menuItem.onClick)
-                                }}
-                            >
-                                <span
-                                    className={`text-2xl${
-                                        pathName === menuItem.onClick
-                                            ? ' border bg-opacity-10'
-                                            : ' border-none '
-                                    } border-black-1 dark:border-primary p-2 rounded-lg flex${
-                                        !collapsed ? ' mr-4' : ''
-                                    }`}
-                                >
-                                    <menuItem.icon className="" />
-                                </span>
-                                <span
-                                    hidden={collapsed}
-                                    className="text-sm font-medium hover:border-b"
-                                >
-                                    {menuItem.name}
-                                </span>
-                            </a>
-                        </div>
-                    ))}
-                </div>
-            </div> */}
             <div
-                // onClick={switchDarkMode}
+                onClick={switchDarkMode}
                 className="absolute left-0 right-0 mb-4 flex justify-center"
                 style={{ bottom: '48px' }}
             >

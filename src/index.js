@@ -19,7 +19,7 @@ const store = configureStore()
 // }
 
 // const config = {
-//     // supportedChains: [ChainId.Mainnet],
+// supportedChains: [ChainId.Mainnet],
 // }
 
 function getLibrary(provider) {

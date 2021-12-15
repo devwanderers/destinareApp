@@ -77,7 +77,7 @@ const CardReserve = ({ date, day, totalUser, totalEther, currentUser }) => {
             </div>
             <div className="flex-grow flex justify-end">
                 <div
-                    className="cursor-pointer flex flex-row text-blue-600 text-lg"
+                    className="cursor-pointer flex flex-row text-primary text-lg"
                     onClick={handleShowMore}
                 >
                     Show details

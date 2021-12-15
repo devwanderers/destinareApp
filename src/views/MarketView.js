@@ -4,10 +4,10 @@ import CardReserve from '../components/Cards/CardReserve'
 import CardDailyReserve from '../components/Cards/CardDailyReserve'
 import CardClaimingDay from './../components/Cards/CardClaimingDay'
 import CardYourContribution from './../components/Cards/CardYourContribution'
+import CardTokens from './../components/Cards/CardTokens'
 import useSCInteractions from './../hooks/useSCInteractions'
 
-const RenderCards = ({ initDate }) => {
-    const { data } = useSCInteractions()
+const RenderCards = ({ initDate, data }) => {
     const cards = []
     for (let index = 0; index < 30; index++) {
         const date = new Date(initDate)
@@ -56,6 +56,7 @@ const RenderCards = ({ initDate }) => {
 }
 
 const MarketView = (props) => {
+    const { data } = useSCInteractions()
     const initDate = new Date()
 
     return (
@@ -97,10 +98,11 @@ const MarketView = (props) => {
                                     Reservation Days
                                 </div>
                             </Col>
-                            <RenderCards initDate={initDate} />
+                            <RenderCards initDate={initDate} data={data} />
                         </Row>
                     </Col>
                     <Col xs={24} sm={24} md={24} lg={18} xl={7}>
+                        <CardTokens tokens={data.userTokens} />
                         <CardYourContribution initDate={initDate} />
                     </Col>
                 </Row>

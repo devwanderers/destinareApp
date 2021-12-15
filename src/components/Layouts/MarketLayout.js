@@ -10,7 +10,7 @@ import useWindowSize from '../../hooks/useWindowSize'
 import useListenCookie from '../../hooks/useListenCookie'
 
 const { Content } = Layout
-const MarketLayout = ({ children, ...rest }) => {
+const MarketLayout = ({ children, menuKey, ...rest }) => {
     const year = new Date().getFullYear()
     const [collapsed, setCollapsed] = useState(false)
     const [showDrawer, setShowDrawer] = useState(false)
@@ -21,16 +21,19 @@ const MarketLayout = ({ children, ...rest }) => {
     const isDarkMode = theme === 'dark'
     const drawerStyle = isDarkMode
         ? {
-              backgroundColor: '#2A2C34',
+              backgroundColor: '#24262d',
+              padding: '0px',
           }
         : {
-              backgroundColor: '#fff',
+              backgroundColor: '#fafafa',
+              padding: '0px',
           }
 
     return (
         <Layout className="overflow-x-hidden relative flex flex-row md:flex-col min-h-screen dark:bg-blue-1 bg-light-2">
             {width > 768 ? (
                 <SiderMarket
+                    menuKey={menuKey}
                     collapsed={collapsed}
                     onCollapse={handleOnCollapse}
                 />
@@ -45,9 +48,10 @@ const MarketLayout = ({ children, ...rest }) => {
                         <IoMdClose className="dark:text-white text-3xl" />
                     }
                     maskClosable
+                    className="p-0"
                 >
                     <React.Fragment>
-                        <MenuNavbarDashboard />
+                        <MenuNavbarDashboard menuKey={menuKey} />
                     </React.Fragment>
                 </Drawer>
             )}

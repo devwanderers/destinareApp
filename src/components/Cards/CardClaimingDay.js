@@ -1,12 +1,9 @@
 import React from 'react'
-// import { AiOutlineUser } from 'react-icons/ai'
-// import { FaEthereum } from 'react-icons/fa'
-// import { RiLock2Line } from 'react-icons/ri'
 import useSCInteractions from './../../hooks/useSCInteractions'
 import useCurrency from '../../hooks/useCurrency'
 
 const CardClaimingDay = ({ initDate }) => {
-    const { data, claimToken, getTotalTokens } = useSCInteractions()
+    const { data, claimToken } = useSCInteractions()
 
     const totalUser = data.getPresaleInfo[0].reduce(
         (acc, val) => acc + parseFloat(val),
@@ -63,15 +60,6 @@ const CardClaimingDay = ({ initDate }) => {
                     // disabled
                 >
                     Claim your Destinare token
-                </button>
-            </div>
-            <div className="text-center">
-                <button
-                    className="disabled:opacity-50 bg-primary rounded-md py-4px px-1 text-white text-lg w-full xxxl:w-9/12"
-                    onClick={() => getTotalTokens()}
-                    // disabled
-                >
-                    Total tokens
                 </button>
             </div>
         </div>

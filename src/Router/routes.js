@@ -40,6 +40,9 @@ const routes = [
         componentProps: {
             routes: [],
         },
+        layoutProps: {
+            menuKey: 'menu-item-dashboard',
+        },
         layout: MarketLayout,
     },
     {
@@ -48,6 +51,9 @@ const routes = [
         route: Route,
         componentProps: {
             routes: [],
+        },
+        layoutProps: {
+            menuKey: 'menu-item-staking',
         },
         layout: MarketLayout,
     },

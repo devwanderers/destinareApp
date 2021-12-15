@@ -33,7 +33,7 @@ const ConnectWalletHeader = () => {
                     </span>
                     <span className="text-primary">&nbsp;Destinare</span>
                 </div> */}
-                <div className="flex flex-wrap-reverse flex-row lg:flex-wrap items-center justify-center space-x-0 sm:space-x-5 leading-none py-4">
+                <div className="flex mt-10 lg:mt-0 flex-wrap-reverse flex-row lg:flex-wrap items-center justify-center space-x-0 sm:space-x-5 leading-none py-4">
                     <SupplyCard
                         title="Total Supply:"
                         supply={useCurrency(decimalsTotalSupply, 0)}

@@ -15,6 +15,10 @@ const GenericNavbarMobile = ({
     onClickBurguer,
     hideLogo,
 }) => {
+    const drawerStyle = {
+        backgroundColor: '#fafafa',
+        padding: '0px',
+    }
     const history = useHistory()
     return (
         <React.Fragment>
@@ -24,6 +28,7 @@ const GenericNavbarMobile = ({
                 onClose={onClickBurguer}
                 visible={showDrawer}
                 key="left"
+                bodyStyle={drawerStyle}
             >
                 {contentDrawer}
             </Drawer>
@@ -45,10 +50,7 @@ const GenericNavbarMobile = ({
                         className="h-full w-full md:w-48"
                         onClick={() => history.push(HomePath)}
                     >
-                        <div
-                            // onClick={onClickBurguer}
-                            className="flex justify-center h-full cursor-pointer text-gray-9"
-                        >
+                        <div className="flex justify-center h-full cursor-pointer text-gray-9">
                             <DestinareLogoColorSVG />
                         </div>
                     </a>

@@ -36,18 +36,16 @@ const CardYourContribution = ({ initDate }) => {
     const _total = Number(total) / 1e18
     return (
         <div className="flex-1 flex flex-col justify-between bg-gray dark:bg-gray-4 border border-gray-11 dark:border-gray-4 pt-4 pb-4 px-8 rounded-xl relative">
-            <div>
-                <div className="mb-2 text-gray-10 dark:text-white flex flex-row justify-between">
-                    <div className="text-xl leading-none">
-                        <span className="text-gray-10 dark:text-white ">
-                            Your contribution
-                        </span>
-                    </div>
-                    <div className="text-2xl leading-none">
-                        <span className="text-gray-10 dark:text-white">
-                            {_total} ETH
-                        </span>
-                    </div>
+            <div className="mb-2 text-gray-10 dark:text-white flex flex-row justify-between">
+                <div className="text-xl leading-none">
+                    <span className="text-gray-10 dark:text-white ">
+                        Your contribution
+                    </span>
+                </div>
+                <div className="text-2xl leading-none">
+                    <span className="text-gray-10 dark:text-white">
+                        {_total} ETH
+                    </span>
                 </div>
             </div>
             <div className="pb-5 space-y-2">

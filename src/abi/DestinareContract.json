@@ -76,12 +76,12 @@
     {
         "inputs": [
             {
-                "internalType": "address",
-                "name": "_stakeholder",
-                "type": "address"
+                "internalType": "uint256",
+                "name": "_addSupply",
+                "type": "uint256"
             }
         ],
-        "name": "addStakeholder",
+        "name": "addSupply",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
@@ -159,6 +159,11 @@
                 "internalType": "address",
                 "name": "_stakeholder",
                 "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_stake",
+                "type": "uint256"
             }
         ],
         "name": "calculateReward",
@@ -223,6 +228,11 @@
                 "internalType": "uint256",
                 "name": "_stake",
                 "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_type",
+                "type": "uint256"
             }
         ],
         "name": "createStake",
@@ -264,13 +274,6 @@
                 "type": "bool"
             }
         ],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "distributeRewards",
-        "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
     },
@@ -367,14 +370,37 @@
                 "internalType": "bool",
                 "name": "",
                 "type": "bool"
-            },
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
             }
         ],
         "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_type",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_APR",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_lockedTime",
+                "type": "uint256"
+            },
+            {
+                "internalType": "bool",
+                "name": "_active",
+                "type": "bool"
+            }
+        ],
+        "name": "modifyStakeType",
+        "outputs": [],
+        "stateMutability": "nonpayable",
         "type": "function"
     },
     {
@@ -401,32 +427,6 @@
             }
         ],
         "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "_stake",
-                "type": "uint256"
-            }
-        ],
-        "name": "removeStake",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "_stakeholder",
-                "type": "address"
-            }
-        ],
-        "name": "removeStakeholder",
-        "outputs": [],
-        "stateMutability": "nonpayable",
         "type": "function"
     },
     {
@@ -457,12 +457,51 @@
                 "type": "address"
             }
         ],
-        "name": "rewardOf",
+        "name": "stakeOf",
         "outputs": [
+            {
+                "internalType": "uint256[5]",
+                "name": "_tokensLocked",
+                "type": "uint256[5]"
+            },
+            {
+                "internalType": "uint256[5]",
+                "name": "_stakeTime",
+                "type": "uint256[5]"
+            },
+            {
+                "internalType": "uint256[5]",
+                "name": "_type",
+                "type": "uint256[5]"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
             {
                 "internalType": "uint256",
                 "name": "",
                 "type": "uint256"
+            }
+        ],
+        "name": "stakeTypes",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "APR",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "lockedTime",
+                "type": "uint256"
+            },
+            {
+                "internalType": "bool",
+                "name": "active",
+                "type": "bool"
             }
         ],
         "stateMutability": "view",
@@ -472,15 +511,30 @@
         "inputs": [
             {
                 "internalType": "address",
-                "name": "_stakeholder",
+                "name": "",
                 "type": "address"
-            }
-        ],
-        "name": "stakeOf",
-        "outputs": [
+            },
             {
                 "internalType": "uint256",
                 "name": "",
+                "type": "uint256"
+            }
+        ],
+        "name": "stakes",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "tokensLocked",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "stakingTime",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_type",
                 "type": "uint256"
             }
         ],
@@ -495,32 +549,6 @@
                 "internalType": "string",
                 "name": "",
                 "type": "string"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "totalRewards",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "totalStakes",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
             }
         ],
         "stateMutability": "view",
@@ -625,7 +653,13 @@
         "type": "function"
     },
     {
-        "inputs": [],
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_stake",
+                "type": "uint256"
+            }
+        ],
         "name": "withdrawReward",
         "outputs": [],
         "stateMutability": "nonpayable",

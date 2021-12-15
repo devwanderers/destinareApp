@@ -7,6 +7,7 @@ const initialState = {
         totalSupply: 0,
         getPresaleInfo: { 0: [], 1: [] },
         getUserInfo: [],
+        contractStakes: [],
     },
 }
 
@@ -23,6 +24,7 @@ const scInteractionReducer = createReducer(initialState, (builder) => {
                 totalSupply: 0,
                 getPresaleInfo: { 0: [], 1: [] },
                 getUserInfo: [],
+                contractStakes: [],
             },
         }))
 })
