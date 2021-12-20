@@ -1,5 +1,4 @@
 import React from 'react'
-import useSCInteractions from '../../hooks/useSCInteractions'
 
 const Contribution = ({ initDate, userInfo }) => {
     const contributions = []
@@ -27,8 +26,7 @@ const Contribution = ({ initDate, userInfo }) => {
     return <React.Fragment>{contributions}</React.Fragment>
 }
 
-const CardYourContribution = ({ initDate }) => {
-    const { data } = useSCInteractions()
+const CardYourContribution = ({ initDate, data }) => {
     const total = data.getUserInfo.reduce(
         (accum, item) => accum + Number(item),
         0

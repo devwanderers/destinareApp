@@ -1,10 +1,7 @@
 import React from 'react'
-import useSCInteractions from './../../hooks/useSCInteractions'
 import useCurrency from '../../hooks/useCurrency'
 
-const CardClaimingDay = ({ initDate }) => {
-    const { data, claimToken } = useSCInteractions()
-
+const CardClaimingDay = ({ initDate, data, claimToken }) => {
     const totalUser = data.getPresaleInfo[0].reduce(
         (acc, val) => acc + parseFloat(val),
         0

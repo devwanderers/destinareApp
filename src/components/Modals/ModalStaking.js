@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import { Modal } from 'antd'
 import InputStaking from '../Inputs/InputStaking'
-import useResponsive from './../../hooks/useResponsive'
+import useResponsive from '../../hooks/useResponsive'
+import useCurrency from '../../hooks/useCurrency'
 
 const ModalStaking = ({
+    index,
     title,
     visibleModal,
     onCloseModal,
@@ -17,6 +19,8 @@ const ModalStaking = ({
         lg: '50%',
         xl: '30%',
     })
+    totalTokens = totalTokens / 1e18
+    const tokens = totalTokens.toFixed(0)
 
     const getDdot = () => {
         console.log('get ddot')
@@ -38,12 +42,14 @@ const ModalStaking = ({
                     <p className="font-bold text-base">Stake</p>
                     <p className="font-bold text-base">
                         Balance:{' '}
-                        <span className="font-normal">{totalTokens}</span>
+                        <span className="font-normal">
+                            {useCurrency(totalTokens, 0)}
+                        </span>
                     </p>
                 </div>
                 <div className="flex justify-between items-center">
                     <InputStaking
-                        userBalance={totalTokens}
+                        tokens={tokens}
                         amount={amount}
                         setAmount={setAmount}
                     />
@@ -64,7 +70,10 @@ const ModalStaking = ({
                     </button>
                     <button
                         className="disabled:opacity-50 bg-primary border-solid border border-primary rounded-md py-1 px-10 text-white text-lg font-bold"
-                        onClick={() => deposit(amount)}
+                        onClick={() => {
+                            onCloseModal()
+                            deposit(amount, index)
+                        }}
                     >
                         Confirm
                     </button>

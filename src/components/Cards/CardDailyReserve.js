@@ -1,17 +1,10 @@
 import React, { useState } from 'react'
-import { useWeb3React } from '@web3-react/core'
 import { Progress, InputNumber, Space } from 'antd'
-// import { AiOutlineUser } from 'react-icons/ai'
-// import { FaEthereum } from 'react-icons/fa'
-// import { RiLock2Line } from 'react-icons/ri'
 import useListenCookie from '../../hooks/useListenCookie'
-import useSCInteractions from '../../hooks/useSCInteractions'
 import useCurrency from '../../hooks/useCurrency'
 
-const CardDailyReserve = ({ initDate }) => {
+const CardDailyReserve = ({ initDate, data, reserveToken, account }) => {
     const [amount, setAmount] = useState(1)
-    const { data, reserveToken } = useSCInteractions()
-    const { account } = useWeb3React()
     const [theme] = useListenCookie('theme')
     const isDarkMode = theme === 'dark'
 

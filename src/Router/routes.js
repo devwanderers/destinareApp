@@ -1,8 +1,8 @@
 import { Route } from 'react-router-dom'
 // import PrivateRoute from "./CustomRoutes/PrivateRoute"
 // import PublicRoute from './CustomRoutes/PublicRoute'
-import * as paths from '../constants/routerConstants'
 // import SignInLayout from './../components/Layouts/SignInLayout'
+import * as paths from '../constants/routerConstants'
 import MarketLayout from '../components/Layouts/MarketLayout'
 
 const routes = [

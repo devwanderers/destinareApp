@@ -1,5 +1,6 @@
 import React from 'react'
 import { Row, Col } from 'antd'
+import { useWeb3React } from '@web3-react/core'
 import CardReserve from '../components/Cards/CardReserve'
 import CardDailyReserve from '../components/Cards/CardDailyReserve'
 import CardClaimingDay from './../components/Cards/CardClaimingDay'
@@ -56,7 +57,8 @@ const RenderCards = ({ initDate, data }) => {
 }
 
 const MarketView = (props) => {
-    const { data } = useSCInteractions()
+    const { data, reserveToken, claimToken } = useSCInteractions()
+    const { account } = useWeb3React()
     const initDate = new Date()
 
     return (
@@ -74,7 +76,12 @@ const MarketView = (props) => {
             <div className="pt-6 max-w-1650px mx-auto pb-8">
                 <Row gutter={[20, 20]} className="flex justify-center">
                     <Col xs={24} sm={24} md={24} lg={24} xl={17}>
-                        <CardDailyReserve initDate={initDate} />
+                        <CardDailyReserve
+                            initDate={initDate}
+                            data={data}
+                            reserveToken={reserveToken}
+                            account={account}
+                        />
                     </Col>
                     <Col
                         xs={24}
@@ -84,7 +91,11 @@ const MarketView = (props) => {
                         xl={7}
                         className="flex"
                     >
-                        <CardClaimingDay initDate={initDate} />
+                        <CardClaimingDay
+                            initDate={initDate}
+                            data={data}
+                            claimToken={claimToken}
+                        />
                     </Col>
                 </Row>
                 <Row
@@ -103,7 +114,7 @@ const MarketView = (props) => {
                     </Col>
                     <Col xs={24} sm={24} md={24} lg={18} xl={7}>
                         <CardTokens tokens={data.userTokens} />
-                        <CardYourContribution initDate={initDate} />
+                        <CardYourContribution initDate={initDate} data={data} />
                     </Col>
                 </Row>
             </div>

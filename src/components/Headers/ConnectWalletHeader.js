@@ -27,12 +27,6 @@ const ConnectWalletHeader = () => {
     return (
         <div className="mx-5 dark:bg-blue-1 bg-light-2 border-b border-gray-11 dark:border-gray-1 select-none">
             <div className="w-full mx-auto flex flex-wrap flex-col xl:flex-row justify-end pb-6">
-                {/* <div className="font-medium text-3xl text-center py-4">
-                    <span className="text-gray-10 dark:text-white">
-                        Welcome to
-                    </span>
-                    <span className="text-primary">&nbsp;Destinare</span>
-                </div> */}
                 <div className="flex mt-10 lg:mt-0 flex-wrap-reverse flex-row lg:flex-wrap items-center justify-center space-x-0 sm:space-x-5 leading-none py-4">
                     <SupplyCard
                         title="Total Supply:"
@@ -60,7 +54,10 @@ const ConnectWalletHeader = () => {
                                     <FaSignOutAlt
                                         onClick={() => logout()}
                                         size={22}
-                                        style={{ marginLeft: 'auto' }}
+                                        style={{
+                                            marginLeft: 'auto',
+                                            cursor: 'pointer',
+                                        }}
                                     />
                                 </span>
                             </div>

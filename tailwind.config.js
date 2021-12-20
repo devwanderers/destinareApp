@@ -119,7 +119,7 @@ module.exports = {
                 'yellow-1': '#eec32d',
                 'yellow-2': '#f6a223',
                 'blue-1': '#0091c2',
-                'bñue-2': '#7abccf',
+                'blue-2': '#7abccf',
                 'green-1': '#00919a',
                 'green-2': '#7abc86',
                 'orange-1': '#ff720a',

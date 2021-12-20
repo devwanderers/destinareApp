@@ -56,6 +56,43 @@ const useSCInteractions = () => {
         }
     }, [library])
 
+    const createStake = useCallback(
+        async (stake, type) => {
+            try {
+                const contract = new library.eth.Contract(
+                    DestinareContract,
+                    process.env.REACT_APP_DESTINARE_CONTRACT_ADDRESS
+                )
+                const created = await contract.methods
+                    .createStake(stake, type)
+                    .send({ from: account })
+                console.log('createStake', created)
+            } catch (err) {
+                console.log({ err })
+            }
+        },
+        [library]
+    )
+
+    const getStakes = async (contract) => {
+        const stakes = []
+        for (let i = 0; i < 4; i++) {
+            const stake = await contract.methods.stakeTypes(i).call()
+            stakes.push({ ...stake })
+        }
+        return stakes
+    }
+
+    const getStakesReward = async (contract, stakes) => {
+        for (let i = 0; i < stakes.length; i++) {
+            const element = stakes[i]
+            element.reward = await contract.methods
+                .calculateReward(account, element.type)
+                .call({ from: account })
+        }
+        return stakes
+    }
+
     const getData = async () => {
         if (!initData && library?.eth) {
             const contract = new library.eth.Contract(
@@ -66,37 +103,70 @@ const useSCInteractions = () => {
             const circulatingSupply = await contract.methods
                 .circulatingSupply()
                 .call()
+
             const totalSupply = await contract.methods.totalSupply().call()
+
             const getPresaleInfo = await contract.methods
                 .getPresaleInfo()
                 .call()
+
             const getUserInfo = await contract.methods
                 .getUserInfo()
                 .call({ from: account })
+
             const contractStakes = await getStakes(contract)
+
+            const userStakes = await contract.methods
+                .stakeOf(account)
+                .call({ from: account })
+                .then((res) => {
+                    const object = { ...res }
+                    const array = Object.keys(object).reduce(
+                        (acc, o, index) => {
+                            if (index > 2) {
+                                return { ...acc, [o]: object[o] }
+                            }
+                            return acc
+                        },
+                        {}
+                    )
+                    const arrayObjects = array._stakeTime.reduce(
+                        (acc, item, index) => {
+                            return [
+                                ...acc,
+                                {
+                                    stakeTime: array._stakeTime[index],
+                                    tokensLocked: array._tokensLocked[index],
+                                    type: array._type[index],
+                                },
+                            ]
+                        },
+                        []
+                    )
+                    const stakes = getStakesReward(contract, arrayObjects)
+                    return stakes
+                })
+
             const userTokens = await contract.methods
                 .totalTokens(account)
+                .call({ from: account })
+
+            const isStakeholder = await contract.methods
+                .isStakeholder(account)
                 .call()
-            console.log({ userTokens })
+
             setData({
                 circulatingSupply,
                 totalSupply,
                 getPresaleInfo,
                 getUserInfo,
                 contractStakes,
+                userStakes,
                 userTokens,
+                isStakeholder,
             })
             setinitData(true)
         }
-    }
-
-    const getStakes = async (contract) => {
-        const stakes = []
-        for (let i = 0; i < 4; i++) {
-            const stake = await contract.methods.stakeTypes(i).call()
-            stakes.push({ ...stake })
-        }
-        return stakes
     }
 
     useDeepCompareEffect(() => {
@@ -114,6 +184,7 @@ const useSCInteractions = () => {
         data: scInteractions.data,
         reserveToken,
         claimToken,
+        createStake,
     }
 }
 

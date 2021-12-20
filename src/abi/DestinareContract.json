@@ -502,6 +502,11 @@
                 "internalType": "bool",
                 "name": "active",
                 "type": "bool"
+            },
+            {
+                "internalType": "uint256",
+                "name": "totalDeposit",
+                "type": "uint256"
             }
         ],
         "stateMutability": "view",
