@@ -86,9 +86,11 @@ const useSCInteractions = () => {
     const getStakesReward = async (contract, stakes) => {
         for (let i = 0; i < stakes.length; i++) {
             const element = stakes[i]
-            element.reward = await contract.methods
-                .calculateReward(account, element.type)
-                .call({ from: account })
+            if (Number(element.tokensLocked) > 0) {
+                element.reward = await contract.methods
+                    .calculateReward(account, i.toString())
+                    .call({ from: account })
+            }
         }
         return stakes
     }
@@ -116,7 +118,7 @@ const useSCInteractions = () => {
 
             const contractStakes = await getStakes(contract)
 
-            const userStakes = await contract.methods
+            const _userStakes = await contract.methods
                 .stakeOf(account)
                 .call({ from: account })
                 .then((res) => {
@@ -143,9 +145,10 @@ const useSCInteractions = () => {
                         },
                         []
                     )
-                    const stakes = getStakesReward(contract, arrayObjects)
-                    return stakes
+                    return arrayObjects
                 })
+
+            const userStakes = await getStakesReward(contract, _userStakes)
 
             const userTokens = await contract.methods
                 .totalTokens(account)
