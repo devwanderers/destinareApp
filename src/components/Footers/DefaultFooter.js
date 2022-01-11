@@ -3,7 +3,7 @@ import { Col, Row } from 'antd'
 import { FaDiscord, FaFacebookF, FaInstagram, FaTwitter } from 'react-icons/fa'
 import { ImagotipoSVG } from '../../assets/svg/home'
 
-const DefaultFooter = (props) => {
+const DefaultFooter = ({ history, marketPath }) => {
     const year = new Date().getFullYear()
     return (
         <footer className="pt-16 lg:pt-32 pb-12 bg-gray-13">
@@ -34,11 +34,27 @@ const DefaultFooter = (props) => {
                                 Destinare
                             </p>
                         </div>
-                        <p className="text-gray-8 text-lg mb-3">About us</p>
-                        <p className="text-gray-8 text-lg mb-3">DDOT</p>
-                        <p className="text-gray-8 text-lg mb-3">Team</p>
-                        <p className="text-gray-8 text-lg mb-3">Road map</p>
-                        <p className="text-gray-8 text-lg mb-3">Whitepaper</p>
+                        <a href="#about">
+                            <p className="text-gray-8 text-lg mb-3">About us</p>
+                        </a>
+                        <p
+                            onClick={() => history.push(marketPath)}
+                            className="text-gray-8 text-lg cursor-pointer mb-3"
+                        >
+                            DDOT
+                        </p>
+                        <a href="#roadmap">
+                            <p className="text-gray-8 text-lg mb-3">Roadmap</p>
+                        </a>
+                        <a
+                            href="https://destinare-app.s3.us-west-2.amazonaws.com/WHITEPAPER-DESTINARE.pdf"
+                            target="_blank"
+                            rel="noreferrer"
+                        >
+                            <p className="text-gray-8 text-lg mb-3">
+                                Whitepaper
+                            </p>
+                        </a>
                     </Col>
                     <Col
                         xs={24}
@@ -58,9 +74,9 @@ const DefaultFooter = (props) => {
                         <p className="text-gray-8 text-lg mb-3">
                             Privacy Policy
                         </p>
-                        <p className="text-gray-8 text-lg mb-3">
+                        {/* <p className="text-gray-8 text-lg mb-3">
                             Cookie Policy
-                        </p>
+                        </p> */}
                     </Col>
                     <Col
                         xs={24}
@@ -76,7 +92,7 @@ const DefaultFooter = (props) => {
                         </div>
                         <div className="flex items-center justify-center lg:justify-start space-x-5">
                             <a
-                                href="https://discord.com/invite/kSQutYY3"
+                                href="https://discord.gg/458Aqa6Ty6"
                                 target="_blank"
                                 rel="noreferrer"
                                 className="text-3xl text-gray-8 hover:text-white"

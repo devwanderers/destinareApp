@@ -68,7 +68,7 @@ const MarketView = (props) => {
                     <div className="text-gray-5 font-semibold text-center relative dark:bg-blue-1 bg-light-2 mb-5">
                         <div className="text-2xl">Reservations</div>
                         <div className="text-lg">
-                            Choose reservation day by 7 of June 2021
+                            Choose reservation day (date coming soon)
                         </div>
                     </div>
                 </div>

@@ -37,13 +37,16 @@ const CardReserve = ({ date, day, totalUser, totalEther, currentUser }) => {
                     <span>
                         <strong>833,333</strong>
                     </span>
-                    <span className="text-primary">&nbsp;Destinare</span>
+                    <span className="text-primary">&nbsp;DDOT</span>
                 </div>
 
                 <div className="flex flex-row my-2">
                     <p className="text-gray-10 dark:text-white text-lg">
                         Day {day} (UTC)
-                        <span className="text-gray-5 pl-3">{date}</span>
+                        <span className="text-gray-5 pl-3">
+                            (date coming soon)
+                            {/* {date} */}
+                        </span>
                     </p>
                 </div>
             </div>

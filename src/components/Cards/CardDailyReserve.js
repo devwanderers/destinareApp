@@ -38,9 +38,10 @@ const CardDailyReserve = ({ initDate, data, reserveToken, account }) => {
                             Day {day + 1} (UTC)
                             <span className="text-gray-5 pl-3">
                                 {' '}
-                                {currentDate.getUTCDate()}/
+                                (date coming soon)
+                                {/* {currentDate.getUTCDate()}/
                                 {currentDate.getUTCMonth() + 1}/
-                                {currentDate.getUTCFullYear()}
+                                {currentDate.getUTCFullYear()} */}
                             </span>
                         </p>
                     </div>
@@ -53,7 +54,7 @@ const CardDailyReserve = ({ initDate, data, reserveToken, account }) => {
                             833,333
                         </div>
                         <div className="text-gray-10 dark:text-white leading-none text-2xl mb-2 text-center lg:text-left">
-                            Destinare token
+                            DDOT token
                         </div>
                         <div className="input-amount text-center">
                             <Space>
@@ -78,7 +79,7 @@ const CardDailyReserve = ({ initDate, data, reserveToken, account }) => {
                                     }}
                                     disabled
                                 >
-                                    Reserve Destinare token
+                                    Reserve DDOT token
                                 </button>
                             ) : (
                                 <button
@@ -89,7 +90,7 @@ const CardDailyReserve = ({ initDate, data, reserveToken, account }) => {
                                     }}
                                     onClick={() => reserveToken(amount)}
                                 >
-                                    Reserve Destinare token
+                                    Reserve DDOT token
                                 </button>
                             )}
                         </div>

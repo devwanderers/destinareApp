@@ -25,9 +25,10 @@ const CardClaimingDay = ({ initDate, data, claimToken }) => {
                     <p className="text-gray-10 dark:text-white text-lg">
                         Day 30 (UTC)
                         <span className="text-gray-5 pl-3">
-                            {`${lastDate.getUTCDate()}/${
+                            (date coming soon)
+                            {/* {`${lastDate.getUTCDate()}/${
                                 lastDate.getUTCMonth() + 1
-                            }/${lastDate.getUTCFullYear()}`}
+                            }/${lastDate.getUTCFullYear()}`} */}
                         </span>
                     </p>
                 </div>
@@ -56,7 +57,7 @@ const CardClaimingDay = ({ initDate, data, claimToken }) => {
                     onClick={() => claimToken()}
                     // disabled
                 >
-                    Claim your Destinare token
+                    Claim your DDOT token
                 </button>
             </div>
         </div>

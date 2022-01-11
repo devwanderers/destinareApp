@@ -5,10 +5,10 @@ const CardTokens = ({ tokens }) => {
     return (
         <div className="text-center bg-gray dark:bg-gray-4 border border-gray-11 dark:border-gray-4 pt-4 pb-4 px-8 rounded-xl mb-5">
             <p className="text-xl leading-none text-gray-10 dark:text-white">
-                Your tokens
+                Your tokens DDOT
             </p>
             <p className="mt-5 text-xl leading-none text-gray-10 dark:text-white">
-                {useCurrency(_tokens, 0)} DDOT
+                {isNaN(_tokens) ? 0 : useCurrency(_tokens, 0)}
             </p>
         </div>
     )

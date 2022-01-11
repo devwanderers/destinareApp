@@ -41,25 +41,29 @@ const DefaultNavbar = ({ authenticated, userData, logout, ...rest }) => {
                         type="link"
                         className="h-full flex-1 btn text-xs lg:text-lg leading-none text-black-3 font-normal hover:text-blue-3 active:text-blue-3 focus:text-blue-3"
                     >
-                        <span>About</span>
+                        <a href="#about">
+                            <span>About</span>
+                        </a>
                     </Button>
                     <Button
                         type="link"
                         className="h-full flex-1 btn text-xs lg:text-lg leading-none text-black-3 font-normal hover:text-blue-3 active:text-blue-3 focus:text-blue-3"
                     >
-                        <span>Pre-sale</span>
+                        <a href="#roadmap">
+                            <span>Roadmap</span>
+                        </a>
                     </Button>
                     <Button
                         type="link"
                         className="h-full flex-1 btn text-xs lg:text-lg leading-none text-black-3 font-normal hover:text-blue-3 active:text-blue-3 focus:text-blue-3"
                     >
-                        <span>Roadmap</span>
-                    </Button>
-                    <Button
-                        type="link"
-                        className="h-full flex-1 btn text-xs lg:text-lg leading-none text-black-3 font-normal hover:text-blue-3 active:text-blue-3 focus:text-blue-3"
-                    >
-                        <span>Whitepaper</span>
+                        <a
+                            href="https://destinare-app.s3.us-west-2.amazonaws.com/WHITEPAPER-DESTINARE.pdf"
+                            target="_blank"
+                            rel="noreferrer"
+                        >
+                            <span>Whitepaper</span>
+                        </a>
                     </Button>
                     <Button
                         onClick={() => history.push(MarketPath)}

@@ -1,5 +1,7 @@
 import React from 'react'
 import { Layout, Row, Col } from 'antd'
+import { useHistory } from 'react-router'
+import { MarketPath } from '../../constants/routerConstants'
 import DefaultNavbar from '../../components/Navbar/DefaultNavbar'
 import DefaultFooter from '../../components/Footers/DefaultFooter'
 import {
@@ -14,6 +16,7 @@ import homeImages from '../../assets/images/home'
 const { Content } = Layout
 
 const LandingPage = ({ authenticated, userData, logout }) => {
+    const history = useHistory()
     return (
         <Layout className="landing-page min-w-minMobileWidth bg-gray-50">
             <DefaultNavbar
@@ -23,7 +26,7 @@ const LandingPage = ({ authenticated, userData, logout }) => {
                 className="bg-white"
             />
             <Content>
-                <section className="bg-gray-12">
+                <section id="about" className="bg-gray-12">
                     <Row
                         className="section my-16 lg:my-24"
                         justify="center"
@@ -36,7 +39,7 @@ const LandingPage = ({ authenticated, userData, logout }) => {
                         >
                             <div className="mb-12">
                                 <p className="text-3xl lg:text-5xl blue-gradient leading-none font-extrabold mb-4">
-                                    Travel mad simple
+                                    Travel made simple
                                 </p>
                                 <p className="text-3xl lg:text-5xl text-black-3 leading-none font-extrabold">
                                     Discover the world and pay with crypto
@@ -49,7 +52,7 @@ const LandingPage = ({ authenticated, userData, logout }) => {
                                 tokenized incentives.
                             </p>
                             <p className="text-xl text-black-3">
-                                By introducing a cut- ting-edge user experience
+                                By introducing a cutting edge user experience
                                 and multiple cryptocurrencies and traditional
                                 payment options alongside benefits tied to our
                                 proprietary cryptocurrency DDOT.
@@ -82,7 +85,7 @@ const LandingPage = ({ authenticated, userData, logout }) => {
                                     +230
                                 </p>
                                 <p className="text-3xl xl:text-5xl text-gray-11 leading-none font-medium mb-4">
-                                    Countries
+                                    Countries & Islands
                                 </p>
                             </div>
                             <div className="flex items-center space-x-5 lg:space-x-10">
@@ -109,7 +112,7 @@ const LandingPage = ({ authenticated, userData, logout }) => {
                         </Col>
                     </Row>
                 </section>
-                <section className="bg-light-3">
+                {/* <section className="bg-light-3">
                     <Row className="section py-16" justify="center" align="top">
                         <Col xs={24} sm={12}>
                             <img
@@ -142,7 +145,7 @@ const LandingPage = ({ authenticated, userData, logout }) => {
                             </div>
                         </Col>
                     </Row>
-                </section>
+                </section> */}
                 <section className="bg-white">
                     <div className="py-16">
                         <Row
@@ -200,7 +203,7 @@ const LandingPage = ({ authenticated, userData, logout }) => {
                                     Current price
                                 </p>
                                 <p className="text-2xl text-black-3 font-bold">
-                                    N/A
+                                    SOON
                                 </p>
                             </Col>
                             <Col
@@ -214,7 +217,7 @@ const LandingPage = ({ authenticated, userData, logout }) => {
                                     Market cap
                                 </p>
                                 <p className="text-2xl text-black-3 font-bold">
-                                    N/A
+                                    SOON
                                 </p>
                             </Col>
                             <Col
@@ -228,7 +231,7 @@ const LandingPage = ({ authenticated, userData, logout }) => {
                                     Circulating supply
                                 </p>
                                 <p className="text-2xl text-black-3 font-bold">
-                                    N/A
+                                    SOON
                                 </p>
                             </Col>
                             <Col
@@ -242,7 +245,7 @@ const LandingPage = ({ authenticated, userData, logout }) => {
                                     Total supply
                                 </p>
                                 <p className="text-2xl text-black-3 font-bold">
-                                    N/A
+                                    SOON
                                 </p>
                             </Col>
                         </Row>
@@ -261,7 +264,7 @@ const LandingPage = ({ authenticated, userData, logout }) => {
                                         <span className="blue-gradient font-extrabold">
                                             DDOT{' '}
                                         </span>
-                                        Benfits
+                                        Benefits
                                     </p>
                                 </Col>
                             </Row>
@@ -307,7 +310,7 @@ const LandingPage = ({ authenticated, userData, logout }) => {
                                         <IconDiscountsSVG className="w-2/5 left-0 right-0 ml-auto mr-auto -mt-16 absolute" />
                                         <div className="pt-20 lg:pt-14">
                                             <p className="text-black-2 text-2xl font-bold">
-                                                Unique Descounts
+                                                Unique Discounts
                                             </p>
                                         </div>
                                         <div className="py-5 px-8">
@@ -393,7 +396,7 @@ const LandingPage = ({ authenticated, userData, logout }) => {
                                     <span className="blue-gradient font-extrabold">
                                         DDOT{' '}
                                     </span>
-                                    usecases
+                                    Usecases
                                 </p>
                             </Col>
                         </Row>
@@ -449,7 +452,10 @@ const LandingPage = ({ authenticated, userData, logout }) => {
                                 </p>
                             </div>
                             <div>
-                                <button className="px-10 py-1 text-white shadow-md rounded-full bg-gradient-to-r from-orange-2 to-orange-3">
+                                <button
+                                    onClick={() => history.push(MarketPath)}
+                                    className="px-10 py-1 text-white shadow-md rounded-full bg-gradient-to-r from-orange-2 to-orange-3"
+                                >
                                     <span className="font-bold text-2xl lg:text-3xl xl:text-4xl">
                                         View reservations
                                     </span>
@@ -466,7 +472,7 @@ const LandingPage = ({ authenticated, userData, logout }) => {
                         </Col>
                     </Row>
                 </section>
-                <section className="bg-white">
+                <section id="roadmap" className="bg-white">
                     <section className="bg-city bg-bottom bg-cover bg-no-repeat">
                         <Row
                             className="section py-16"
@@ -478,14 +484,14 @@ const LandingPage = ({ authenticated, userData, logout }) => {
                                     Roadmap
                                 </p>
                             </Col>
-                            <Col md={24}>
+                            <Col md={20}>
                                 <RoadMapSVG />
                             </Col>
                         </Row>
                     </section>
                 </section>
             </Content>
-            <DefaultFooter />
+            <DefaultFooter history={history} marketPath={MarketPath} />
         </Layout>
     )
 }

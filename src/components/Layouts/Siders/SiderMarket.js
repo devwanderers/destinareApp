@@ -11,7 +11,7 @@ import {
 import { FaHome } from 'react-icons/fa'
 import { IoIosArrowForward, IoIosArrowBack } from 'react-icons/io'
 import { MdDashboard } from 'react-icons/md'
-// import { GiWarPick } from 'react-icons/gi'
+import { GiWarPick } from 'react-icons/gi'
 import {
     HomePath,
     MarketPath,
@@ -35,19 +35,19 @@ const menuItems = [
         onClick: MarketPath,
         group: false,
     },
-    // {
-    //     icon: GiWarPick,
-    //     key: 'earn',
-    //     name: 'Earn',
-    //     group: true,
-    //     items: [
-    //         {
-    //             onClick: StakingView,
-    //             key: 'staking',
-    //             name: 'Staking with lock',
-    //         },
-    //     ],
-    // },
+    {
+        icon: GiWarPick,
+        key: 'earn',
+        name: 'Earn',
+        group: true,
+        items: [
+            {
+                onClick: MarketPath,
+                key: 'staking',
+                name: 'Staking with lock',
+            },
+        ],
+    },
 ]
 
 const SiderMarket = ({ collapsed, onCollapse, menuKey }) => {

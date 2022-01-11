@@ -6,22 +6,27 @@ import { FaDiscord, FaFacebookF, FaInstagram, FaTwitter } from 'react-icons/fa'
 
 const destinareMenu = [
     {
-        onClick: '',
+        route: false,
+        target_blank: false,
+        onClick: '#about',
         name: 'About',
     },
     {
-        onClick: '',
-        name: 'Pre-sale',
-    },
-    {
-        onClick: '',
+        route: false,
+        target_blank: false,
+        onClick: '#roadmap',
         name: 'Roadmap',
     },
     {
-        onClick: '',
+        route: false,
+        target_blank: true,
+        onClick:
+            'https://destinare-app.s3.us-west-2.amazonaws.com/WHITEPAPER-DESTINARE.pdf',
         name: 'Whitepaper',
     },
     {
+        route: true,
+        target_blank: false,
         onClick: MarketPath,
         name: 'APP',
     },
@@ -74,12 +79,23 @@ const MenuNavbar = ({ authenticated, isMobile, logout }) => {
                     return null
                 return (
                     <Menu.Item key={`menu-item-${menu.name}`}>
-                        <div
-                            className="flex flex-row items-center"
-                            onClick={() => history.push(menu.onClick)}
-                        >
-                            {menu.name}
-                        </div>
+                        {menu.route ? (
+                            <div
+                                className="flex flex-row items-center"
+                                onClick={() => history.push(menu.onClick)}
+                            >
+                                {menu.name}
+                            </div>
+                        ) : (
+                            <div className="flex flex-row items-center">
+                                <a
+                                    href={menu.onClick}
+                                    target={menu.target_blank && '_blank'}
+                                >
+                                    {menu.name}
+                                </a>
+                            </div>
+                        )}
                     </Menu.Item>
                 )
             })}
