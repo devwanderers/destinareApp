@@ -74,6 +74,7 @@ const ModalStaking = ({
                             onCloseModal()
                             deposit(amount, index)
                         }}
+                        disabled={amount <= 0}
                     >
                         Confirm
                     </button>

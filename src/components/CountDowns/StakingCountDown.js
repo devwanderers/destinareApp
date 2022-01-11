@@ -2,6 +2,10 @@ import { Statistic } from 'antd'
 import { FaRegClock } from 'react-icons/fa'
 const { Countdown } = Statistic
 
+function onFinish() {
+    console.log('finished!')
+}
+
 const StakingCountDown = ({ value, valueStyle }) => {
     return (
         <div className="flex">
@@ -14,6 +18,7 @@ const StakingCountDown = ({ value, valueStyle }) => {
                     value={value}
                     format="DD:HH:mm:ss"
                     valueStyle={valueStyle}
+                    onFinish={onFinish}
                 />
             </div>
         </div>

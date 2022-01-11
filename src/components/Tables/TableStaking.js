@@ -44,27 +44,36 @@ const customizeRenderEmpty = () => (
     </div>
 )
 
-const UnStake = ({ item }) => {
+const UnStake = ({ item, getReward, disabled }) => {
     return (
         <button
             className="disabled:opacity-50 bg-primary border-solid border border-primary rounded-md py-1 px-10 text-white text-lg font-bold"
-            onClick={() => {}}
-            disabled
+            onClick={() => getReward(item)}
+            disabled={disabled}
         >
             Unstake
         </button>
     )
 }
 
-const TableStaking = ({ stake, lokedTime, isStakeholder, userStakes }) => {
+const TableStaking = ({
+    stake,
+    lokedTime,
+    isStakeholder,
+    userStakes,
+    getReward,
+}) => {
     const [theme] = useListenCookie('theme')
+    const today = new Date().toLocaleString('en-GB')
     const data = userStakes.reduce((acc, item, i) => {
-        if (Number(item.type) === stake && Number(item.tokensLocked) > 0) {
-            let lockDuration = Number(item.stakeTime) + Number(lokedTime)
-            lockDuration = lockDuration * 1000
+        if (Number(item.type) === stake && item.reward != null) {
             const date = new Date(item.stakeTime * 1000).toLocaleString('en-GB')
             const depositAmount = item.tokensLocked / 1e18
-            const reward = item.reward / 1e18
+            const reward = (item.reward - item.tokensLocked) / 1e18
+            let lockDuration = Number(item.stakeTime) + Number(lokedTime)
+            lockDuration = lockDuration * 1000
+            const ends = new Date(lockDuration).toLocaleString('en-GB')
+            const finish = today > ends
             return [
                 ...acc,
                 {
@@ -78,37 +87,44 @@ const TableStaking = ({ stake, lokedTime, isStakeholder, userStakes }) => {
                             valueStyle={{ fontSize: '1.1rem', color: 'white' }}
                         />
                     ),
-                    unStake: <UnStake item={i} />,
+                    unStake: (
+                        <UnStake
+                            item={i}
+                            getReward={getReward}
+                            disabled={!finish}
+                        />
+                    ),
                 },
             ]
         }
         return acc
     }, [])
-    // const data = {}
-    // if (!isStakeholder) {
-
-    // }
-    // const isDarkMode = theme === 'dark'
-    // const tableStyle = isDarkMode
-    //     ? {
-    //           backgroundColor: '#24262d',
-    //           padding: '0px',
-    //       }
-    //     : {
-    //           backgroundColor: '#fafafa',
-    //           padding: '0px',
-    //       }
+    const isDarkMode = theme === 'dark'
+    const tableStyle = isDarkMode
+        ? {
+              backgroundColor: '#24262d',
+              padding: '0px',
+          }
+        : {
+              backgroundColor: '#fafafa',
+              padding: '0px',
+          }
 
     return (
-        <ConfigProvider renderEmpty={customizeRenderEmpty}>
-            <Table
-                pagination={false}
-                columns={columns}
-                dataSource={data}
-                className={theme}
-                bordered
-            />
-        </ConfigProvider>
+        <div className="table-info">
+            {isStakeholder && (
+                <ConfigProvider renderEmpty={customizeRenderEmpty}>
+                    <Table
+                        style={tableStyle}
+                        pagination={false}
+                        columns={columns}
+                        dataSource={data}
+                        className={theme}
+                        bordered
+                    />
+                </ConfigProvider>
+            )}
+        </div>
     )
 }
 export default TableStaking

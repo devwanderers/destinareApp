@@ -65,7 +65,9 @@ const CollapseStaking = ({
     userStakes,
     totalTokens,
     isStakeholder,
+    totalUserStakes,
     createStake,
+    getReward,
 }) => {
     const { login } = useAuth()
     const { account } = useWeb3React()
@@ -116,15 +118,39 @@ const CollapseStaking = ({
                             <div className="text-gray-13 dark:text-white border-t dark:border-gray-1 pt-4">
                                 <div className="button-section text-right mb-4">
                                     {account ? (
-                                        <button
-                                            onClick={() =>
-                                                handleShowModal(index)
-                                            }
-                                            className="disabled:opacity-50 bg-primary text-white font-semibold border-none text-base px-6 py-2 rounded-md"
-                                            disabled={!item.active}
-                                        >
-                                            Deposit
-                                        </button>
+                                        <>
+                                            {totalUserStakes >= 5 ? (
+                                                <div
+                                                    className="alert alert-info"
+                                                    role="alert"
+                                                >
+                                                    You only can have 5 stakes
+                                                </div>
+                                            ) : (
+                                                <>
+                                                    {totalTokens > 0 ? (
+                                                        <button
+                                                            onClick={() =>
+                                                                handleShowModal(
+                                                                    index
+                                                                )
+                                                            }
+                                                            className="disabled:opacity-50 bg-primary text-white font-semibold border-none text-base px-6 py-2 rounded-md"
+                                                            disabled={
+                                                                !item.active
+                                                            }
+                                                        >
+                                                            Deposit
+                                                        </button>
+                                                    ) : (
+                                                        <p>
+                                                            You need tokens to
+                                                            continue
+                                                        </p>
+                                                    )}
+                                                </>
+                                            )}
+                                        </>
                                     ) : (
                                         <button
                                             onClick={() => login()}
@@ -139,6 +165,7 @@ const CollapseStaking = ({
                                     lokedTime={item.lockedTime}
                                     isStakeholder={isStakeholder}
                                     userStakes={userStakes}
+                                    getReward={getReward}
                                 />
                             </div>
                         </Panel>

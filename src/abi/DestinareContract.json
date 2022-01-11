@@ -595,6 +595,25 @@
         "inputs": [
             {
                 "internalType": "address",
+                "name": "_address",
+                "type": "address"
+            }
+        ],
+        "name": "totalUserStakes",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "total",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
                 "name": "recipient",
                 "type": "address"
             },

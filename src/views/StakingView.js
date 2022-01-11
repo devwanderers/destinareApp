@@ -4,7 +4,7 @@ import CollapseStaking from '../components/Collapse/CollapseStaking'
 import useSCInteractions from '../hooks/useSCInteractions'
 
 const StakingView = (props) => {
-    const { data, createStake } = useSCInteractions()
+    const { data, createStake, getReward } = useSCInteractions()
     return (
         <div className="mx-5">
             <div className="pb-8">
@@ -15,7 +15,9 @@ const StakingView = (props) => {
                             userStakes={data.userStakes}
                             totalTokens={data.userTokens}
                             isStakeholder={data.isStakeholder}
+                            totalUserStakes={data.totalUserStakes}
                             createStake={createStake}
+                            getReward={getReward}
                         />
                     </Col>
                 </Row>

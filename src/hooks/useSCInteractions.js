@@ -32,7 +32,7 @@ const useSCInteractions = () => {
                     .reserveTokens()
                     .send({ from: account, value: amount * 1e18 })
                     .then((res) => res)
-                console.log({ tx })
+                console.log('reserveToken', tx)
                 if (tx.status) setinitData(false)
             } catch (err) {
                 console.log({ err })
@@ -51,6 +51,7 @@ const useSCInteractions = () => {
                 .claimPresaleTokens()
                 .send({ from: account })
             console.log('claimToken', tokens)
+            if (tokens.status) setinitData(false)
         } catch (err) {
             console.log({ err })
         }
@@ -67,12 +68,29 @@ const useSCInteractions = () => {
                     .createStake(stake, type)
                     .send({ from: account })
                 console.log('createStake', created)
+                if (created.status) setinitData(false)
             } catch (err) {
                 console.log({ err })
             }
         },
         [library]
     )
+
+    const getReward = useCallback(async (stake) => {
+        try {
+            const contract = new library.eth.Contract(
+                DestinareContract,
+                process.env.REACT_APP_DESTINARE_CONTRACT_ADDRESS
+            )
+            const withdrawal = await contract.methods
+                .withdrawReward(stake)
+                .send({ from: account })
+            console.log('getReward', withdrawal)
+            if (withdrawal.status) setinitData(false)
+        } catch (err) {
+            console.log({ err })
+        }
+    })
 
     const getStakes = async (contract) => {
         const stakes = []
@@ -158,6 +176,11 @@ const useSCInteractions = () => {
                 .isStakeholder(account)
                 .call()
 
+            const totalUserStakes = await contract.methods
+                .totalUserStakes(account)
+                .call()
+            console.log('totalUserStakes', totalUserStakes)
+
             setData({
                 circulatingSupply,
                 totalSupply,
@@ -167,6 +190,7 @@ const useSCInteractions = () => {
                 userStakes,
                 userTokens,
                 isStakeholder,
+                totalUserStakes,
             })
             setinitData(true)
         }
@@ -188,6 +212,7 @@ const useSCInteractions = () => {
         reserveToken,
         claimToken,
         createStake,
+        getReward,
     }
 }
 
