@@ -37,12 +37,11 @@ const DefaultFooter = ({ history, marketPath }) => {
                         <a href="#about">
                             <p className="text-gray-8 text-lg mb-3">About us</p>
                         </a>
-                        <p
-                            onClick={() => history.push(marketPath)}
-                            className="text-gray-8 text-lg cursor-pointer mb-3"
-                        >
-                            DDOT
-                        </p>
+                        <a href="#ddot">
+                            <p className="text-gray-8 text-lg cursor-pointer mb-3">
+                                DDOT
+                            </p>
+                        </a>
                         <a href="#roadmap">
                             <p className="text-gray-8 text-lg mb-3">Roadmap</p>
                         </a>
@@ -92,7 +91,7 @@ const DefaultFooter = ({ history, marketPath }) => {
                         </div>
                         <div className="flex items-center justify-center lg:justify-start space-x-5">
                             <a
-                                href="https://discord.gg/458Aqa6Ty6"
+                                href="https://discord.gg/destinare"
                                 target="_blank"
                                 rel="noreferrer"
                                 className="text-3xl text-gray-8 hover:text-white"

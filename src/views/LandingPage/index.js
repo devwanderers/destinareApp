@@ -84,7 +84,7 @@ const LandingPage = ({ authenticated, userData, logout }) => {
                                 <p className="text-4xl lg:text-6xl blue-gradient leading-none font-extrabold mb-4">
                                     +230
                                 </p>
-                                <p className="text-3xl xl:text-5xl text-gray-11 leading-none font-medium mb-4">
+                                <p className="text-3xl xl:text-4xl text-gray-11 leading-none font-medium mb-4">
                                     Countries & Islands
                                 </p>
                             </div>
@@ -146,7 +146,7 @@ const LandingPage = ({ authenticated, userData, logout }) => {
                         </Col>
                     </Row>
                 </section> */}
-                <section className="bg-white">
+                <section id="ddot" className="bg-white">
                     <div className="py-16">
                         <Row
                             className="section"

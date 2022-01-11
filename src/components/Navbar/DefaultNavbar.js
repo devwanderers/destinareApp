@@ -74,7 +74,7 @@ const DefaultNavbar = ({ authenticated, userData, logout, ...rest }) => {
                     </Button>
                     <div className="flex items-center justify-center">
                         <Button
-                            href="https://discord.com/invite/kSQutYY3"
+                            href="https://discord.gg/destinare"
                             target="_blank"
                             type="link"
                             className="btn text-2xl leading-none text-blue-3 font-normal hover:text-blue-4 active:text-blue-4 focus:text-blue-4"
