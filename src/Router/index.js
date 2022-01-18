@@ -33,7 +33,10 @@ class AppRouter extends Component {
                                         }
                                     )
                                     return route?.layout ? (
-                                        <route.layout {...props}>
+                                        <route.layout
+                                            {...props}
+                                            {...route?.layoutProps}
+                                        >
                                             <Component
                                                 {...route?.componentProps}
                                             />

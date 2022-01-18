@@ -7,6 +7,15 @@ module.exports = {
     purge: [],
     darkMode: 'class', // or 'media' or 'class'
     theme: {
+        screens: {
+            xs: '375px',
+            sm: '640px',
+            md: '768px',
+            lg: '1024px',
+            xl: '1280px',
+            xxl: '1440px',
+            xxxl: '1600px',
+        },
         spacing: {
             ...defaultTheme.spacing,
             '4px': '4px',
@@ -57,14 +66,13 @@ module.exports = {
             montserrat: ['Montserrat', 'sans-serif'],
         },
         colors: {
-            // ...colors,
             red: colors.red,
             yellow: { ...colors.yellow },
             gray: {
                 ...colors.trueGray,
                 1: '#4B4E5D',
                 2: '#292929',
-                3: '#1C1C1C', //
+                3: '#1C1C1C',
                 4: '#343640',
                 5: '#808080',
                 6: '#40424F',
@@ -73,29 +81,50 @@ module.exports = {
                 9: '#24262D',
                 10: '#333333',
                 11: '#e5e5e5',
+                12: '#fafafa',
+                13: '#4B4B4A',
             },
             white: '#ffffff',
             light: {
                 1: '#fafafa',
                 2: '#f7f7f7',
+                3: '#EDEDED',
             },
-            primary: '#527aee',
+            // primary: '#527aee',
+            primary: '#0091C2',
             danger: '#B82D4D',
-            // secondary: '',
             info: '#00B5EB',
             transparent: 'transparent',
             dark: '#171230',
             darker: '#090416',
-            // aqua: {
-            //     1: '#7CC4D1',
-            // },
             green: { ...colors.green, 1: '#7AC385' },
             blue: {
                 ...colors.blue,
                 1: '#2A2C34',
                 2: '#21232B',
+                3: '#0091C2',
+                4: '#7ABCCF',
             },
-            black: '#000000',
+            black: {
+                1: '#000000',
+                2: '#333',
+                3: '#595959',
+            },
+            orange: {
+                1: '#E09F57',
+                2: '#E18942',
+                3: '#F0CA69',
+            },
+            benefits: {
+                'yellow-1': '#eec32d',
+                'yellow-2': '#f6a223',
+                'blue-1': '#0091c2',
+                'blue-2': '#7abccf',
+                'green-1': '#00919a',
+                'green-2': '#7abc86',
+                'orange-1': '#ff720a',
+                'orange-2': '#f68e23',
+            },
         },
         fontSize: {
             xs: '.75rem',
@@ -129,16 +158,22 @@ module.exports = {
             2.7: '2.7rem',
             3.5: '3.5rem',
         },
+        backgroundColor: (theme) => ({
+            ...theme('colors'),
+        }),
         extend: {
             backgroundImage: {
                 travellerbg:
                     "url('/src/assets/images/backgrounds/traveller-with-backpack-2021-08-26-15-29-39-utc.jpg')",
-                sunset: "url('/src/assets/images/backgrounds/sunset-2021-08-27-21-13-52-utc.jpg')",
+                sunset:
+                    "url('/src/assets/images/backgrounds/sunset-2021-08-27-21-13-52-utc.jpg')",
                 sunset2:
                     "url('/src/assets/images/backgrounds/sunset-2021-08-31-11-19-12-utc.jpg')",
                 sunset3:
                     "url('/src/assets/images/backgrounds/sunset-2021-08-28-06-23-40-utc.jpg')",
                 clouds: "url('/src/assets/images/backgrounds/fondo-nubes.jpg')",
+                worldmap: "url('/src/assets/svg/home/worldmap.svg')",
+                city: "url('/src/assets/svg/home/city.svg')",
             },
             margin: {
                 '-18px': '-18px',
@@ -169,6 +204,7 @@ module.exports = {
     },
     variants: {
         extend: {
+            opacity: ['disabled'],
             scale: ['active', 'group-hover'],
             textColor: ['active', 'hover'],
             borderWidth: ['active', 'hover', 'dark'],

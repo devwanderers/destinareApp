@@ -1,88 +1,136 @@
-import React, { useState } from 'react'
-
-import { Layout } from 'antd'
-
+import React from 'react'
+import { useHistory } from 'react-router'
+import { Layout, Menu } from 'antd'
+import useDarkMode from '../../../hooks/useDarkMode'
 import DarkModeSwitch from '../../DarkModeSwitch'
+import {
+    DestinareLogoColorLightSVG,
+    DestinareLogoColorDarkSVG,
+    DestinareLogoIconSVG,
+} from '../../../assets/svg/brand/index'
 import { FaHome } from 'react-icons/fa'
 import { IoIosArrowForward, IoIosArrowBack } from 'react-icons/io'
+import { MdDashboard } from 'react-icons/md'
+import { GiWarPick } from 'react-icons/gi'
+import {
+    HomePath,
+    MarketPath,
+    StakingView,
+} from '../../../constants/routerConstants'
 
 const { Sider } = Layout
-
+const { SubMenu } = Menu
 const menuItems = [
     {
         icon: FaHome,
-        name: 'Test',
+        key: 'home',
+        name: 'Home',
+        onClick: HomePath,
+        group: false,
     },
     {
-        icon: FaHome,
-        name: 'Test',
+        icon: MdDashboard,
+        key: 'dashboard',
+        name: 'Dashboard',
+        onClick: MarketPath,
+        group: false,
+    },
+    {
+        icon: GiWarPick,
+        key: 'earn',
+        name: 'Earn',
+        group: true,
+        items: [
+            {
+                onClick: StakingView,
+                key: 'staking',
+                name: 'Staking with lock',
+            },
+        ],
     },
 ]
 
-const SiderMarket = ({ collapsed, onCollapse }) => {
-    const [selectedMenu, setselectedMenu] = useState(0)
-    const handleSelectedMenu = (key) => {
-        if (selectedMenu !== key) setselectedMenu(key)
-    }
-
+const SiderMarket = ({ collapsed, onCollapse, menuKey }) => {
+    const [theme, switchDarkMode] = useDarkMode()
+    const history = useHistory()
     return (
         <Sider
             collapsible
             collapsed={collapsed}
             onCollapse={onCollapse}
-            className="px-0 h-screen bg-light-1 dark:bg-gray-9 relative"
+            className="px-0 h-screen border-r border-gray-11 dark:border-gray-4 bg-light-1 dark:bg-gray-9 relative"
             trigger={null}
         >
-            <div className="logo" />
-            <div className="flex flex-col justify-between">
-                <div className="flex flex-col pl-4">
-                    {menuItems.map((menuItem, key) => (
-                        <div
-                            key={`menu-item-${menuItem.name}`}
-                            className={`flex${
-                                !collapsed
-                                    ? ' flex-row items-center justify-between'
-                                    : ''
-                            }  relative  mb-5`}
-                        >
-                            <a
-                                href="#"
-                                className={`flex flex-row items-center w-full h-12 border-none ${
-                                    selectedMenu === key
-                                        ? 'text-gray-10 hover:text-gray-10 dark:text-primary dark:hover:text-primary'
-                                        : 'text-gray-8 hover:text-gray-9 dark:text-gray-6 dark:hover:text-white'
-                                    // selectedMenu === key
-                                    //     ? 'text-gray-10 dark:text-primary hover:text-gray-10 dark:hover:text-primary'
-                                    //     : 'text-gray-8 dark:text-gray-6 hover:text-gray-2 dark:hover:text-white'
-                                }`}
-                                onClick={(e) => {
-                                    e.preventDefault()
-                                    handleSelectedMenu(key)
-                                }}
-                            >
-                                <span
-                                    className={`text-2xl${
-                                        selectedMenu === key
-                                            ? ' border bg-opacity-10'
-                                            : ' border-none '
-                                    } border-black-1 dark:border-primary p-2 rounded-lg flex${
-                                        !collapsed ? ' mr-4' : ''
-                                    }`}
-                                >
-                                    <menuItem.icon className="" />
-                                </span>
-                                <span
-                                    hidden={collapsed}
-                                    className="text-sm font-medium hover:border-b"
-                                >
-                                    {menuItem.name}
-                                </span>
-                            </a>
-                        </div>
-                    ))}
+            {collapsed ? (
+                <div className="px-5 mt-4">
+                    <DestinareLogoIconSVG
+                        style={{ width: '40px', margin: 'auto' }}
+                    />
                 </div>
-            </div>
+            ) : (
+                <div className="px-5 mt-4">
+                    {theme === 'dark' ? (
+                        <DestinareLogoColorLightSVG />
+                    ) : (
+                        <DestinareLogoColorDarkSVG />
+                    )}
+                </div>
+            )}
+
+            <Menu
+                theme={theme}
+                defaultSelectedKeys={[menuKey]}
+                selectedKeys={[menuKey]}
+                mode="inline"
+                className="border-r-0 mt-10"
+            >
+                {menuItems.map((menu) => {
+                    return menu.group ? (
+                        <SubMenu
+                            key={`menu-item-${menu.key}`}
+                            icon={
+                                <menu.icon
+                                    size={23}
+                                    style={{ marginRight: '10px' }}
+                                />
+                            }
+                            title={menu.name}
+                        >
+                            {menu.items.map((menu) => {
+                                return (
+                                    <Menu.Item
+                                        key={`menu-item-${menu.key}`}
+                                        onClick={() =>
+                                            history.push(menu.onClick)
+                                        }
+                                    >
+                                        <div className="flex flex-row items-center">
+                                            {menu.name}
+                                        </div>
+                                    </Menu.Item>
+                                )
+                            })}
+                        </SubMenu>
+                    ) : (
+                        <Menu.Item
+                            icon={
+                                <menu.icon
+                                    size={23}
+                                    style={{ marginRight: '10px' }}
+                                />
+                            }
+                            key={`menu-item-${menu.key}`}
+                            onClick={() => history.push(menu.onClick)}
+                        >
+                            <div className="flex flex-row items-center">
+                                {menu.name}
+                            </div>
+                        </Menu.Item>
+                    )
+                })}
+            </Menu>
             <div
+                onClick={switchDarkMode}
                 className="absolute left-0 right-0 mb-4 flex justify-center"
                 style={{ bottom: '48px' }}
             >
@@ -93,7 +141,7 @@ const SiderMarket = ({ collapsed, onCollapse }) => {
                 className="absolute left-0 right-0 bottom-0 bg-gray-200 dark:bg-gray-2 flex justify-center items-center cursor-pointer dark:text-white"
                 style={{ height: '45px' }}
             >
-                {collapsed ? <IoIosArrowBack /> : <IoIosArrowForward />}
+                {collapsed ? <IoIosArrowForward /> : <IoIosArrowBack />}
             </div>
         </Sider>
     )

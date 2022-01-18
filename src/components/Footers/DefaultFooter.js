@@ -1,127 +1,140 @@
 import React from 'react'
 import { Col, Row } from 'antd'
-import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa'
+import { FaDiscord, FaFacebookF, FaInstagram, FaTwitter } from 'react-icons/fa'
+import { ImagotipoSVG } from '../../assets/svg/home'
 
-const DefaultFooter = (props) => {
+const DefaultFooter = ({ history, marketPath }) => {
+    const year = new Date().getFullYear()
     return (
-        <footer className="py-12 ">
-            <div className="section ">
-                <div className="flex flex-row justify-between border-b border-gray-300 pb-8">
-                    <div className="flex flex-row justify-between max-h-full w-full lg:w-6/12  items-center">
-                        <div className="flex-1">
-                            <h5 className="text-capitalize text-xl  tracking-wide font-bold mb-5">
-                                Home
-                            </h5>
-                            <ul className="list-none font-saira-condensed font-semibold">
-                                <li className="mb-2">
-                                    <a
-                                        className=" hover:text-gray-400"
-                                        href="https://whitepaper.swapp.ee/"
-                                    >
-                                        Terms of service
-                                    </a>
-                                </li>
-                                <li className=" mb-2">
-                                    <a
-                                        className=" hover:text-gray-400"
-                                        href="https://app.uniswap.org/#/swap?"
-                                    >
-                                        Smart Contract
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div className="flex-1">
-                            <h5 className="text-capitalize text-xl  tracking-wide font-bold mb-5">
-                                Home
-                            </h5>
-                            <ul className="list-none font-saira-condensed font-semibold">
-                                <li className="mb-2">
-                                    <a
-                                        className=" hover:text-gray-400"
-                                        href="https://whitepaper.swapp.ee/"
-                                    >
-                                        Terms of service
-                                    </a>
-                                </li>
-                                <li className=" mb-2">
-                                    <a
-                                        className=" hover:text-gray-400"
-                                        href="https://app.uniswap.org/#/swap?"
-                                    >
-                                        Smart Contract
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div className="flex-1">
-                            <h5 className="text-capitalize text-xl  tracking-wide font-bold mb-5">
-                                Home
-                            </h5>
-                            <ul className="list-none font-saira-condensed font-semibold">
-                                <li className="mb-2">
-                                    <a
-                                        className=" hover:text-gray-400"
-                                        href="https://whitepaper.swapp.ee/"
-                                    >
-                                        Terms of service
-                                    </a>
-                                </li>
-                                <li className=" mb-2">
-                                    <a
-                                        className=" hover:text-gray-400"
-                                        href="https://app.uniswap.org/#/swap?"
-                                    >
-                                        Smart Contract
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div className="flex justify-end my-8">
-                    <div className="space-x-4 flex flex-row text-2xl">
-                        <a>
-                            <span>
-                                <FaFacebook />
-                            </span>
-                        </a>
-                        <a>
-                            <span>
-                                <FaTwitter />
-                            </span>
-                        </a>
-                        <a>
-                            <span>
-                                <FaInstagram />
-                            </span>
-                        </a>
-                    </div>
-                </div>
-                <Row>
-                    <Col xs={12}>
-                        <div></div>
+        <footer className="pt-16 lg:pt-32 pb-12 bg-gray-13">
+            <div className="section">
+                <Row
+                    className="border-b border-gray-300 relative pb-8"
+                    justify="center"
+                    align="top"
+                >
+                    <Col md={24} lg={10} className="mb-10 lg:mb-0">
                         <div>
-                            We are a business located in different parts of the
-                            world. Our team is working remotely
+                            <ImagotipoSVG className="w-1/6 relative lg:absolute mr-auto lg:mr-0 ml-auto lg:ml-0 lg:-top-16 lg:left-0" />
+                            <p className="text-center lg:text-left text-gray-8 text-lg mt-7">
+                                We accept Credit Card, Debit Card and
+                                Cryptocurrency payments.
+                            </p>
                         </div>
                     </Col>
-                    <Col xs={12} className="flex justify-end">
-                        <div></div>
-                        <div className="space-x-2">
-                            <a>
-                                <span>Offices</span>
+                    <Col
+                        xs={24}
+                        sm={24}
+                        md={8}
+                        lg={5}
+                        className="text-center lg:text-left py-5 md:py-0"
+                    >
+                        <div className="mb-3">
+                            <p className="text-white text-lg font-bold">
+                                Destinare
+                            </p>
+                        </div>
+                        <a href="#about">
+                            <p className="text-gray-8 text-lg mb-3">About us</p>
+                        </a>
+                        <a href="#ddot">
+                            <p className="text-gray-8 text-lg cursor-pointer mb-3">
+                                DDOT
+                            </p>
+                        </a>
+                        <a href="#roadmap">
+                            <p className="text-gray-8 text-lg mb-3">Roadmap</p>
+                        </a>
+                        <a
+                            href="https://destinare-app.s3.us-west-2.amazonaws.com/WHITEPAPER-DESTINARE.pdf"
+                            target="_blank"
+                            rel="noreferrer"
+                        >
+                            <p className="text-gray-8 text-lg mb-3">
+                                Whitepaper
+                            </p>
+                        </a>
+                    </Col>
+                    <Col
+                        xs={24}
+                        sm={24}
+                        md={8}
+                        lg={5}
+                        className="text-center lg:text-left py-5 md:py-0"
+                    >
+                        <div className="mb-3">
+                            <p className="text-white text-lg font-bold">
+                                Support
+                            </p>
+                        </div>
+                        <p className="text-gray-8 text-lg mb-3">
+                            Terms & Conditions
+                        </p>
+                        <p className="text-gray-8 text-lg mb-3">
+                            Privacy Policy
+                        </p>
+                        {/* <p className="text-gray-8 text-lg mb-3">
+                            Cookie Policy
+                        </p> */}
+                    </Col>
+                    <Col
+                        xs={24}
+                        sm={24}
+                        md={8}
+                        lg={4}
+                        className="text-center lg:text-left py-5 md:py-0"
+                    >
+                        <div className="mb-3">
+                            <p className="text-white text-lg font-bold">
+                                Community
+                            </p>
+                        </div>
+                        <div className="flex items-center justify-center lg:justify-start space-x-5">
+                            <a
+                                href="https://discord.gg/destinare"
+                                target="_blank"
+                                rel="noreferrer"
+                                className="text-3xl text-gray-8 hover:text-white"
+                            >
+                                <FaDiscord />
                             </a>
-                            <a>
-                                <span>WHITE PAPER</span>
+                            <a
+                                href="https://twitter.com/Destinare_io"
+                                target="_blank"
+                                rel="noreferrer"
+                                className="text-2xl text-gray-8 hover:text-white"
+                            >
+                                <FaTwitter />
                             </a>
-                            <a>
-                                <span>Marketing & Campaigns </span>
+                            <a
+                                href="https://www.facebook.com/Destinareio-104317588754693"
+                                target="_blank"
+                                rel="noreferrer"
+                                className="text-2xl text-gray-8 hover:text-white"
+                            >
+                                <FaFacebookF />
                             </a>
-                            <a>
-                                <span>Help Center</span>
+                            <a
+                                href="https://www.instagram.com/destinare.io/"
+                                target="_blank"
+                                rel="noreferrer"
+                                className="text-3xl text-gray-8 hover:text-white"
+                            >
+                                <FaInstagram />
                             </a>
                         </div>
+                    </Col>
+                </Row>
+                <Row className="pt-8">
+                    <Col xs={24} className="text-center relative">
+                        <a>
+                            <p className="text-gray-8 text-lg md:absolute my-5 md:my-0">
+                                Privacity & Politic
+                            </p>
+                        </a>
+                        <p className="text-gray-8 text-lg">
+                            © Copyright 2017 - {year}. Destinare.io
+                        </p>
                     </Col>
                 </Row>
             </div>
