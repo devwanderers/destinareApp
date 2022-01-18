@@ -15,7 +15,7 @@ import { GiWarPick } from 'react-icons/gi'
 import {
     HomePath,
     MarketPath,
-    // StakingView,
+    StakingView,
 } from '../../../constants/routerConstants'
 
 const { Sider } = Layout
@@ -42,7 +42,7 @@ const menuItems = [
         group: true,
         items: [
             {
-                onClick: MarketPath,
+                onClick: StakingView,
                 key: 'staking',
                 name: 'Staking with lock',
             },

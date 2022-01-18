@@ -10,13 +10,16 @@ export const setupNetwork = async () => {
                 params: [
                     {
                         chainId: `0x${chainId.toString(16)}`,
-                        chainName: 'Polygon',
+                        chainName: 'Mumbai Testnet',
+                        // chainName: 'Polygon Network',
                         nativeCurrency: {
                             name: 'MATIC',
                             symbol: 'MATIC',
                             decimals: 18,
                         },
-                        rpcUrls: ['https://polygon-rpc.com/'],
+                        // rpcUrls: ['https://polygon-rpc.com/'],
+                        // blockExplorerUrls: ['https://polygonscan.com/'],
+                        rpcUrls: ['https://rpc-mumbai.maticvigil.com'],
                         blockExplorerUrls: ['https://polygonscan.com/'],
                     },
                 ],
