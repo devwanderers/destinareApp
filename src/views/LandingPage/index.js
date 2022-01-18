@@ -172,7 +172,7 @@ const LandingPage = ({ authenticated, userData, logout }) => {
                         >
                             <Col md={18}>
                                 <p className="text-lg md:text-2xl text-black-3 pb-10">
-                                    DDTO is our native currency, developed with
+                                    DDOT is our native currency, developed with
                                     PRC-20 makes it highly diverse and easy to
                                     shift interdomain. This diversity enables
                                     compatibility with multiple wallets and

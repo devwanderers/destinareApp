@@ -18,7 +18,7 @@ const DefaultFooter = ({ history, marketPath }) => {
                             <ImagotipoSVG className="w-1/6 relative lg:absolute mr-auto lg:mr-0 ml-auto lg:ml-0 lg:-top-16 lg:left-0" />
                             <p className="text-center lg:text-left text-gray-8 text-lg mt-7">
                                 We accept Credit Card, Debit Card and
-                                Cryptocurrency payments.
+                                Cryptocurrency payments. (Q3 2022)
                             </p>
                         </div>
                     </Col>
