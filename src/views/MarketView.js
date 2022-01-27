@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Row, Col } from 'antd'
 import { useWeb3React } from '@web3-react/core'
 import CardReserve from '../components/Cards/CardReserve'
@@ -6,9 +6,10 @@ import CardDailyReserve from '../components/Cards/CardDailyReserve'
 import CardClaimingDay from './../components/Cards/CardClaimingDay'
 import CardYourContribution from './../components/Cards/CardYourContribution'
 import CardTokens from './../components/Cards/CardTokens'
-import useSCInteractions from './../hooks/useSCInteractions'
+import useSCInteractions from '../hooks/scInteractions/useSCInteractions'
+import useSCData from './../hooks/scInteractions/useSCData'
 
-const RenderCards = ({ initDate, data }) => {
+const RenderCards = ({ initDate, data, loading }) => {
     const cards = []
     for (let index = 0; index < 30; index++) {
         const date = new Date(initDate)
@@ -48,6 +49,7 @@ const RenderCards = ({ initDate, data }) => {
                             ? data.getUserInfo[index] / 1e18
                             : 0
                     }
+                    loading={loading}
                 />
             </Col>
         )
@@ -57,9 +59,35 @@ const RenderCards = ({ initDate, data }) => {
 }
 
 const MarketView = (props) => {
-    const { data, reserveToken, claimToken } = useSCInteractions()
+    const { fetchedData, data } = useSCData()
+    const { reserveToken, claimToken } = useSCInteractions()
+
+    const [reservingToken, setReservingToken] = useState(false)
+    const [claimingToken, setClaimingToken] = useState(false)
     const { account } = useWeb3React()
     const initDate = new Date()
+
+    const handleReserveToken = (amount) => {
+        setReservingToken(true)
+        reserveToken(amount, (res) => {
+            console.log({ res })
+            if (res?.message) {
+                console.log(res.message)
+            }
+            setReservingToken(false)
+        })
+    }
+
+    const handleClaimToken = () => {
+        setClaimingToken(true)
+        claimToken((res) => {
+            console.log({ res })
+            if (res?.message) {
+                console.log(res.message)
+            }
+            setClaimingToken(false)
+        })
+    }
 
     return (
         <div className="mx-5">
@@ -79,8 +107,10 @@ const MarketView = (props) => {
                         <CardDailyReserve
                             initDate={initDate}
                             data={data}
-                            reserveToken={reserveToken}
-                            account={account}
+                            reserveToken={handleReserveToken}
+                            reservingToken={reservingToken}
+                            disabledButton={!account}
+                            loading={!fetchedData}
                         />
                     </Col>
                     <Col
@@ -94,7 +124,10 @@ const MarketView = (props) => {
                         <CardClaimingDay
                             initDate={initDate}
                             data={data}
-                            claimToken={claimToken}
+                            claimToken={handleClaimToken}
+                            claimingToken={claimingToken}
+                            loading={!fetchedData}
+                            disabledButton={!account}
                         />
                     </Col>
                 </Row>
@@ -109,7 +142,11 @@ const MarketView = (props) => {
                                     Reservation Days
                                 </div>
                             </Col>
-                            <RenderCards initDate={initDate} data={data} />
+                            <RenderCards
+                                initDate={initDate}
+                                data={data}
+                                loading={!fetchedData}
+                            />
                         </Row>
                     </Col>
                     <Col xs={24} sm={24} md={24} lg={18} xl={7}>

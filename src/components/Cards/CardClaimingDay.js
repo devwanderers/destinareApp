@@ -1,7 +1,20 @@
 import React from 'react'
 import useCurrency from '../../hooks/useCurrency'
+import { Spin } from 'antd'
+import { LoadingOutlined } from '@ant-design/icons'
 
-const CardClaimingDay = ({ initDate, data, claimToken }) => {
+const antIcon = (
+    <LoadingOutlined className=" text-white" style={{ fontSize: 24 }} spin />
+)
+
+const CardClaimingDay = ({
+    initDate,
+    data,
+    claimToken,
+    claimingToken,
+    loading,
+    disabledButton,
+}) => {
     const totalUser = data.getPresaleInfo[0].reduce(
         (acc, val) => acc + parseFloat(val),
         0
@@ -14,6 +27,11 @@ const CardClaimingDay = ({ initDate, data, claimToken }) => {
     lastDate.setDate(lastDate.getDate() + 29)
     return (
         <div className="bg-gray dark:bg-gray-4 border border-gray-11 dark:border-gray-4 flex-1 flex flex-col justify-between py-6 px-8 rounded-xl relative">
+            {loading && (
+                <div className="absolute left-0 top-0 flex justify-center items-center w-full h-full bg-gray-9 bg-opacity-20 z-50">
+                    <Spin size="large" />
+                </div>
+            )}
             <div className="mb-0">
                 <div className="text-gray-10 dark:text-white flex flex-col">
                     <div className="text-3xl leading-none">
@@ -54,10 +72,21 @@ const CardClaimingDay = ({ initDate, data, claimToken }) => {
             <div className="text-center">
                 <button
                     className="disabled:opacity-50 bg-primary rounded-md py-4px px-1 text-white text-lg w-full xxxl:w-9/12"
-                    onClick={() => claimToken()}
-                    // disabled
+                    onClick={() => {
+                        if (!claimingToken) claimToken()
+                    }}
+                    disabled={disabledButton}
                 >
-                    Claim your DDOT token
+                    {claimingToken ? (
+                        <span>
+                            <span className="pr-2">
+                                <Spin indicator={antIcon} />
+                            </span>
+                            Claiming DDOT token
+                        </span>
+                    ) : (
+                        'Claim DDOT token'
+                    )}
                 </button>
             </div>
         </div>

@@ -1,9 +1,9 @@
 import React from 'react'
 import { useWeb3React } from '@web3-react/core'
 import { FaSignOutAlt } from 'react-icons/fa'
-import useSCInteractions from './../../hooks/useSCInteractions'
 import useAuth from '../../hooks/useAuth'
 import useCurrency from '../../hooks/useCurrency'
+import useSCData from './../../hooks/scInteractions/useSCData'
 
 const SupplyCard = ({ title, supply }) => {
     return (
@@ -19,7 +19,7 @@ const SupplyCard = ({ title, supply }) => {
 const ConnectWalletHeader = () => {
     const { login, logout } = useAuth()
     const { account } = useWeb3React()
-    const { data } = useSCInteractions()
+    const { data } = useSCData()
 
     const decimalsTotalSupply = Number(data.totalSupply) / 1e18
     const circulatingSupply = Number(data.circulatingSupply) / 1e18

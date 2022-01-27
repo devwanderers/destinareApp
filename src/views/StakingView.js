@@ -1,10 +1,12 @@
 import React from 'react'
 import { Row, Col } from 'antd'
 import CollapseStaking from '../components/Collapse/CollapseStaking'
-import useSCInteractions from '../hooks/useSCInteractions'
+import useSCInteractions from '../hooks/scInteractions/useSCInteractions'
+import useSCData from './../hooks/scInteractions/useSCData'
 
 const StakingView = (props) => {
-    const { data, createStake, getReward } = useSCInteractions()
+    const { data } = useSCData()
+    const { createStake, getReward } = useSCInteractions()
     return (
         <div className="mx-5">
             <div className="pb-8">

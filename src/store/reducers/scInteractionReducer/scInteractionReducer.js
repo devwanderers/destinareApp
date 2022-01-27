@@ -2,6 +2,8 @@ import { createReducer } from '@reduxjs/toolkit'
 import * as action from './actions'
 
 const initialState = {
+    fetchedData: false,
+    fetching: false,
     data: {
         circulatingSupply: 0,
         totalSupply: 0,
@@ -16,6 +18,11 @@ const scInteractionReducer = createReducer(initialState, (builder) => {
         .addCase(action.setData, (state, { payload }) => ({
             ...state,
             data: { ...state.data, ...payload },
+            fetchedData: true,
+        }))
+        .addCase(action.setFetchingData, (state, { payload }) => ({
+            ...state,
+            fetching: payload,
         }))
         .addCase(action.clearData, (state) => ({
             ...state,

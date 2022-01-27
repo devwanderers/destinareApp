@@ -1,9 +1,22 @@
 import React, { useState } from 'react'
-import { Progress, InputNumber, Space } from 'antd'
+import { Progress, InputNumber, Space, Spin } from 'antd'
+import { LoadingOutlined } from '@ant-design/icons'
 import useListenCookie from '../../hooks/useListenCookie'
 import useCurrency from '../../hooks/useCurrency'
 
-const CardDailyReserve = ({ initDate, data, reserveToken, account }) => {
+const antIcon = (
+    <LoadingOutlined className=" text-white" style={{ fontSize: 24 }} spin />
+)
+
+const CardDailyReserve = ({
+    initDate,
+    data,
+    reserveToken,
+    reservingToken,
+    account,
+    loading,
+    disabledButton,
+}) => {
     const [amount, setAmount] = useState(1)
     const [theme] = useListenCookie('theme')
     const isDarkMode = theme === 'dark'
@@ -18,6 +31,8 @@ const CardDailyReserve = ({ initDate, data, reserveToken, account }) => {
         data.getPresaleInfo[1].length > 0
             ? data.getPresaleInfo[1][day] / 1e18
             : 0
+
+    console.log({ data })
     const currentUser =
         data.getUserInfo.length > 0 ? data.getUserInfo[day] / 1e18 : 0
     const percentage =
@@ -27,6 +42,11 @@ const CardDailyReserve = ({ initDate, data, reserveToken, account }) => {
 
     return (
         <div className="bg-gray dark:bg-gray-4 border border-gray-11 dark:border-gray-4 py-6 px-8 rounded-xl relative">
+            {loading && (
+                <div className="absolute left-0 top-0 flex justify-center items-center w-full h-full bg-gray-9 bg-opacity-20 z-50">
+                    <Spin size="large" />
+                </div>
+            )}
             <div className="mb-0 lg:mb-3">
                 <div className="text-gray-10 dark:text-white flex flex-col">
                     <div className="text-3xl leading-none">
@@ -59,7 +79,7 @@ const CardDailyReserve = ({ initDate, data, reserveToken, account }) => {
                         <div className="input-amount text-center">
                             <Space>
                                 <InputNumber
-                                    min={1}
+                                    min={0}
                                     max={999}
                                     defaultValue={1}
                                     onChange={(val) => setAmount(val)}
@@ -70,7 +90,7 @@ const CardDailyReserve = ({ initDate, data, reserveToken, account }) => {
                             </Space>
                         </div>
                         <div>
-                            {!account ? (
+                            {disabledButton ? (
                                 <button
                                     className="disabled:opacity-50 bg-primary rounded-md py-4px px-1 text-white text-lg w-full"
                                     style={{
@@ -88,9 +108,21 @@ const CardDailyReserve = ({ initDate, data, reserveToken, account }) => {
                                         paddingTop: '6px',
                                         paddingBottom: '6px',
                                     }}
-                                    onClick={() => reserveToken(amount)}
+                                    onClick={() => {
+                                        if (!reservingToken)
+                                            reserveToken(amount)
+                                    }}
                                 >
-                                    Reserve DDOT token
+                                    {reservingToken ? (
+                                        <span>
+                                            <span className="pr-2">
+                                                <Spin indicator={antIcon} />
+                                            </span>
+                                            Reserving DDOT token
+                                        </span>
+                                    ) : (
+                                        'Reserve DDOT token'
+                                    )}
                                 </button>
                             )}
                         </div>

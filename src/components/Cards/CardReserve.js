@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react'
-import { Progress } from 'antd'
+import { Progress, Spin } from 'antd'
+
 import { AiOutlineCheckCircle, AiOutlineUser } from 'react-icons/ai'
 import { FaEthereum, FaChevronDown, FaChevronUp } from 'react-icons/fa'
 import { RiLock2Line } from 'react-icons/ri'
@@ -7,7 +8,14 @@ import useListenCookie from '../../hooks/useListenCookie'
 import useClickOutside from './../../hooks/useClickOutside'
 import useCurrency from '../../hooks/useCurrency'
 
-const CardReserve = ({ date, day, totalUser, totalEther, currentUser }) => {
+const CardReserve = ({
+    date,
+    day,
+    totalUser,
+    totalEther,
+    currentUser,
+    loading,
+}) => {
     const percentage = currentUser === 0 ? 0 : (currentUser / totalEther) * 100
     const [theme] = useListenCookie('theme')
     const isDarkMode = theme === 'dark'
@@ -21,11 +29,17 @@ const CardReserve = ({ date, day, totalUser, totalEther, currentUser }) => {
     const handleShowMore = () => {
         setShowMore(!showMore)
     }
+
     return (
         <div
             ref={cardRef}
             className="bg-gray dark:bg-gray-4 border border-gray-11 dark:border-gray-4 py-5 px-4 rounded-xl relative overflow-hidden dark:overflow-visible"
         >
+            {loading && (
+                <div className="absolute left-0 top-0 flex justify-center items-center w-full h-full bg-gray-9 bg-opacity-20">
+                    <Spin size="large" />
+                </div>
+            )}
             <div className="absolute top-0 right-0 pt-5 pr-4">
                 <span className="text-green-1 text-3xl">
                     <AiOutlineCheckCircle />
