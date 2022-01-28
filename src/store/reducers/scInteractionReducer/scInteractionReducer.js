@@ -2,9 +2,11 @@ import { createReducer } from '@reduxjs/toolkit'
 import * as action from './actions'
 
 const initialState = {
+    reload: false,
     fetchedData: false,
     fetching: false,
     data: {
+        startDate: null,
         circulatingSupply: 0,
         totalSupply: 0,
         getPresaleInfo: { 0: [], 1: [] },
@@ -24,15 +26,21 @@ const scInteractionReducer = createReducer(initialState, (builder) => {
             ...state,
             fetching: payload,
         }))
+        .addCase(action.setReload, (state, { payload }) => ({
+            ...state,
+            reload: payload,
+        }))
         .addCase(action.clearData, (state) => ({
             ...state,
             data: {
+                startDate: null,
                 circulatingSupply: 0,
                 totalSupply: 0,
                 getPresaleInfo: { 0: [], 1: [] },
                 getUserInfo: [],
                 contractStakes: [],
             },
+            fetchedData: false,
         }))
 })
 

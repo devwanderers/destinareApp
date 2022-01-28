@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Row, Col } from 'antd'
+import { Row, Col, Spin } from 'antd'
 import { useWeb3React } from '@web3-react/core'
 import CardReserve from '../components/Cards/CardReserve'
 import CardDailyReserve from '../components/Cards/CardDailyReserve'
@@ -8,6 +8,12 @@ import CardYourContribution from './../components/Cards/CardYourContribution'
 import CardTokens from './../components/Cards/CardTokens'
 import useSCInteractions from '../hooks/scInteractions/useSCInteractions'
 import useSCData from './../hooks/scInteractions/useSCData'
+
+import { LoadingOutlined } from '@ant-design/icons'
+
+const antIcon = (
+    <LoadingOutlined className=" text-white" style={{ fontSize: 24 }} spin />
+)
 
 const RenderCards = ({ initDate, data, loading }) => {
     const cards = []
@@ -59,14 +65,15 @@ const RenderCards = ({ initDate, data, loading }) => {
 }
 
 const MarketView = (props) => {
-    const { fetchedData, data } = useSCData()
-    const { reserveToken, claimToken } = useSCInteractions()
+    const { fetchedData, data, fetching: fetchingData } = useSCData()
+    const { reserveToken, claimToken, reloadData } = useSCInteractions()
 
     const [reservingToken, setReservingToken] = useState(false)
     const [claimingToken, setClaimingToken] = useState(false)
     const { account } = useWeb3React()
-    const initDate = new Date()
-
+    const { startDate, ...restData } = data
+    const initDate = startDate ? new Date(startDate * 1000) : new Date()
+    console.log(initDate.getDate())
     const handleReserveToken = (amount) => {
         setReservingToken(true)
         reserveToken(amount, (res) => {
@@ -102,11 +109,32 @@ const MarketView = (props) => {
                 </div>
             </div>
             <div className="pt-6 max-w-1650px mx-auto pb-8">
+                <div className="mb-4 flex justify-end">
+                    <button
+                        className=" bg-primary text-lg px-12 py-2 rounded-md text-white disabled:opacity-50"
+                        onClick={() => {
+                            console.log('Entro')
+                            reloadData(true)
+                        }}
+                        disabled={fetchingData}
+                    >
+                        {fetchingData ? (
+                            <span>
+                                <span className="pr-2">
+                                    <Spin indicator={antIcon} />
+                                </span>
+                                Refreshing
+                            </span>
+                        ) : (
+                            'Refresh'
+                        )}
+                    </button>
+                </div>
                 <Row gutter={[20, 20]} className="flex justify-center">
                     <Col xs={24} sm={24} md={24} lg={24} xl={17}>
                         <CardDailyReserve
                             initDate={initDate}
-                            data={data}
+                            data={restData}
                             reserveToken={handleReserveToken}
                             reservingToken={reservingToken}
                             disabledButton={!account}
@@ -123,7 +151,7 @@ const MarketView = (props) => {
                     >
                         <CardClaimingDay
                             initDate={initDate}
-                            data={data}
+                            data={restData}
                             claimToken={handleClaimToken}
                             claimingToken={claimingToken}
                             loading={!fetchedData}
@@ -144,14 +172,17 @@ const MarketView = (props) => {
                             </Col>
                             <RenderCards
                                 initDate={initDate}
-                                data={data}
+                                data={restData}
                                 loading={!fetchedData}
                             />
                         </Row>
                     </Col>
                     <Col xs={24} sm={24} md={24} lg={18} xl={7}>
                         <CardTokens tokens={data.userTokens} />
-                        <CardYourContribution initDate={initDate} data={data} />
+                        <CardYourContribution
+                            initDate={initDate}
+                            data={restData}
+                        />
                     </Col>
                 </Row>
             </div>

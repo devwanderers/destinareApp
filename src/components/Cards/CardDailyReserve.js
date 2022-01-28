@@ -24,7 +24,7 @@ const CardDailyReserve = ({
     const _initDate = new Date(initDate)
     const currentDate = new Date()
     const day = currentDate.getDate() - _initDate.getDate()
-
+    // day += 1
     const totalUser =
         data.getPresaleInfo[0].length > 0 ? data.getPresaleInfo[0][day] : 0
     const totalEther =
@@ -32,7 +32,6 @@ const CardDailyReserve = ({
             ? data.getPresaleInfo[1][day] / 1e18
             : 0
 
-    console.log({ data })
     const currentUser =
         data.getUserInfo.length > 0 ? data.getUserInfo[day] / 1e18 : 0
     const percentage =
@@ -41,7 +40,7 @@ const CardDailyReserve = ({
             : (Number(currentUser) / Number(totalEther)) * 100
 
     return (
-        <div className="bg-gray dark:bg-gray-4 border border-gray-11 dark:border-gray-4 py-6 px-8 rounded-xl relative">
+        <div className="bg-gray dark:bg-gray-4 border border-gray-11 dark:border-gray-4 py-6 px-8 rounded-xl relative overflow-hidden">
             {loading && (
                 <div className="absolute left-0 top-0 flex justify-center items-center w-full h-full bg-gray-9 bg-opacity-20 z-50">
                     <Spin size="large" />

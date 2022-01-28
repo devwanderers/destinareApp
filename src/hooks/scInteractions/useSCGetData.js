@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useRef, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useWeb3React } from '@web3-react/core'
 import DestinareContract from '../../abi/DestinareContract.json'
@@ -7,18 +7,32 @@ import * as scActions from '../../store/reducers/scInteractionReducer/actions'
 import useDeepCompareEffect from '../useDeepCompareEffect'
 import useActiveWeb3React from '../useActiveWeb3React'
 import useInterval from '../useInterval'
-import useEffectOnce from '../useEffectOnce'
 import useSCData from './useSCData'
+import { abortablePromise } from '../../services/promises'
+import useSCInteractions from './useSCInteractions'
 
 const useSCGetData = () => {
     const { library, account } = useActiveWeb3React()
-    const { fetchingData } = useSCData()
+    const { reloadData } = useSCInteractions()
+    const { fetching: fetchingData, reload, fetchedData } = useSCData()
+    const [currentAccount, setCurrentAccount] = useState(null)
+    const [aborting, setAbort] = useState(false)
+    const [error, setError] = useState(false)
     const dispatch = useDispatch()
+
+    const refController = useRef(new AbortController())
 
     // Acciones conectadas con dispatch
     const setData = (data) => dispatch(scActions.setData(data))
     const setFetchingData = (data) => dispatch(scActions.setFetchingData(data))
+    const clearData = () => dispatch(scActions.clearData())
     // const { library, account } = useWeb3React()
+
+    const abortCalls = useCallback(() => {
+        const controller = refController.current
+        controller.abort()
+        refController.current = new AbortController()
+    }, [])
 
     const getStakes = async (contract) => {
         const stakes = []
@@ -41,102 +55,175 @@ const useSCGetData = () => {
         return stakes
     }
 
-    const getData = useCallback(async () => {
-        if (!fetchingData && library?.eth) {
-            setFetchingData(true)
-            try {
-                const contract = new library.eth.Contract(
-                    DestinareContract,
-                    process.env.REACT_APP_DESTINARE_CONTRACT_ADDRESS
-                )
+    // console.log(fetchingData)
 
-                const circulatingSupply = await contract.methods
-                    .circulatingSupply()
-                    .call()
+    const getContractData = useCallback(
+        ({ signal }) => {
+            return abortablePromise({ signal }, async (resolve, reject) => {
+                try {
+                    const contract = new library.eth.Contract(
+                        DestinareContract,
+                        process.env.REACT_APP_DESTINARE_CONTRACT_ADDRESS
+                    )
 
-                const totalSupply = await contract.methods.totalSupply().call()
+                    const startDate = await contract.methods
+                        .startPresaleDate()
+                        .call()
 
-                const getPresaleInfo = await contract.methods
-                    .getPresaleInfo()
-                    .call()
+                    const circulatingSupply = await contract.methods
+                        .circulatingSupply()
+                        .call()
 
-                const getUserInfo = await contract.methods
-                    .getUserInfo()
-                    .call({ from: account })
+                    const totalSupply = await contract.methods
+                        .totalSupply()
+                        .call()
 
-                const contractStakes = await getStakes(contract)
+                    const getPresaleInfo = await contract.methods
+                        .getPresaleInfo()
+                        .call()
 
-                const _userStakes = await contract.methods
-                    .stakeOf(account)
-                    .call({ from: account })
-                    .then((res) => {
-                        const object = { ...res }
-                        const array = Object.keys(object).reduce(
-                            (acc, o, index) => {
-                                if (index > 2) {
-                                    return { ...acc, [o]: object[o] }
-                                }
-                                return acc
-                            },
-                            {}
-                        )
-                        const arrayObjects = array._stakeTime.reduce(
-                            (acc, item, index) => {
-                                return [
-                                    ...acc,
-                                    {
-                                        stakeTime: array._stakeTime[index],
-                                        tokensLocked:
-                                            array._tokensLocked[index],
-                                        type: array._type[index],
-                                    },
-                                ]
-                            },
-                            []
-                        )
-                        return arrayObjects
+                    const getUserInfo = await contract.methods
+                        .getUserInfo()
+                        .call({ from: account })
+
+                    const contractStakes = await getStakes(contract)
+
+                    const _userStakes = await contract.methods
+                        .stakeOf(account)
+                        .call({ from: account })
+                        .then((res) => {
+                            const object = { ...res }
+                            const array = Object.keys(object).reduce(
+                                (acc, o, index) => {
+                                    if (index > 2) {
+                                        return { ...acc, [o]: object[o] }
+                                    }
+                                    return acc
+                                },
+                                {}
+                            )
+                            const arrayObjects = array._stakeTime.reduce(
+                                (acc, item, index) => {
+                                    return [
+                                        ...acc,
+                                        {
+                                            stakeTime: array._stakeTime[index],
+                                            tokensLocked:
+                                                array._tokensLocked[index],
+                                            type: array._type[index],
+                                        },
+                                    ]
+                                },
+                                []
+                            )
+                            return arrayObjects
+                        })
+
+                    const userStakes = await getStakesReward(
+                        contract,
+                        _userStakes
+                    )
+
+                    const userTokens = await contract.methods
+                        .balanceOf(account)
+                        .call({ from: account })
+                    const isStakeholder = await contract.methods
+                        .isStakeholder(account)
+                        .call()
+
+                    const totalUserStakes = await contract.methods
+                        .totalUserStakes(account)
+                        .call()
+                    console.log('totalUserStakes', totalUserStakes)
+
+                    resolve({
+                        startDate,
+                        circulatingSupply,
+                        totalSupply,
+                        getPresaleInfo,
+                        getUserInfo,
+                        contractStakes,
+                        userStakes,
+                        userTokens,
+                        isStakeholder,
+                        totalUserStakes,
                     })
+                } catch (err) {
+                    console.log({ err })
+                    reject(err)
+                }
+            })
+        },
+        [library, account]
+    )
 
-                const userStakes = await getStakesReward(contract, _userStakes)
-
-                const userTokens = await contract.methods
-                    .balanceOf(account)
-                    .call({ from: account })
-                console.log({ userTokens })
-                const isStakeholder = await contract.methods
-                    .isStakeholder(account)
-                    .call()
-
-                const totalUserStakes = await contract.methods
-                    .totalUserStakes(account)
-                    .call()
-                console.log('totalUserStakes', totalUserStakes)
-
-                setData({
-                    circulatingSupply,
-                    totalSupply,
-                    getPresaleInfo,
-                    getUserInfo,
-                    contractStakes,
-                    userStakes,
-                    userTokens,
-                    isStakeholder,
-                    totalUserStakes,
+    const getData = useCallback(async () => {
+        if (!fetchingData && library?.eth && account) {
+            setFetchingData(true)
+            const controller = refController.current
+            try {
+                const signal = controller.signal
+                const data = await getContractData({
+                    signal,
                 })
+                setTimeout(() => {
+                    setData({
+                        ...data,
+                    })
+                    setFetchingData(false)
+                }, 600)
             } catch (err) {
-                setFetchingData(false)
-                console.log({ err })
+                setTimeout(() => {
+                    setFetchingData(false)
+                }, 600)
+                if (err?.name === 'AbortError') {
+                    setAbort(true)
+                    console.log('Promise Aborted')
+                } else {
+                    setError(true)
+                    console.log(err)
+                }
             }
         }
+    }, [library, account, fetchingData])
+
+    const resetData = useCallback(() => {
+        clearData()
     }, [library, account])
 
-    useEffectOnce(() => {
-        getData()
-    })
+    useEffect(() => {
+        if (reload) {
+            setError(false)
+            reloadData(false)
+            if (fetchingData) {
+                abortCalls()
+            } else {
+                resetData()
+                getData()
+            }
+        }
+    }, [reload])
+
+    useEffect(() => {
+        if (aborting) {
+            setAbort(false)
+        }
+    }, [aborting])
 
     useDeepCompareEffect(() => {
-        getData()
-    }, [library, account])
+        if (!account && fetchingData) {
+            resetData()
+            abortCalls()
+        } else if (!fetchedData && !fetchingData && !error) {
+            getData()
+        } else if (currentAccount !== account) {
+            setCurrentAccount(account)
+            if (currentAccount) {
+                if (fetchingData) abortCalls()
+                resetData()
+            }
+        }
+    }, [library, account, fetchedData, fetchingData])
 }
 
 export default useSCGetData

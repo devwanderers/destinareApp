@@ -9,4 +9,17 @@ const sleep = async (fn, delay = 300) => {
     return fn()
 }
 
-export { returnPromise, timeout, sleep }
+const abortablePromise = ({ signal }, callback) => {
+    if (signal?.aborted) {
+        return Promise.reject(new DOMException('Aborted', 'AbortError'))
+    }
+
+    return new Promise((resolve, reject) => {
+        callback(resolve, reject)
+        signal.addEventListener('abort', () => {
+            reject(new DOMException('Aborted', 'AbortError'))
+        })
+    })
+}
+
+export { returnPromise, timeout, sleep, abortablePromise }
