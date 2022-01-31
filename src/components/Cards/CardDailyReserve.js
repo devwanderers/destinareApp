@@ -9,7 +9,7 @@ const antIcon = (
 )
 
 const CardDailyReserve = ({
-    initDate,
+    currentDay,
     data,
     reserveToken,
     reservingToken,
@@ -21,19 +21,20 @@ const CardDailyReserve = ({
     const [theme] = useListenCookie('theme')
     const isDarkMode = theme === 'dark'
 
-    const _initDate = new Date(initDate)
-    const currentDate = new Date()
-    const day = currentDate.getDate() - _initDate.getDate()
+    // const _initDate = new Date(initDate)
+    // const currentDate = new Date()
+    // const day = currentDate.getDate() - _initDate.getDate()
     // day += 1
+    const indexDay = currentDay - 1
     const totalUser =
-        data.getPresaleInfo[0].length > 0 ? data.getPresaleInfo[0][day] : 0
+        data.getPresaleInfo[0].length > 0 ? data.getPresaleInfo[0][indexDay] : 0
     const totalEther =
         data.getPresaleInfo[1].length > 0
-            ? data.getPresaleInfo[1][day] / 1e18
+            ? data.getPresaleInfo[1][indexDay] / 1e18
             : 0
 
     const currentUser =
-        data.getUserInfo.length > 0 ? data.getUserInfo[day] / 1e18 : 0
+        data.getUserInfo.length > 0 ? data.getUserInfo[indexDay] / 1e18 : 0
     const percentage =
         Number(currentUser) === 0
             ? 0
@@ -54,7 +55,7 @@ const CardDailyReserve = ({
                     </div>
                     <div className="flex flex-row my-2">
                         <p className="text-gray-10 dark:text-white text-lg">
-                            Day {day + 1} (UTC)
+                            Day {currentDay} (UTC)
                             <span className="text-gray-5 pl-3">
                                 {' '}
                                 (date coming soon)

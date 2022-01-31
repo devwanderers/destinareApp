@@ -1,8 +1,11 @@
+import { useState } from 'react'
 import { ConfigProvider, Table } from 'antd'
 import { InboxOutlined } from '@ant-design/icons'
 import useListenCookie from '../../hooks/useListenCookie'
 import useCurrency from '../../hooks/useCurrency'
 import StakingCountDown from '../CountDowns/StakingCountDown'
+import useInterval from './../../hooks/useInterval'
+import useEffectOnce from './../../hooks/useEffectOnce'
 
 const columns = [
     {
@@ -44,12 +47,30 @@ const customizeRenderEmpty = () => (
     </div>
 )
 
-const UnStake = ({ item, getReward, disabled }) => {
+const UnStake = ({ item, getReward, lockDuration }) => {
+    const [enableUnstake, setEnableUnstake] = useState(false)
+
+    const lockDurationEnd = () => {
+        const today = new Date().toLocaleString('en-GB')
+        const ends = new Date(lockDuration).toLocaleString('en-GB')
+        setEnableUnstake(today > ends)
+    }
+
+    useEffectOnce(() => {
+        lockDurationEnd()
+    })
+
+    useInterval(
+        () => {
+            lockDurationEnd()
+        },
+        !enableUnstake ? 500 : null
+    )
     return (
         <button
             className="disabled:opacity-50 bg-primary border-solid border border-primary rounded-md py-1 px-10 text-white text-lg font-bold"
             onClick={() => getReward(item)}
-            disabled={disabled}
+            disabled={!enableUnstake}
         >
             Unstake
         </button>
@@ -64,7 +85,6 @@ const TableStaking = ({
     getReward,
 }) => {
     const [theme] = useListenCookie('theme')
-    const today = new Date().toLocaleString('en-GB')
     const data = userStakes.reduce((acc, item, i) => {
         if (Number(item.type) === stake && item.reward != null) {
             const date = new Date(item.stakeTime * 1000).toLocaleString('en-GB')
@@ -72,8 +92,7 @@ const TableStaking = ({
             const reward = (item.reward - item.tokensLocked) / 1e18
             let lockDuration = Number(item.stakeTime) + Number(lokedTime)
             lockDuration = lockDuration * 1000
-            const ends = new Date(lockDuration).toLocaleString('en-GB')
-            const finish = today > ends
+
             return [
                 ...acc,
                 {
@@ -91,7 +110,7 @@ const TableStaking = ({
                         <UnStake
                             item={i}
                             getReward={getReward}
-                            disabled={!finish}
+                            lockDuration={lockDuration}
                         />
                     ),
                 },

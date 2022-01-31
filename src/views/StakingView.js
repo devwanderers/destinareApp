@@ -3,6 +3,7 @@ import { Row, Col } from 'antd'
 import CollapseStaking from '../components/Collapse/CollapseStaking'
 import useSCInteractions from '../hooks/scInteractions/useSCInteractions'
 import useSCData from './../hooks/scInteractions/useSCData'
+import ReloadDataButton from '../components/ReloadButton/ReloadDataButton'
 
 const StakingView = (props) => {
     const { data } = useSCData()
@@ -10,7 +11,10 @@ const StakingView = (props) => {
     return (
         <div className="mx-5">
             <div className="pb-8">
-                <Row className="mt-10">
+                <div className="mb-6 mt-4 flex justify-end">
+                    <ReloadDataButton />
+                </div>
+                <Row>
                     <Col md={24}>
                         <CollapseStaking
                             items={data.contractStakes}

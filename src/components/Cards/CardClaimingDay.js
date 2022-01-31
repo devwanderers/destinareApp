@@ -8,7 +8,7 @@ const antIcon = (
 )
 
 const CardClaimingDay = ({
-    initDate,
+    // initDate,
     data,
     claimToken,
     claimingToken,
@@ -23,8 +23,8 @@ const CardClaimingDay = ({
         data.getPresaleInfo[1].reduce((acc, val) => acc + parseInt(val), 0) /
         1e18
 
-    const lastDate = new Date(initDate)
-    lastDate.setDate(lastDate.getDate() + 29)
+    // const lastDate = new Date(initDate)
+    // lastDate.setDate(lastDate.getDate() + 29)
     return (
         <div className="bg-gray dark:bg-gray-4 border border-gray-11 dark:border-gray-4 flex-1 flex flex-col justify-between py-6 px-8 rounded-xl relative">
             {loading && (

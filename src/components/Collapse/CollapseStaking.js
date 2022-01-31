@@ -16,7 +16,7 @@ const HeaderPanel = ({ info: { APR, lockedTime, totalDeposit, active } }) => {
     const duration = lockedTime * (1 / 86400)
     const deadline = Date.now() + 1000 * 60 * 60 * 24 * 2 + 1000 * 30
     return (
-        <div className="flex justify-between flex-wrap content-center items-center mr-10">
+        <div className="w-full flex justify-between flex-wrap content-center items-center mr-10">
             <div className="grid grid-cols-2 gap-1 text-gray-13 dark:text-white">
                 <ImagotipoSVG className="w-9" />
                 <span className="font-bold text-lg">DDOT</span>
@@ -96,7 +96,7 @@ const CollapseStaking = ({
                 return (
                     <Collapse
                         bordered={false}
-                        collapsible="header"
+                        // collapsible="header"
                         expandIcon={({ isActive }) => (
                             <RightOutlined
                                 className="text-gray-13 dark:text-white"
@@ -107,14 +107,7 @@ const CollapseStaking = ({
                         key={index}
                         className="mb-10 rounded-xl dark:bg-gray-4"
                     >
-                        <Panel
-                            header={
-                                <React.Fragment>
-                                    <HeaderPanel info={item} />
-                                </React.Fragment>
-                            }
-                            key={index}
-                        >
+                        <Panel header={<HeaderPanel info={item} />} key={index}>
                             <div className="text-gray-13 dark:text-white border-t dark:border-gray-1 pt-4">
                                 <div className="button-section text-right mb-4">
                                     {account ? (

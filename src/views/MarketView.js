@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Row, Col, Spin } from 'antd'
+import { Row, Col } from 'antd'
 import { useWeb3React } from '@web3-react/core'
 import CardReserve from '../components/Cards/CardReserve'
 import CardDailyReserve from '../components/Cards/CardDailyReserve'
@@ -9,20 +9,17 @@ import CardTokens from './../components/Cards/CardTokens'
 import useSCInteractions from '../hooks/scInteractions/useSCInteractions'
 import useSCData from './../hooks/scInteractions/useSCData'
 
-import { LoadingOutlined } from '@ant-design/icons'
-
-const antIcon = (
-    <LoadingOutlined className=" text-white" style={{ fontSize: 24 }} spin />
-)
+import ReloadDataButton from '../components/ReloadButton/ReloadDataButton'
+import { getDay } from './../services/dateServices'
 
 const RenderCards = ({ initDate, data, loading }) => {
     const cards = []
     for (let index = 0; index < 30; index++) {
         const date = new Date(initDate)
         date.setDate(date.getDate() + index)
-        const currentDay = new Date()
+        const day = getDay(date)
 
-        if (currentDay.getDate() === date.getDate()) {
+        if (day === 1) {
             continue
         }
         const component = (
@@ -65,15 +62,16 @@ const RenderCards = ({ initDate, data, loading }) => {
 }
 
 const MarketView = (props) => {
-    const { fetchedData, data, fetching: fetchingData } = useSCData()
-    const { reserveToken, claimToken, reloadData } = useSCInteractions()
+    const { fetchedData, data } = useSCData()
+    const { reserveToken, claimToken } = useSCInteractions()
 
     const [reservingToken, setReservingToken] = useState(false)
     const [claimingToken, setClaimingToken] = useState(false)
     const { account } = useWeb3React()
     const { startDate, ...restData } = data
     const initDate = startDate ? new Date(startDate * 1000) : new Date()
-    console.log(initDate.getDate())
+    const currentDay = getDay(initDate)
+
     const handleReserveToken = (amount) => {
         setReservingToken(true)
         reserveToken(amount, (res) => {
@@ -110,30 +108,12 @@ const MarketView = (props) => {
             </div>
             <div className="pt-6 max-w-1650px mx-auto pb-8">
                 <div className="mb-4 flex justify-end">
-                    <button
-                        className=" bg-primary text-lg px-12 py-2 rounded-md text-white disabled:opacity-50"
-                        onClick={() => {
-                            console.log('Entro')
-                            reloadData(true)
-                        }}
-                        disabled={fetchingData}
-                    >
-                        {fetchingData ? (
-                            <span>
-                                <span className="pr-2">
-                                    <Spin indicator={antIcon} />
-                                </span>
-                                Refreshing
-                            </span>
-                        ) : (
-                            'Refresh'
-                        )}
-                    </button>
+                    <ReloadDataButton />
                 </div>
                 <Row gutter={[20, 20]} className="flex justify-center">
                     <Col xs={24} sm={24} md={24} lg={24} xl={17}>
                         <CardDailyReserve
-                            initDate={initDate}
+                            currentDay={currentDay}
                             data={restData}
                             reserveToken={handleReserveToken}
                             reservingToken={reservingToken}
@@ -150,7 +130,7 @@ const MarketView = (props) => {
                         className="flex"
                     >
                         <CardClaimingDay
-                            initDate={initDate}
+                            // currentDay={currentDay}
                             data={restData}
                             claimToken={handleClaimToken}
                             claimingToken={claimingToken}
