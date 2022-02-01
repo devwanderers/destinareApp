@@ -12,6 +12,10 @@ const initialState = {
         getPresaleInfo: { 0: [], 1: [] },
         getUserInfo: [],
         contractStakes: [],
+        userTokens: '',
+        isStakeholder: false,
+        totalUserStakes: '',
+        claimedTokens: false,
     },
 }
 
@@ -39,6 +43,10 @@ const scInteractionReducer = createReducer(initialState, (builder) => {
                 getPresaleInfo: { 0: [], 1: [] },
                 getUserInfo: [],
                 contractStakes: [],
+                userTokens: '',
+                isStakeholder: false,
+                totalUserStakes: '',
+                claimedTokens: false,
             },
             fetchedData: false,
         }))

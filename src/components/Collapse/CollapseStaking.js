@@ -1,7 +1,5 @@
 import React, { useState } from 'react'
-import { useWeb3React } from '@web3-react/core'
 import { Collapse } from 'antd'
-import useAuth from '../../hooks/useAuth'
 import useAmountTo1E18 from '../../hooks/useAmountTo1E18'
 import StakingCountDown from '../CountDowns/StakingCountDown'
 import ModalStaking from '../Modals/ModalStaking'
@@ -9,6 +7,8 @@ import TableStaking from '../Tables/TableStaking'
 import useCurrency from '../../hooks/useCurrency'
 import { RightOutlined } from '@ant-design/icons'
 import { ImagotipoSVG } from '../../assets/svg/home'
+import useSCInteractions from '../../hooks/scInteractions/useSCInteractions'
+import useSCData from './../../hooks/scInteractions/useSCData'
 const { Panel } = Collapse
 
 const HeaderPanel = ({ info: { APR, lockedTime, totalDeposit, active } }) => {
@@ -16,7 +16,7 @@ const HeaderPanel = ({ info: { APR, lockedTime, totalDeposit, active } }) => {
     const duration = lockedTime * (1 / 86400)
     const deadline = Date.now() + 1000 * 60 * 60 * 24 * 2 + 1000 * 30
     return (
-        <div className="w-full flex justify-between flex-wrap content-center items-center mr-10">
+        <div className="w-full flex justify-between flex-wrap content-center contractStakes-center mr-10">
             <div className="grid grid-cols-2 gap-1 text-gray-13 dark:text-white">
                 <ImagotipoSVG className="w-9" />
                 <span className="font-bold text-lg">DDOT</span>
@@ -60,39 +60,50 @@ const HeaderPanel = ({ info: { APR, lockedTime, totalDeposit, active } }) => {
     )
 }
 
-const CollapseStaking = ({
-    items,
-    userStakes,
-    totalTokens,
-    isStakeholder,
-    totalUserStakes,
-    createStake,
-    getReward,
-}) => {
-    const { login } = useAuth()
-    const { account } = useWeb3React()
+const CollapseStaking = () => {
+    const [loadingStaking, setLoading] = useState(false)
     const [visibleModal, setVisibleModal] = useState(false)
     const [indexModal, setIndexModal] = useState(0)
+    const { data } = useSCData()
+    const { createStake } = useSCInteractions()
+
+    const {
+        contractStakes,
+        userStakes,
+        userTokens,
+        isStakeholder,
+        totalUserStakes,
+    } = data
+
     const handleShowModal = (index) => {
         setVisibleModal(!visibleModal)
         setIndexModal(index)
     }
     const deposit = (amount, stake) => {
+        setLoading(true)
         const amountToStake = useAmountTo1E18(amount)
-        createStake(amountToStake, stake)
+        createStake(amountToStake, stake, (res) => {
+            if (res?.err) {
+                console.log(res)
+            }
+            setLoading(false)
+            setVisibleModal(!visibleModal)
+        })
     }
-    if (!items) return null
+
+    if (!contractStakes) return null
     return (
         <React.Fragment>
             <ModalStaking
+                loadingStaking={loadingStaking}
                 index={indexModal}
                 title={'Stake tokens'}
                 visibleModal={visibleModal}
                 onCloseModal={handleShowModal}
                 deposit={deposit}
-                totalTokens={totalTokens}
+                userTokens={userTokens}
             />
-            {items.map((item, index) => {
+            {contractStakes.map((item, index) => {
                 return (
                     <Collapse
                         bordered={false}
@@ -110,47 +121,31 @@ const CollapseStaking = ({
                         <Panel header={<HeaderPanel info={item} />} key={index}>
                             <div className="text-gray-13 dark:text-white border-t dark:border-gray-1 pt-4">
                                 <div className="button-section text-right mb-4">
-                                    {account ? (
+                                    {totalUserStakes >= 5 ? (
+                                        <div
+                                            className="alert alert-info"
+                                            role="alert"
+                                        >
+                                            You only can have 5 stakes
+                                        </div>
+                                    ) : (
                                         <>
-                                            {totalUserStakes >= 5 ? (
-                                                <div
-                                                    className="alert alert-info"
-                                                    role="alert"
+                                            {userTokens > 0 ? (
+                                                <button
+                                                    onClick={() =>
+                                                        handleShowModal(index)
+                                                    }
+                                                    className="disabled:opacity-50 bg-primary text-white font-semibold border-none text-base px-6 py-2 rounded-md"
+                                                    disabled={!item.active}
                                                 >
-                                                    You only can have 5 stakes
-                                                </div>
+                                                    Deposit
+                                                </button>
                                             ) : (
-                                                <>
-                                                    {totalTokens > 0 ? (
-                                                        <button
-                                                            onClick={() =>
-                                                                handleShowModal(
-                                                                    index
-                                                                )
-                                                            }
-                                                            className="disabled:opacity-50 bg-primary text-white font-semibold border-none text-base px-6 py-2 rounded-md"
-                                                            disabled={
-                                                                !item.active
-                                                            }
-                                                        >
-                                                            Deposit
-                                                        </button>
-                                                    ) : (
-                                                        <p>
-                                                            You need tokens to
-                                                            continue
-                                                        </p>
-                                                    )}
-                                                </>
+                                                <p>
+                                                    You need tokens to continue
+                                                </p>
                                             )}
                                         </>
-                                    ) : (
-                                        <button
-                                            onClick={() => login()}
-                                            className="bg-primary text-white font-semibold border-none text-base px-6 py-2 rounded-md hover:ring-blue-2 hover:ring-2"
-                                        >
-                                            Connect wallet
-                                        </button>
                                     )}
                                 </div>
                                 <TableStaking
@@ -158,7 +153,6 @@ const CollapseStaking = ({
                                     lokedTime={item.lockedTime}
                                     isStakeholder={isStakeholder}
                                     userStakes={userStakes}
-                                    getReward={getReward}
                                 />
                             </div>
                         </Panel>

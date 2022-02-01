@@ -15,13 +15,13 @@ const CardClaimingDay = ({
     loading,
     disabledButton,
 }) => {
-    const totalUser = data.getPresaleInfo[0].reduce(
+    const { getPresaleInfo } = data
+    const totalUser = getPresaleInfo[0].reduce(
         (acc, val) => acc + parseFloat(val),
         0
     )
     const totalEther =
-        data.getPresaleInfo[1].reduce((acc, val) => acc + parseInt(val), 0) /
-        1e18
+        getPresaleInfo[1].reduce((acc, val) => acc + parseInt(val), 0) / 1e18
 
     // const lastDate = new Date(initDate)
     // lastDate.setDate(lastDate.getDate() + 29)

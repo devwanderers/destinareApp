@@ -10,18 +10,19 @@ import useSCInteractions from '../hooks/scInteractions/useSCInteractions'
 import useSCData from './../hooks/scInteractions/useSCData'
 
 import ReloadDataButton from '../components/ReloadButton/ReloadDataButton'
-import { getDay } from './../services/dateServices'
+import { getDifferenceInDays } from './../services/dateServices'
 
-const RenderCards = ({ initDate, data, loading }) => {
+const RenderCards = ({ currentDay, data, loading }) => {
     const cards = []
     for (let index = 0; index < 30; index++) {
-        const date = new Date(initDate)
-        date.setDate(date.getDate() + index)
-        const day = getDay(date)
+        // const date = new Date(initDate)
+        // date.setDate(date.getDate() + index)
+        // const day = getDifferenceInDays(date)
 
-        if (day === 1) {
-            continue
-        }
+        // if (day === 0) {
+        //     continue
+        // }
+        if (currentDay === index + 1) continue
         const component = (
             <Col
                 key={`cardPresale${index}`}
@@ -34,9 +35,9 @@ const RenderCards = ({ initDate, data, loading }) => {
             >
                 <CardReserve
                     day={index + 1}
-                    date={`${date.getUTCDate()}/${
-                        date.getUTCMonth() + 1
-                    }/${date.getUTCFullYear()}`}
+                    // date={`${date.getUTCDate()}/${
+                    //     date.getUTCMonth() + 1
+                    // }/${date.getUTCFullYear()}`}
                     totalUser={
                         data.getPresaleInfo[0].length > 0
                             ? data.getPresaleInfo[0][index]
@@ -61,16 +62,20 @@ const RenderCards = ({ initDate, data, loading }) => {
     return <React.Fragment>{cards}</React.Fragment>
 }
 
-const MarketView = (props) => {
+const MarketView = () => {
     const { fetchedData, data } = useSCData()
     const { reserveToken, claimToken } = useSCInteractions()
 
     const [reservingToken, setReservingToken] = useState(false)
     const [claimingToken, setClaimingToken] = useState(false)
     const { account } = useWeb3React()
-    const { startDate, ...restData } = data
+    const { startDate, claimedTokens, ...restData } = data
     const initDate = startDate ? new Date(startDate * 1000) : new Date()
-    const currentDay = getDay(initDate)
+
+    const differenceInDays = getDifferenceInDays(initDate)
+    const currentDay = differenceInDays < 30 ? differenceInDays + 1 : 30
+    const isGreaterThanLimitDay = differenceInDays > 29
+    // getDifferenceInDays(initDate) < 31 ? getDifferenceInDays(initDate) : 30
 
     const handleReserveToken = (amount) => {
         setReservingToken(true)
@@ -117,7 +122,11 @@ const MarketView = (props) => {
                             data={restData}
                             reserveToken={handleReserveToken}
                             reservingToken={reservingToken}
-                            disabledButton={!account}
+                            disabledButton={
+                                !account ||
+                                isGreaterThanLimitDay ||
+                                claimedTokens
+                            }
                             loading={!fetchedData}
                         />
                     </Col>
@@ -135,7 +144,11 @@ const MarketView = (props) => {
                             claimToken={handleClaimToken}
                             claimingToken={claimingToken}
                             loading={!fetchedData}
-                            disabledButton={!account}
+                            disabledButton={
+                                !account ||
+                                claimedTokens ||
+                                !isGreaterThanLimitDay
+                            }
                         />
                     </Col>
                 </Row>
@@ -151,7 +164,7 @@ const MarketView = (props) => {
                                 </div>
                             </Col>
                             <RenderCards
-                                initDate={initDate}
+                                currentDay={currentDay}
                                 data={restData}
                                 loading={!fetchedData}
                             />

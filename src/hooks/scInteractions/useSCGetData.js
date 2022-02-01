@@ -16,7 +16,7 @@ const useSCGetData = () => {
     const { reloadData } = useSCInteractions()
     const { fetching: fetchingData, reload, fetchedData } = useSCData()
     const [currentAccount, setCurrentAccount] = useState(null)
-    const [aborting, setAbort] = useState(false)
+    // const [aborting, setAbort] = useState(false)
     const [error, setError] = useState(false)
     const dispatch = useDispatch()
 
@@ -36,7 +36,7 @@ const useSCGetData = () => {
 
     const getStakes = async (contract) => {
         const stakes = []
-        for (let i = 0; i < 4; i++) {
+        for (let i = 0; i < 5; i++) {
             const stake = await contract.methods.stakeTypes(i).call()
             stakes.push({ ...stake })
         }
@@ -46,6 +46,7 @@ const useSCGetData = () => {
     const getStakesReward = async (contract, stakes) => {
         for (let i = 0; i < stakes.length; i++) {
             const element = stakes[i]
+
             if (Number(element.tokensLocked) > 0) {
                 element.reward = await contract.methods
                     .calculateReward(account, i.toString())
@@ -68,6 +69,10 @@ const useSCGetData = () => {
 
                     const startDate = await contract.methods
                         .startPresaleDate()
+                        .call()
+
+                    const claimedTokens = await contract.methods
+                        .claimTokens(account)
                         .call()
 
                     const circulatingSupply = await contract.methods
@@ -147,6 +152,7 @@ const useSCGetData = () => {
                         userTokens,
                         isStakeholder,
                         totalUserStakes,
+                        claimedTokens,
                     })
                 } catch (err) {
                     console.log({ err })
@@ -177,7 +183,7 @@ const useSCGetData = () => {
                     setFetchingData(false)
                 }, 600)
                 if (err?.name === 'AbortError') {
-                    setAbort(true)
+                    // setAbort(true)
                     console.log('Promise Aborted')
                 } else {
                     setError(true)
@@ -198,21 +204,21 @@ const useSCGetData = () => {
             if (fetchingData) {
                 abortCalls()
             } else {
-                resetData()
+                // resetData()
                 getData()
             }
         }
     }, [reload])
 
-    useEffect(() => {
-        if (aborting) {
-            setAbort(false)
-        }
-    }, [aborting])
+    // useEffect(() => {
+    //     if (aborting) {
+    //         setAbort(false)
+    //     }
+    // }, [aborting])
 
     useDeepCompareEffect(() => {
         if (!account && fetchingData) {
-            resetData()
+            reloadData(true)
             abortCalls()
         } else if (!fetchedData && !fetchingData && !error) {
             getData()

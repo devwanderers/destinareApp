@@ -1,13 +1,14 @@
-export const getDay = (initDate) => {
-    const _initDate = new Date(initDate)
+export const getDifferenceInDays = (initDate) => {
+    // const _initDate = new Date(initDate)
     const today = new Date()
-    // today.setDate(today.getDate() + 1)
+    // today.setDate(today.getDate() + 30)
+    // console.log({ today, initDate })
     // if (_initDate.getDate() === today.getDate()) return 1
 
-    const miliseconds = today - _initDate
-    let day = new Date(miliseconds)
-    day = day.getDate()
+    // console.log(today.getTime(), _initDate.getTime())
+    const differenceInTime = today - initDate
+    const differenceInDays = Math.floor(differenceInTime / (1000 * 3600 * 24))
 
-    if (day > 30) return 30
-    return day
+    // console.log(differenceInDays)
+    return differenceInDays
 }

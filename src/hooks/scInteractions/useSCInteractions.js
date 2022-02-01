@@ -22,7 +22,7 @@ const useSCInteractions = () => {
                     .send({ from: account, value: amount * 1e18 })
                     .then((res) => res)
                 console.log('reserveToken', tx)
-                // if (tx.status) getData()
+                if (tx.status) reloadData(true)
                 if (typeof callback === 'function') {
                     const message = 'Se reservaron tokens con exito'
                     callback(message)
@@ -49,7 +49,7 @@ const useSCInteractions = () => {
                     .claimPresaleTokens()
                     .send({ from: account })
                 console.log('claimToken', tokens)
-                // if (tokens.status) getData()
+                if (tokens.status) reloadData(true)
                 if (typeof callback === 'function') {
                     const message = 'Se reservaron tokens con exito'
                     callback(message)
@@ -66,7 +66,7 @@ const useSCInteractions = () => {
     )
 
     const createStake = useCallback(
-        async (stake, type) => {
+        async (stake, type, callback) => {
             try {
                 const contract = new library.eth.Contract(
                     DestinareContract,
@@ -76,8 +76,11 @@ const useSCInteractions = () => {
                     .createStake(stake, type)
                     .send({ from: account })
                 console.log('createStake', created)
-                // if (created.status) getData()
+                if (created.status) reloadData(true)
+                if (typeof callback === 'function') callback()
             } catch (err) {
+                const res = { err }
+                if (typeof callback === 'function') callback(res)
                 console.log({ err })
             }
         },
@@ -85,7 +88,7 @@ const useSCInteractions = () => {
     )
 
     const getReward = useCallback(
-        async (stake) => {
+        async (stake, callback) => {
             try {
                 const contract = new library.eth.Contract(
                     DestinareContract,
@@ -96,8 +99,11 @@ const useSCInteractions = () => {
                     .withdrawReward(stake)
                     .send({ from: account })
                 console.log('getReward', withdrawal)
-                // if (withdrawal.status) getData()
+                if (withdrawal.status) reloadData(true)
+                if (typeof callback === 'function') callback()
             } catch (err) {
+                const res = { err }
+                if (typeof callback === 'function') callback(res)
                 console.log({ err })
             }
         },

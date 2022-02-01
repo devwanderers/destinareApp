@@ -6,6 +6,8 @@ import useCurrency from '../../hooks/useCurrency'
 import StakingCountDown from '../CountDowns/StakingCountDown'
 import useInterval from './../../hooks/useInterval'
 import useEffectOnce from './../../hooks/useEffectOnce'
+import useSCInteractions from '../../hooks/scInteractions/useSCInteractions'
+import ButtonSpin from '../Buttons/ButtonSpin'
 
 const columns = [
     {
@@ -47,7 +49,9 @@ const customizeRenderEmpty = () => (
     </div>
 )
 
-const UnStake = ({ item, getReward, lockDuration }) => {
+const UnStake = ({ item, lockDuration }) => {
+    const { getReward } = useSCInteractions()
+    const [loading, setLoading] = useState(false)
     const [enableUnstake, setEnableUnstake] = useState(false)
 
     const lockDurationEnd = () => {
@@ -66,14 +70,26 @@ const UnStake = ({ item, getReward, lockDuration }) => {
         },
         !enableUnstake ? 500 : null
     )
+
+    const handleUnstake = () => {
+        setLoading(true)
+        getReward(item, (res) => {
+            if (res?.err) {
+                console.log(res)
+            }
+            setLoading(false)
+        })
+    }
+
     return (
-        <button
+        <ButtonSpin
+            onClick={handleUnstake}
             className="disabled:opacity-50 bg-primary border-solid border border-primary rounded-md py-1 px-10 text-white text-lg font-bold"
-            onClick={() => getReward(item)}
-            disabled={!enableUnstake}
+            disabled={!enableUnstake || loading}
+            loading={loading}
         >
             Unstake
-        </button>
+        </ButtonSpin>
     )
 }
 

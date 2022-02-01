@@ -21,20 +21,21 @@ const CardDailyReserve = ({
     const [theme] = useListenCookie('theme')
     const isDarkMode = theme === 'dark'
 
+    const { getPresaleInfo, getUserInfo } = data
+
     // const _initDate = new Date(initDate)
     // const currentDate = new Date()
     // const day = currentDate.getDate() - _initDate.getDate()
     // day += 1
     const indexDay = currentDay - 1
     const totalUser =
-        data.getPresaleInfo[0].length > 0 ? data.getPresaleInfo[0][indexDay] : 0
+        getPresaleInfo[0].length > 0 ? getPresaleInfo[0][indexDay] : 0
     const totalEther =
-        data.getPresaleInfo[1].length > 0
-            ? data.getPresaleInfo[1][indexDay] / 1e18
-            : 0
+        getPresaleInfo[1].length > 0 ? getPresaleInfo[1][indexDay] / 1e18 : 0
 
     const currentUser =
-        data.getUserInfo.length > 0 ? data.getUserInfo[indexDay] / 1e18 : 0
+        getUserInfo.length > 0 ? getUserInfo[indexDay] / 1e18 : 0
+
     const percentage =
         Number(currentUser) === 0
             ? 0
@@ -83,6 +84,7 @@ const CardDailyReserve = ({
                                     max={999}
                                     defaultValue={1}
                                     onChange={(val) => setAmount(val)}
+                                    disabled={disabledButton}
                                 />
                                 <span className="text-gray-10 dark:text-white text-2xl">
                                     ETH

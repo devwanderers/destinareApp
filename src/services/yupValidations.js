@@ -124,6 +124,37 @@ export const validations = {
         ),
     number: Yup.number().required('Required'),
     array: Yup.array().required('Required'),
+    staking: (totalTokens) => {
+        return Yup.mixed()
+            .required('Required')
+            .test('onlyNumber', 'Field must be a number', (value) => {
+                if (value) {
+                    const _v = value
+                    const isnum = /^\d+$/.test(_v)
+
+                    return isnum
+                }
+                return false
+            })
+            .test('minStake', 'Minimum to stake is 1', (value) => {
+                if (value) {
+                    let _v = value
+                    _v = _v.replace(/\D/g, '')
+                    _v = parseFloat(_v)
+                    return _v >= 1.0
+                }
+                return false
+            })
+            .test('maxStake', 'Insufficient Balance', (value) => {
+                if (value) {
+                    let _v = value
+                    _v = _v.replace(/\D/g, '')
+                    _v = parseFloat(_v)
+                    return _v <= parseFloat(totalTokens)
+                }
+                return false
+            })
+    },
     validateIsNotCurrentUser: (currentUser, currentMembers) => {
         return Yup.mixed()
             .required('Required')
