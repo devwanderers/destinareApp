@@ -1,24 +1,69 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react'
 import { PropTypes } from 'prop-types'
 import { Layout, Drawer } from 'antd'
 import { GiHamburgerMenu } from 'react-icons/gi'
 import { IoMdClose } from 'react-icons/io'
-import MenuNavbarDashboard from '../Navbar/MenuNavbarDashboard'
 import SiderMarket from './Siders/SiderMarket'
 import ConnectWalletHeader from './../Headers/ConnectWalletHeader'
 import useWindowSize from '../../hooks/useWindowSize'
 import useListenCookie from '../../hooks/useListenCookie'
+import {
+    HomePath,
+    MarketPath,
+    StakingView,
+} from '../../constants/routerConstants'
+import DefaultMenus from './DefaultMenus'
+import GenericNavbarMobile from './../Navbar/GenericNavbarMobile'
+import {
+    IconDashboard,
+    IconReservation,
+    IconEarn,
+} from '../../assets/svg/icons'
+
+const menuItems = [
+    {
+        icon: IconDashboard,
+        key: 'home',
+        name: 'Home',
+        onClick: HomePath,
+        group: false,
+    },
+    {
+        icon: IconReservation,
+        key: 'dashboard',
+        name: 'Dashboard',
+        onClick: MarketPath,
+        group: false,
+    },
+    {
+        icon: IconEarn,
+        key: 'earn',
+        name: 'Earn',
+        group: true,
+        items: [
+            {
+                icon: IconEarn,
+                onClick: StakingView,
+                key: 'staking',
+                name: 'Staking with lock',
+            },
+        ],
+    },
+]
 
 const { Content } = Layout
 const MarketLayout = ({ children, menuKey, ...rest }) => {
-    const year = new Date().getFullYear()
-    const [collapsed, setCollapsed] = useState(false)
-    const [showDrawer, setShowDrawer] = useState(false)
-    const handleOnCollapse = () => setCollapsed(!collapsed)
-    const handleShowDrawer = () => setShowDrawer(!showDrawer)
     const { width } = useWindowSize()
     const [theme] = useListenCookie('theme')
     const isDarkMode = theme === 'dark'
+    const [collapsed, setCollapsed] = useState(false)
+    const [showDrawer, setShowDrawer] = useState(false)
+
+    const handleOnCollapse = () => setCollapsed(!collapsed)
+    const handleShowDrawer = () => setShowDrawer(!showDrawer)
+
+    const year = new Date().getFullYear()
     const drawerStyle = isDarkMode
         ? {
               backgroundColor: '#24262d',
@@ -31,41 +76,52 @@ const MarketLayout = ({ children, menuKey, ...rest }) => {
 
     return (
         <Layout className="overflow-x-hidden relative flex flex-row md:flex-col min-h-screen dark:bg-blue-1 bg-light-2">
-            {width > 768 ? (
+            {width > 768 && (
                 <SiderMarket
                     menuKey={menuKey}
                     collapsed={collapsed}
                     onCollapse={handleOnCollapse}
+                    menus={menuItems}
+                    isDarkMode={isDarkMode}
                 />
-            ) : (
-                <Drawer
-                    placement="left"
-                    closable={true}
-                    onClose={handleShowDrawer}
-                    visible={showDrawer}
-                    bodyStyle={drawerStyle}
-                    closeIcon={
-                        <IoMdClose className="dark:text-white text-3xl" />
-                    }
-                    maskClosable
-                    className="p-0"
-                >
-                    <React.Fragment>
-                        <MenuNavbarDashboard menuKey={menuKey} />
-                    </React.Fragment>
-                </Drawer>
             )}
-            {width <= 768 && (
+            {/* {width <= 768 && (
                 <div
                     onClick={handleShowDrawer}
                     className="flex absolute text-gray-13 dark:text-white left-5 top-5 text-3xl h-full px-4 cursor-pointer transform active:scale-125"
                 >
                     <GiHamburgerMenu height="100%" />
                 </div>
-            )}
+            )} */}
             <Layout className="h-screen overflow-y-auto dark:bg-blue-1 bg-light-2">
+                {width < 769 && (
+                    <GenericNavbarMobile
+                        {...rest}
+                        showDrawer={showDrawer}
+                        onClickBurguer={handleShowDrawer}
+                        drawerStyle={drawerStyle}
+                        burgerColor={isDarkMode ? 'white' : undefined}
+                        contentDrawer={
+                            <React.Fragment>
+                                <DefaultMenus
+                                    menuKey={menuKey}
+                                    menus={menuItems}
+                                    theme={theme}
+                                />
+                            </React.Fragment>
+                        }
+                        hideLogo={true}
+                    />
+                )}
                 <Content className="flex flex-col flex-1 flex-shrink flex-grow">
-                    <ConnectWalletHeader />
+                    <div className="mx-5">
+                        <div className="max-w-1650px mx-auto flex flex-col-reverse lg:flex-row dark:bg-blue-1 bg-light-2 border-b border-gray-11 dark:border-gray-1 select-none mt-6 pb-6">
+                            <div className="flex items-end justify-center text-2xl mt-5 lg:mt-0 lg:justify-start lg:text-3xl text-black-2 dark:text-white font-medium">
+                                Welcome to Destinare
+                            </div>
+                            <ConnectWalletHeader />
+                        </div>
+                    </div>
                     {children}
                     <div className="text-right text-gray-13 dark:text-white py-2 px-4">
                         <span>© Copyright 2017 - {year}. Destinare.io</span>

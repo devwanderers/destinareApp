@@ -1,6 +1,6 @@
 import React from 'react'
 import { BsFillSunFill, BsMoonFill } from 'react-icons/bs'
-import useDarkMode from './../hooks/useDarkMode'
+import useDarkMode from '../hooks/DarkMode/useDarkMode'
 // import useDeepCompareEffect from './../hooks/useDeepCompareEffect'
 
 export const DarkModeSwitch = () => {

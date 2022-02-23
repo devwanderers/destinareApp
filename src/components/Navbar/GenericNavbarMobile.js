@@ -1,74 +1,68 @@
 import React from 'react'
-import { Layout, Drawer } from 'antd'
+import { Drawer } from 'antd'
 import { DestinareLogoColorSVG } from '../../assets/svg/brand/index'
 import { GiHamburgerMenu } from 'react-icons/gi'
 import { useHistory } from 'react-router'
 import { HomePath } from '../../constants/routerConstants'
-
-const { Header } = Layout
+import { AiOutlineClose } from 'react-icons/ai'
 
 const GenericNavbarMobile = ({
-    burgerColor = '#333',
     className = '',
     contentDrawer,
     showDrawer,
     onClickBurguer,
     hideLogo,
-}) => {
-    const drawerStyle = {
+    drawerStyle = {
         backgroundColor: '#fafafa',
         padding: '0px',
-    }
+    },
+}) => {
     const history = useHistory()
     return (
         <React.Fragment>
             <Drawer
                 placement="left"
-                closable={true}
+                closable={false}
                 onClose={onClickBurguer}
                 visible={showDrawer}
                 key="left"
                 bodyStyle={drawerStyle}
             >
-                {contentDrawer}
+                <div className="px-6 py-4">
+                    <button
+                        className="text-xl text-black-2 dark:text-white"
+                        onClick={onClickBurguer}
+                    >
+                        <AiOutlineClose />
+                    </button>
+                </div>
+                <div className="mt-4">{contentDrawer}</div>
             </Drawer>
-            <Header
-                className={`h-12 md:h-20 z-10 px-2 lg:px-0 py-2 m-0 ${className}`}
+            <header
+                className={`h-12 md:h-20 z-10 px-2 lg:px-0 py-2 m-0  w-full ${className}`}
             >
                 <div className="section relative flex justify-center px-2 md:px-8 h-full">
                     <a className="h-full absolute left-0 top-0 bottom-0">
                         <div
                             onClick={onClickBurguer}
-                            className="flex items-center justify-center text-2xl h-full px-4 cursor-pointer transform active:scale-125 "
-                            style={{ color: burgerColor }}
+                            className="flex items-center justify-center text-2xl h-full px-4 cursor-pointer transform active:scale-125 text-black-2 dark:text-white"
                         >
                             <GiHamburgerMenu height="100%" />
                         </div>
                     </a>
 
-                    <a
-                        className="h-full w-full md:w-48"
-                        onClick={() => history.push(HomePath)}
-                    >
-                        <div className="flex justify-center h-full cursor-pointer text-gray-9">
-                            <DestinareLogoColorSVG />
-                        </div>
-                    </a>
-                    {/* {!hideLogo && (
+                    {!hideLogo && (
                         <a
-                            className="h-full w-48"
+                            className="h-full w-full md:w-48"
                             onClick={() => history.push(HomePath)}
                         >
-                            <div
-                                // onClick={onClickBurguer}
-                                className="flex h-full cursor-pointer text-gray-9"
-                            >
-                                <LogoSVG />
+                            <div className="flex justify-center h-full cursor-pointer text-gray-9">
+                                <DestinareLogoColorSVG />
                             </div>
                         </a>
-                    )} */}
+                    )}
                 </div>
-            </Header>
+            </header>
         </React.Fragment>
     )
 }

@@ -9,21 +9,12 @@ import useWindowSize from './../../hooks/useWindowSize'
 import GenericNavbarMobile from './GenericNavbarMobile'
 import MenuNavbar from './MenuNavbar'
 
-const DefaultNavbar = ({ authenticated, userData, logout, ...rest }) => {
+const DefaultNavbar = ({ authenticated, logout, ...rest }) => {
     const [showDrawer, setShowDrawer] = useState(false)
     const history = useHistory()
     const { width } = useWindowSize()
     const handleShowDrawer = () => setShowDrawer(!showDrawer)
 
-    let avatarTitle = userData?.firstName
-        ? `${userData.firstName
-              .substring(0, 1)
-              .toUpperCase()}${userData.lastName.substring(0, 1).toUpperCase()}`
-        : ''
-    let name = `${userData.firstName} ${userData.lastName}`
-
-    if (name.length > 26) name = `${name.substring(0, 25)}...`
-    if (avatarTitle === '') avatarTitle = 'U'
     const menu = (
         <MenuNavbar
             isMobile={width <= 768}
@@ -160,7 +151,7 @@ const DefaultNavbar = ({ authenticated, userData, logout, ...rest }) => {
                     {menu}
                 </React.Fragment>
             }
-            hideLogo={true}
+            // hideLogo={true}
         />
     )
 }

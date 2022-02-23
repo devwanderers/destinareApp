@@ -1,18 +1,17 @@
 import React, { useState } from 'react'
-import { Row, Col } from 'antd'
 import { useWeb3React } from '@web3-react/core'
 import CardReserve from '../components/Cards/CardReserve'
 import CardDailyReserve from '../components/Cards/CardDailyReserve'
 import CardClaimingDay from './../components/Cards/CardClaimingDay'
-import CardYourContribution from './../components/Cards/CardYourContribution'
-import CardTokens from './../components/Cards/CardTokens'
+// import CardYourContribution from './../components/Cards/CardYourContribution'
+// import CardTokens from './../components/Cards/CardTokens'
 import useSCInteractions from '../hooks/scInteractions/useSCInteractions'
 import useSCData from './../hooks/scInteractions/useSCData'
 
 import ReloadDataButton from '../components/ReloadButton/ReloadDataButton'
 import { getDifferenceInDays } from './../services/dateServices'
 
-const RenderCards = ({ currentDay, data, loading }) => {
+const RenderCards = ({ currentDay, data, loading, initDate }) => {
     const cards = []
     for (let index = 0; index < 30; index++) {
         // const date = new Date(initDate)
@@ -23,21 +22,21 @@ const RenderCards = ({ currentDay, data, loading }) => {
         //     continue
         // }
         if (currentDay === index + 1) continue
+
+        let date = new Date(initDate)
+        date.setDate(date.getDate() + index)
+
+        date = date.toLocaleString('en-GB', {
+            year: 'numeric',
+            month: 'numeric',
+            day: 'numeric',
+        })
+
         const component = (
-            <Col
-                key={`cardPresale${index}`}
-                xs={24}
-                sm={24}
-                md={24}
-                lg={12}
-                xl={12}
-                className="mb-4"
-            >
+            <div key={`cardPresale${index}`} className="mb-4">
                 <CardReserve
                     day={index + 1}
-                    // date={`${date.getUTCDate()}/${
-                    //     date.getUTCMonth() + 1
-                    // }/${date.getUTCFullYear()}`}
+                    date={date}
                     totalUser={
                         data.getPresaleInfo[0].length > 0
                             ? data.getPresaleInfo[0][index]
@@ -55,11 +54,15 @@ const RenderCards = ({ currentDay, data, loading }) => {
                     }
                     loading={loading}
                 />
-            </Col>
+            </div>
         )
         cards.push(component)
     }
-    return <React.Fragment>{cards}</React.Fragment>
+    return (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {cards}
+        </div>
+    )
 }
 
 const MarketView = () => {
@@ -101,7 +104,7 @@ const MarketView = () => {
 
     return (
         <div className="mx-5">
-            <div className="border-b border-gray-11 dark:border-gray-1 pb-8">
+            {/* <div className="border-b border-gray-11 dark:border-gray-1 pb-8">
                 <div className="pt-6 max-w-1650px mx-auto">
                     <div className="text-gray-5 font-semibold text-center relative dark:bg-blue-1 bg-light-2 mb-5">
                         <div className="text-2xl">Reservations</div>
@@ -110,13 +113,11 @@ const MarketView = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
             <div className="pt-6 max-w-1650px mx-auto pb-8">
-                <div className="mb-4 flex justify-end">
-                    <ReloadDataButton />
-                </div>
-                <Row gutter={[20, 20]} className="flex justify-center">
-                    <Col xs={24} sm={24} md={24} lg={24} xl={17}>
+                <div className="mb-4 flex justify-end"></div>
+                <div className="grid grid-cols-1 lg:grid-cols-10 gap-4">
+                    <div className="lg:col-span-7">
                         <CardDailyReserve
                             currentDay={currentDay}
                             data={restData}
@@ -129,17 +130,10 @@ const MarketView = () => {
                             }
                             loading={!fetchedData}
                         />
-                    </Col>
-                    <Col
-                        xs={24}
-                        sm={24}
-                        md={24}
-                        lg={18}
-                        xl={7}
-                        className="flex"
-                    >
+                    </div>
+                    <div className="lg:col-span-3 flex">
                         <CardClaimingDay
-                            // currentDay={currentDay}
+                            initDate={initDate}
                             data={restData}
                             claimToken={handleClaimToken}
                             claimingToken={claimingToken}
@@ -150,34 +144,22 @@ const MarketView = () => {
                                 !isGreaterThanLimitDay
                             }
                         />
-                    </Col>
-                </Row>
-                <Row
-                    gutter={[20, 20]}
-                    className="mt-5 flex justify-center flex-wrap-reverse xl:flex-nowrap"
-                >
-                    <Col xs={24} sm={24} md={24} lg={24} xl={17}>
-                        <Row gutter={16}>
-                            <Col sm={24} className="mb-4">
-                                <div className="text-2xl text-gray-10 dark:text-white font-semibold">
-                                    Reservation Days
-                                </div>
-                            </Col>
-                            <RenderCards
-                                currentDay={currentDay}
-                                data={restData}
-                                loading={!fetchedData}
-                            />
-                        </Row>
-                    </Col>
-                    <Col xs={24} sm={24} md={24} lg={18} xl={7}>
-                        <CardTokens tokens={data.userTokens} />
-                        <CardYourContribution
-                            initDate={initDate}
-                            data={restData}
-                        />
-                    </Col>
-                </Row>
+                    </div>
+                </div>
+                <div className="mt-5">
+                    <div className="flex flex-row justify-between mb-4">
+                        <div className="text-2xl text-gray-10 dark:text-white font-semibold ">
+                            Reservation Days
+                        </div>
+                        <ReloadDataButton />
+                    </div>
+                    <RenderCards
+                        currentDay={currentDay}
+                        data={restData}
+                        loading={!fetchedData}
+                        initDate={initDate}
+                    />
+                </div>
             </div>
         </div>
     )

@@ -70,6 +70,7 @@ module.exports = {
             yellow: { ...colors.yellow },
             gray: {
                 ...colors.trueGray,
+                0: '#fbfdff',
                 1: '#4B4E5D',
                 2: '#292929',
                 3: '#1C1C1C',
@@ -83,15 +84,17 @@ module.exports = {
                 11: '#e5e5e5',
                 12: '#fafafa',
                 13: '#4B4B4A',
+                14: '#4d4d4d',
             },
             white: '#ffffff',
             light: {
                 1: '#fafafa',
                 2: '#f7f7f7',
                 3: '#EDEDED',
+                4: '#ebebeb',
             },
             // primary: '#527aee',
-            primary: '#0091C2',
+            primary: '#367bf1',
             danger: '#B82D4D',
             info: '#00B5EB',
             transparent: 'transparent',
@@ -165,8 +168,7 @@ module.exports = {
             backgroundImage: {
                 travellerbg:
                     "url('/src/assets/images/backgrounds/traveller-with-backpack-2021-08-26-15-29-39-utc.jpg')",
-                sunset:
-                    "url('/src/assets/images/backgrounds/sunset-2021-08-27-21-13-52-utc.jpg')",
+                sunset: "url('/src/assets/images/backgrounds/sunset-2021-08-27-21-13-52-utc.jpg')",
                 sunset2:
                     "url('/src/assets/images/backgrounds/sunset-2021-08-31-11-19-12-utc.jpg')",
                 sunset3:

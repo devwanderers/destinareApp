@@ -1,58 +1,17 @@
 import React from 'react'
-import { useHistory } from 'react-router'
-import { Layout, Menu } from 'antd'
-import useDarkMode from '../../../hooks/useDarkMode'
+import { Layout } from 'antd'
+// import useDarkMode from '../../../hooks/useDarkMode'
 import DarkModeSwitch from '../../DarkModeSwitch'
-import {
-    DestinareLogoColorLightSVG,
-    DestinareLogoColorDarkSVG,
-    DestinareLogoIconSVG,
-} from '../../../assets/svg/brand/index'
-import { FaHome } from 'react-icons/fa'
+import { IconBrand } from '../../../assets/svg/icons'
 import { IoIosArrowForward, IoIosArrowBack } from 'react-icons/io'
-import { MdDashboard } from 'react-icons/md'
-import { GiWarPick } from 'react-icons/gi'
-import {
-    HomePath,
-    MarketPath,
-    StakingView,
-} from '../../../constants/routerConstants'
+import LogoDestinare from './../../../assets/svg/brand/LogoDestinare'
+import DefaultMenus from '../DefaultMenus'
 
 const { Sider } = Layout
-const { SubMenu } = Menu
-const menuItems = [
-    {
-        icon: FaHome,
-        key: 'home',
-        name: 'Home',
-        onClick: HomePath,
-        group: false,
-    },
-    {
-        icon: MdDashboard,
-        key: 'dashboard',
-        name: 'Dashboard',
-        onClick: MarketPath,
-        group: false,
-    },
-    {
-        icon: GiWarPick,
-        key: 'earn',
-        name: 'Earn',
-        group: true,
-        items: [
-            {
-                onClick: StakingView,
-                key: 'staking',
-                name: 'Staking with lock',
-            },
-        ],
-    },
-]
 
-const SiderMarket = ({ collapsed, onCollapse, menuKey }) => {
-    const [theme, switchDarkMode] = useDarkMode()
-    const history = useHistory()
+const SiderMarket = ({ collapsed, onCollapse, menuKey, menus, isDarkMode }) => {
+    // const [theme, switchDarkMode] = useDarkMode()
+
     return (
         <Sider
             collapsible
@@ -63,74 +22,32 @@ const SiderMarket = ({ collapsed, onCollapse, menuKey }) => {
         >
             {collapsed ? (
                 <div className="px-5 mt-4">
-                    <DestinareLogoIconSVG
-                        style={{ width: '40px', margin: 'auto' }}
+                    <IconBrand
+                        size="40px"
+                        color={isDarkMode ? 'white' : undefined}
                     />
                 </div>
             ) : (
-                <div className="px-5 mt-4">
-                    {theme === 'dark' ? (
-                        <DestinareLogoColorLightSVG />
-                    ) : (
-                        <DestinareLogoColorDarkSVG />
-                    )}
+                <div className=" mt-4 overflow-hidden">
+                    <div className="px-5" style={{ width: '200px' }}>
+                        <LogoDestinare
+                            width="100%"
+                            iconColor={isDarkMode ? 'white' : undefined}
+                            textColor={isDarkMode ? 'white' : undefined}
+                        />
+                    </div>
                 </div>
             )}
 
-            <Menu
-                theme={theme}
-                defaultSelectedKeys={[menuKey]}
-                selectedKeys={[menuKey]}
-                mode="inline"
-                className="border-r-0 mt-10"
-            >
-                {menuItems.map((menu) => {
-                    return menu.group ? (
-                        <SubMenu
-                            key={`menu-item-${menu.key}`}
-                            icon={
-                                <menu.icon
-                                    size={23}
-                                    style={{ marginRight: '10px' }}
-                                />
-                            }
-                            title={menu.name}
-                        >
-                            {menu.items.map((menu) => {
-                                return (
-                                    <Menu.Item
-                                        key={`menu-item-${menu.key}`}
-                                        onClick={() =>
-                                            history.push(menu.onClick)
-                                        }
-                                    >
-                                        <div className="flex flex-row items-center">
-                                            {menu.name}
-                                        </div>
-                                    </Menu.Item>
-                                )
-                            })}
-                        </SubMenu>
-                    ) : (
-                        <Menu.Item
-                            icon={
-                                <menu.icon
-                                    size={23}
-                                    style={{ marginRight: '10px' }}
-                                />
-                            }
-                            key={`menu-item-${menu.key}`}
-                            onClick={() => history.push(menu.onClick)}
-                        >
-                            <div className="flex flex-row items-center">
-                                {menu.name}
-                            </div>
-                        </Menu.Item>
-                    )
-                })}
-            </Menu>
+            <div className="mt-10">
+                <DefaultMenus
+                    menus={menus}
+                    menuKey={menuKey}
+                    isDarkMode={isDarkMode}
+                />
+            </div>
             <div
-                onClick={switchDarkMode}
+                // onClick={switchDarkMode}
                 className="absolute left-0 right-0 mb-4 flex justify-center"
                 style={{ bottom: '48px' }}
             >

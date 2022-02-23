@@ -1,12 +1,12 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef } from 'react'
 import { Progress, Spin } from 'antd'
 
-import { AiOutlineCheckCircle, AiOutlineUser } from 'react-icons/ai'
-import { FaEthereum, FaChevronDown, FaChevronUp } from 'react-icons/fa'
+import { AiOutlineUser } from 'react-icons/ai'
+import { FaEthereum } from 'react-icons/fa'
 import { RiLock2Line } from 'react-icons/ri'
 import useListenCookie from '../../hooks/useListenCookie'
-import useClickOutside from './../../hooks/useClickOutside'
 import useCurrency from '../../hooks/useCurrency'
+import IconCheck from './../../assets/svg/icons/IconCheck'
 
 const CardReserve = ({
     date,
@@ -20,62 +20,54 @@ const CardReserve = ({
     const [theme] = useListenCookie('theme')
     const isDarkMode = theme === 'dark'
     const cardRef = useRef(null)
-    const [showMore, setShowMore] = useState(false)
-
-    useClickOutside(cardRef, () => {
-        setShowMore(false)
-    })
-
-    const handleShowMore = () => {
-        setShowMore(!showMore)
-    }
 
     return (
         <div
             ref={cardRef}
-            className="bg-gray dark:bg-gray-4 border border-gray-11 dark:border-gray-4 py-5 px-4 rounded-xl relative overflow-hidden dark:overflow-visible"
+            className="bg-white dark:bg-gray-4 border border-light-4 dark:border-gray-4 py-5 px-4 rounded-xl relative overflow-hidden dark:overflow-visible"
         >
             {loading && (
                 <div className="absolute left-0 top-0 flex justify-center items-center w-full h-full bg-gray-9 bg-opacity-20">
                     <Spin size="large" />
                 </div>
             )}
-            <div className="absolute top-0 right-0 pt-5 pr-4">
-                <span className="text-green-1 text-3xl">
-                    <AiOutlineCheckCircle />
-                </span>
-            </div>
-            <div className="border-b border-gray-7 text-gray-10 dark:text-white flex flex-col pb-3 mt-10 xs:mt-0">
-                <div className="text-3xl leading-none">
-                    <div></div>
-                    <span>
-                        <strong>833,333</strong>
+            <div className="flex flex-row justify-between">
+                <div className="flex flex-row">
+                    <span className="mr-4">
+                        <IconCheck size={30} />
                     </span>
-                    <span className="text-primary">&nbsp;DDOT</span>
-                </div>
-
-                <div className="flex flex-row my-2">
-                    <p className="text-gray-10 dark:text-white text-lg">
-                        Day {day} (UTC)
-                        <span className="text-gray-5 pl-3">
-                            (date coming soon)
-                            {/* {date} */}
+                    <div>
+                        <span className="font-medium text-2xl leading-none text-primary dark:text-white">
+                            Day {day}{' '}
+                            <span className="text-gray-14 text-xl">(UTC)</span>
                         </span>
-                    </p>
+
+                        <div className="text-gray-5 mt-1 dark:text-white text-lg leading-none font-medium">
+                            {date}
+                        </div>
+                    </div>
+                </div>
+                <div className="text-right">
+                    <div className="font-bold text-black-2 text-lg leading-5">
+                        833,333
+                    </div>
+                    <div className="text-base font-normal text-black-2">
+                        Destinare Token
+                    </div>
                 </div>
             </div>
-            <div className="border-b border-gray-7 flex flex-row justify-between py-3 text-lg text-gray-5">
+            <div className="border-b border-t border-gray-7 flex flex-row justify-between mt-6 py-2 text-lg text-gray-5">
                 <div className="flex flex-row">
                     <div className="relative pl-2 pr-4" style={{ top: '2px' }}>
                         <AiOutlineUser />
                     </div>
-                    Contributions
+                    Total user
                 </div>
                 <div className="font-medium text-gray-10 dark:text-white">
                     {totalUser}
                 </div>
             </div>
-            <div className="border-b border-gray-7 flex flex-row justify-between py-3 text-lg text-gray-5">
+            <div className="border-b border-gray-7 flex flex-row justify-between py-2 text-lg text-gray-5">
                 <div className="flex flex-row">
                     <div className="relative pl-2 pr-4" style={{ top: '2px' }}>
                         <FaEthereum />
@@ -86,50 +78,37 @@ const CardReserve = ({
                     {useCurrency(totalEther, 2)} ETH
                 </div>
             </div>
-            <div className="flex justify-center text-gray-5 text-lg mb-10 pt-8">
-                <div className="relative mr-2" style={{ top: '2px' }}>
+            <div className="flex justify-center items-end text-gray-5  py-3">
+                <div className="relative mr-2 text-3xl">
                     <RiLock2Line />
                 </div>
-                <span className="">Day is close</span>
+                <span className="text-lg leading-5">Day is close</span>
             </div>
-            <div className="flex-grow flex justify-end">
-                <div
-                    className="cursor-pointer flex flex-row text-primary text-lg"
-                    onClick={handleShowMore}
-                >
-                    Show details
-                    <div className="relative ml-2 mt-1">
-                        {!showMore ? <FaChevronDown /> : <FaChevronUp />}
-                    </div>
-                </div>
-            </div>
-            {showMore && (
-                <div className="dark:border-t-4 border-t dark:border-blue-1 border-gray-11 -mx-18px px-4 mt-3 pt-3">
-                    <div className="mb-5 ">
-                        <Progress
-                            percent={percentage}
-                            showInfo={false}
-                            trailColor={isDarkMode ? '#fff' : '#c9c9c9'}
-                        />
-                    </div>
-                    <div className="flex flex-row justify-between leading-none">
-                        <div className="flex flex-col">
-                            <div className="text-gray-5 mb-2">Your share</div>
-                            <div className="text-gray-10 dark:text-white text-xl">
-                                {percentage.toFixed(2)} %
-                            </div>
+            <div className="dark:border-t-4 border-t dark:border-blue-1 border-gray-11 -mx-18px px-4">
+                <div className="flex flex-row justify-between leading-none mt-4">
+                    <div className="flex flex-col">
+                        <div className="text-gray-5 mb-2">Your share</div>
+                        <div className="text-gray-10 dark:text-white text-xl">
+                            {percentage.toFixed(2)} %
                         </div>
-                        <div className="flex flex-col items-end">
-                            <div className="text-gray-5 text-end mb-2">
-                                Total Ether
-                            </div>
-                            <div className="text-gray-10 dark:text-white text-xl">
-                                {Number(totalEther).toFixed(2)} ETH
-                            </div>
+                    </div>
+                    <div className="flex flex-col items-end">
+                        <div className="text-gray-5 text-end mb-2">
+                            Total Ether
+                        </div>
+                        <div className="text-gray-10 dark:text-white text-xl">
+                            {Number(totalEther).toFixed(2)} ETH
                         </div>
                     </div>
                 </div>
-            )}
+                <div>
+                    <Progress
+                        percent={percentage}
+                        showInfo={false}
+                        trailColor={isDarkMode ? '#fff' : '#c9c9c9'}
+                    />
+                </div>
+            </div>
         </div>
     )
 }
