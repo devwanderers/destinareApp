@@ -36,7 +36,7 @@ const CardClaimingDay = ({
     return (
         <div
             className={cls(
-                `bg-gray-0 dark:bg-gray-4 border border-light-4 dark:border-gray-4 flex-1 flex flex-col justify-between py-5 px-8 rounded-xl relative overflow-hidden
+                `bg-gray-0 dark:bg-gray-4 border border-light-4 dark:border-gray-4 flex-1 flex flex-col justify-between md:px-4 lg:px-5 xl:px-8 md:pt-5 md:pb-4 xl:pt-8 xl:pb-6 rounded-xl relative overflow-hidden
                 ${disabledButton && 'opacity-50'}`
             )}
         >
@@ -45,27 +45,21 @@ const CardClaimingDay = ({
                     <Spin size="large" />
                 </div>
             )}
-            <div className="flex flex-row justify-between mb-4">
-                <div className="mb-0 lg:mb-3">
-                    <div className="font-medium text-2xl leading-9 text-primary dark:text-white">
-                        Day 31
-                    </div>
-                    <div className="text-gray-14 dark:text-white text-lg font-medium">
-                        Claiming Day
-                    </div>
+            <div className="flex flex-row justify-between">
+                <div className="md:text-base lg:text-lg xl:text-2xl text-center md:text-left text-primary dark:text-white leading-none font-medium">
+                    Day 31
                 </div>
-                <div className="text-gray-5 dark:text-white text-lg leading-none font-medium">
+                <div className="md:text-sm lg:text-base xl:text-lg text-gray-5 dark:text-white leading-none font-medium">
                     {date}
                 </div>
             </div>
-            <div>
-                <div className="text-gray-5 text-md font-medium">
-                    Your total tokens
-                </div>
-                <div className="font-bold text-black-2 text-lg">
-                    5.000.000 DDOT
-                </div>
+            <div className="md:text-sm lg:text-base xl:text-lg text-gray-14 dark:text-white font-medium ">
+                Claiming Day
             </div>
+            <div className="text-gray-5 dark:text-gray-7 text-md font-medium mt-3">
+                Your total tokens
+            </div>
+            <div className="font-bold text-black-2 text-lg">5.000.000 DDOT</div>
             <ButtonSpinner
                 className="mt-auto"
                 disabled={disabledButton}

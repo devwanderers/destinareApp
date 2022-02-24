@@ -4,7 +4,9 @@ import React from 'react'
 
 import useSCInteractions from '../../hooks/scInteractions/useSCInteractions'
 import useSCData from './../../hooks/scInteractions/useSCData'
-import ButtonSpinner from '../Buttons/ButtonSpinner'
+// import ButtonSpinner from '../Buttons/ButtonSpinner'
+import IconRefresh from './../../assets/svg/icons/IconRefresh'
+import { cls } from './../../services/helpers'
 
 // const antIcon = (
 //     <LoadingOutlined className=" text-white" style={{ fontSize: 24 }} spin />
@@ -14,16 +16,21 @@ const ReloadDataButton = () => {
     const { reloadData } = useSCInteractions()
     const { fetching: fetchingData } = useSCData()
     return (
-        <ButtonSpinner
+        <button
             disabled={fetchingData}
             loading={fetchingData}
-            className=" py-2 text-white w-44"
+            className="flex items-start justify-center"
             onClick={() => {
                 reloadData(true)
             }}
         >
-            {fetchingData ? 'Refreshing' : 'Refresh'}
-        </ButtonSpinner>
+            <div className="h-8 w-8 lg:h-9 lg:w-9">
+                <IconRefresh
+                    className={cls(`${fetchingData && 'animate-spin'}`)}
+                    size={'100%'}
+                />
+            </div>
+        </button>
     )
 }
 

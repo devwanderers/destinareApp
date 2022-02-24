@@ -33,7 +33,7 @@ const RenderCards = ({ currentDay, data, loading, initDate }) => {
         })
 
         const component = (
-            <div key={`cardPresale${index}`} className="mb-4">
+            <div key={`cardPresale${index}`}>
                 <CardReserve
                     day={index + 1}
                     date={date}
@@ -59,7 +59,7 @@ const RenderCards = ({ currentDay, data, loading, initDate }) => {
         cards.push(component)
     }
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 lg:gap-4">
             {cards}
         </div>
     )
@@ -116,8 +116,8 @@ const MarketView = () => {
             </div> */}
             <div className="pt-6 max-w-1650px mx-auto pb-8">
                 <div className="mb-4 flex justify-end"></div>
-                <div className="grid grid-cols-1 lg:grid-cols-10 gap-4">
-                    <div className="lg:col-span-7">
+                <div className="grid grid-cols-1 md:grid-cols-10 gap-4">
+                    <div className="md:col-span-7">
                         <CardDailyReserve
                             currentDay={currentDay}
                             data={restData}
@@ -131,7 +131,7 @@ const MarketView = () => {
                             loading={!fetchedData}
                         />
                     </div>
-                    <div className="lg:col-span-3 flex">
+                    <div className="md:col-span-3 flex">
                         <CardClaimingDay
                             initDate={initDate}
                             data={restData}
@@ -147,8 +147,8 @@ const MarketView = () => {
                     </div>
                 </div>
                 <div className="mt-5">
-                    <div className="flex flex-row justify-between mb-4">
-                        <div className="text-2xl text-gray-10 dark:text-white font-semibold ">
+                    <div className="flex flex-row justify-between items-center mb-4">
+                        <div className="text-2xl lg:text-3xl text-gray-10 dark:text-white font-medium ">
                             Reservation Days
                         </div>
                         <ReloadDataButton />

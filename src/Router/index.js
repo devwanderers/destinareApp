@@ -3,7 +3,6 @@ import { Switch, BrowserRouter as Router } from 'react-router-dom'
 import { connect } from 'react-redux'
 import loadable from '@loadable/component'
 
-import withLayout from './../HOCS/withLayout'
 import routes from './routes'
 import PageLoading from './../components/PageLoadings/PageLoading'
 // import { HomePath, SignInPath } from '../constants/routerConstants'
@@ -25,7 +24,7 @@ class AppRouter extends Component {
                                 key={`route-${route.name}`}
                                 path={route.path}
                                 exact={route.exact}
-                                component={withLayout((props) => {
+                                component={(props) => {
                                     const Component = loadable(
                                         () => import(`../views/${route.name}`),
                                         {
@@ -47,7 +46,7 @@ class AppRouter extends Component {
                                             {...route?.componentProps}
                                         />
                                     )
-                                })}
+                                }}
                             />
                         )
                     })}

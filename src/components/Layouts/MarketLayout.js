@@ -15,6 +15,7 @@ import {
 } from '../../constants/routerConstants'
 import DefaultMenus from './DefaultMenus'
 import GenericNavbarMobile from './../Navbar/GenericNavbarMobile'
+import { DarkModeSwitch } from './../DarkModeSwitch'
 import {
     IconDashboard,
     IconReservation,
@@ -64,15 +65,6 @@ const MarketLayout = ({ children, menuKey, ...rest }) => {
     const handleShowDrawer = () => setShowDrawer(!showDrawer)
 
     const year = new Date().getFullYear()
-    const drawerStyle = isDarkMode
-        ? {
-              backgroundColor: '#24262d',
-              padding: '0px',
-          }
-        : {
-              backgroundColor: '#fafafa',
-              padding: '0px',
-          }
 
     return (
         <Layout className="overflow-x-hidden relative flex flex-row md:flex-col min-h-screen dark:bg-blue-1 bg-light-2">
@@ -85,43 +77,48 @@ const MarketLayout = ({ children, menuKey, ...rest }) => {
                     isDarkMode={isDarkMode}
                 />
             )}
-            {/* {width <= 768 && (
-                <div
-                    onClick={handleShowDrawer}
-                    className="flex absolute text-gray-13 dark:text-white left-5 top-5 text-3xl h-full px-4 cursor-pointer transform active:scale-125"
-                >
-                    <GiHamburgerMenu height="100%" />
-                </div>
-            )} */}
             <Layout className="h-screen overflow-y-auto dark:bg-blue-1 bg-light-2">
                 {width < 769 && (
                     <GenericNavbarMobile
                         {...rest}
+                        className="border-b border-light-4"
+                        isDarkMode={isDarkMode}
                         showDrawer={showDrawer}
                         onClickBurguer={handleShowDrawer}
-                        drawerStyle={drawerStyle}
                         burgerColor={isDarkMode ? 'white' : undefined}
                         contentDrawer={
                             <React.Fragment>
-                                <DefaultMenus
-                                    menuKey={menuKey}
-                                    menus={menuItems}
-                                    theme={theme}
-                                />
+                                <div className="border-b border-light-4">
+                                    <DefaultMenus
+                                        menuKey={menuKey}
+                                        menus={menuItems}
+                                        isDarkMode={isDarkMode}
+                                    />
+                                </div>
+                                <ConnectWalletHeader className="px-6 mt-5" />
+                                <div className="mt-auto py-4 w-full flex justify-center">
+                                    <DarkModeSwitch />
+                                </div>
                             </React.Fragment>
                         }
-                        hideLogo={true}
+                        enableWallet
+                        // hideLogo={true}
                     />
                 )}
                 <Content className="flex flex-col flex-1 flex-shrink flex-grow">
-                    <div className="mx-5">
-                        <div className="max-w-1650px mx-auto flex flex-col-reverse lg:flex-row dark:bg-blue-1 bg-light-2 border-b border-gray-11 dark:border-gray-1 select-none mt-6 pb-6">
-                            <div className="flex items-end justify-center text-2xl mt-5 lg:mt-0 lg:justify-start lg:text-3xl text-black-2 dark:text-white font-medium">
-                                Welcome to Destinare
+                    {width > 768 && (
+                        <div className="mx-5">
+                            <div className="max-w-1650px mx-auto flex flex-col-reverse md:flex-row dark:bg-blue-1 bg-light-2 border-b border-gray-11 dark:border-gray-1 select-none mt-6 pb-6">
+                                <div className="flex items-end justify-center text-2xl lg:text-3xl mt-5 lg:mt-0 md:justify-start  text-black-2 dark:text-white font-medium leading-none">
+                                    Welcome to Destinare
+                                </div>
+                                <ConnectWalletHeader
+                                    className="ml-auto"
+                                    // containerClassName=""
+                                />
                             </div>
-                            <ConnectWalletHeader />
                         </div>
-                    </div>
+                    )}
                     {children}
                     <div className="text-right text-gray-13 dark:text-white py-2 px-4">
                         <span>© Copyright 2017 - {year}. Destinare.io</span>

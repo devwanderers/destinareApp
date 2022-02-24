@@ -16,7 +16,10 @@ const SupplyCard = ({ title, supply }) => {
     )
 }
 
-const ConnectWalletHeader = () => {
+const ConnectWalletHeader = ({
+    className,
+    containerClassName = 'flex flex-col-reverse lg:flex-col justify-end',
+}) => {
     const { login, logout } = useAuth()
     const { account } = useWeb3React()
     const { data } = useSCData()
@@ -25,8 +28,8 @@ const ConnectWalletHeader = () => {
     const circulatingSupply = Number(data.circulatingSupply) / 1e18
 
     return (
-        <div className="ml-auto">
-            <div className="w-full mx-auto flex flex-col-reverse lg:flex-col justify-end">
+        <div className={className}>
+            <div className={containerClassName}>
                 <SupplyCard
                     title="Total Supply:"
                     supply={useCurrency(decimalsTotalSupply, 2)}
@@ -38,7 +41,7 @@ const ConnectWalletHeader = () => {
                 {!account ? (
                     <button
                         onClick={() => login()}
-                        className="bg-primary text-white font-semibold border-none text-base px-6 py-3 rounded-md hover:ring-blue-2 hover:ring-2"
+                        className="bg-primary text-white font-semibold border-none text-base px-6 py-3 rounded-md hover:ring-blue-2 hover:ring-2 mb-4 lg:mb-0 mt-0 lg:mt-2"
                     >
                         Connect Wallet
                     </button>

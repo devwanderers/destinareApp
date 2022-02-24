@@ -10,14 +10,6 @@ const useDarkModeInit = () => {
         } else {
             document.documentElement.classList.remove('dark')
         }
-    }, [])
-
-    useEffect(() => {
-        if (themeMode === 'dark') {
-            document.documentElement.classList.add('dark')
-        } else {
-            document.documentElement.classList.remove('dark')
-        }
     }, [themeMode])
 }
 

@@ -2,17 +2,17 @@ import { combineReducers } from 'redux'
 import { persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import globalTypes from './globalTypes'
-import auth from './auth'
 import scInteractionReducer from './scInteractionReducer/scInteractionReducer'
+import settingsReducer from './settings/settingsReducer'
 
 const persistConfig = {
     key: 'root',
     storage,
-    whitelist: ['auth'],
+    whitelist: [],
 }
 
 const appReducer = combineReducers({
-    auth,
+    settings: settingsReducer,
     scInteraction: scInteractionReducer,
 })
 
