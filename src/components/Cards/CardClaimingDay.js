@@ -34,7 +34,6 @@ const CardClaimingDay = ({
         day: 'numeric',
     })
 
-    console.log({ totalTokens })
     return (
         <div className="bg-gray-0 dark:bg-blue-5 border border-light-4 dark:border-black-0 flex-1 flex px-4 lg:px-5 xl:px-8 pt-5 pb-4 md:pb-4 xl:pt-8 xl:pb-6 rounded-xl relative overflow-hidden">
             {loading && (

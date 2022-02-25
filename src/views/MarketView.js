@@ -21,7 +21,7 @@ const RenderCards = ({ currentDay, data, loading, initDate }) => {
         // if (day === 0) {
         //     continue
         // }
-        if (currentDay === index + 1) continue
+        // if (currentDay === index + 1) continue
 
         let date = new Date(initDate)
         date.setDate(date.getDate() + index)
