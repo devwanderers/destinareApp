@@ -24,6 +24,37 @@ const GenericNavbarMobile = ({
     const { login, logout } = useAuth()
     const { account } = useWeb3React()
 
+    let renderWallet = null
+
+    if (enableWallet) {
+        if (!account) {
+            renderWallet = (
+                <div className="cursor-pointer mr-5" onClick={() => login()}>
+                    <IconWallet size="2em" />
+                </div>
+            )
+        } else {
+            renderWallet = (
+                <div className="flex flex-row justify-end gap-2 mr-5">
+                    <p className="text-base  dark:text-white">
+                        {account.substring(0, 4)}...
+                        {account.slice(-4)}
+                    </p>
+                    <span className="text-primary text-right">
+                        <FaSignOutAlt
+                            onClick={() => logout()}
+                            size={22}
+                            style={{
+                                marginLeft: 'auto',
+                                cursor: 'pointer',
+                            }}
+                        />
+                    </span>
+                </div>
+            )
+        }
+    }
+
     return (
         <React.Fragment>
             <Drawer
@@ -80,31 +111,7 @@ const GenericNavbarMobile = ({
                         </a>
                     )}
                     <div className="flex flex-row items-center">
-                        {enableWallet && !account ? (
-                            <div
-                                className="cursor-pointer mr-5"
-                                onClick={() => login()}
-                            >
-                                <IconWallet size="2em" />
-                            </div>
-                        ) : (
-                            <div className="flex flex-row justify-end gap-2 mr-5">
-                                <p className="text-base  dark:text-white">
-                                    {account.substring(0, 4)}...
-                                    {account.slice(-4)}
-                                </p>
-                                <span className="text-primary text-right">
-                                    <FaSignOutAlt
-                                        onClick={() => logout()}
-                                        size={22}
-                                        style={{
-                                            marginLeft: 'auto',
-                                            cursor: 'pointer',
-                                        }}
-                                    />
-                                </span>
-                            </div>
-                        )}
+                        {renderWallet}
                         <div
                             onClick={onClickBurguer}
                             className="cursor-pointer transform active:scale-125 mr-2"

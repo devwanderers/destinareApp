@@ -129,8 +129,8 @@ const useSCGetData = () => {
                         _userStakes
                     )
 
-                    const userTokens = await contract.methods
-                        .balanceOf(account)
+                    const totalTokens = await contract.methods
+                        .totalTokens(account)
                         .call({ from: account })
                     const isStakeholder = await contract.methods
                         .isStakeholder(account)
@@ -139,7 +139,6 @@ const useSCGetData = () => {
                     const totalUserStakes = await contract.methods
                         .totalUserStakes(account)
                         .call()
-                    console.log('totalUserStakes', totalUserStakes)
 
                     resolve({
                         startDate,
@@ -149,7 +148,7 @@ const useSCGetData = () => {
                         getUserInfo,
                         contractStakes,
                         userStakes,
-                        userTokens,
+                        totalTokens,
                         isStakeholder,
                         totalUserStakes,
                         claimedTokens,
@@ -172,16 +171,12 @@ const useSCGetData = () => {
                 const data = await getContractData({
                     signal,
                 })
-                setTimeout(() => {
-                    setData({
-                        ...data,
-                    })
-                    setFetchingData(false)
-                }, 600)
+                setData({
+                    ...data,
+                })
+                setFetchingData(false)
             } catch (err) {
-                setTimeout(() => {
-                    setFetchingData(false)
-                }, 600)
+                setFetchingData(false)
                 if (err?.name === 'AbortError') {
                     // setAbort(true)
                     console.log('Promise Aborted')
@@ -209,12 +204,6 @@ const useSCGetData = () => {
             }
         }
     }, [reload])
-
-    // useEffect(() => {
-    //     if (aborting) {
-    //         setAbort(false)
-    //     }
-    // }, [aborting])
 
     useDeepCompareEffect(() => {
         if (!account && fetchingData) {

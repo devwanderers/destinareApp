@@ -58,7 +58,7 @@ const MarketLayout = ({ children, menuKey, ...rest }) => {
     const { width } = useWindowSize()
     const [theme] = useListenCookie('theme')
     const isDarkMode = theme === 'dark'
-    const [collapsed, setCollapsed] = useState(false)
+    const [collapsed, setCollapsed] = useState(true)
     const [showDrawer, setShowDrawer] = useState(false)
 
     const handleOnCollapse = () => setCollapsed(!collapsed)

@@ -12,9 +12,9 @@ const App = () => {
     useDarkModeInit()
 
     return (
-        <React.Fragment>
+        <div className="h-screen">
             <Router />
-        </React.Fragment>
+        </div>
     )
 }
 

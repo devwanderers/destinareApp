@@ -151,6 +151,7 @@ const DefaultNavbar = ({ authenticated, logout, ...rest }) => {
                     {menu}
                 </React.Fragment>
             }
+            enableWallet={false}
             // hideLogo={true}
         />
     )

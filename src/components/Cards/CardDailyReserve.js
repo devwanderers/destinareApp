@@ -18,7 +18,7 @@ const antIcon = (
 )
 
 const minValue = validMinValue(1)
-const maxValue = validMaxValue(999)
+const maxValue = validMaxValue(1500)
 
 const CardDailyReserve = ({
     currentDay,
@@ -47,6 +47,7 @@ const CardDailyReserve = ({
     const indexDay = currentDay - 1
     const totalUser =
         getPresaleInfo[0].length > 0 ? getPresaleInfo[0][indexDay] : 0
+
     const totalEther =
         getPresaleInfo[1].length > 0 ? getPresaleInfo[1][indexDay] / 1e18 : 0
 
@@ -58,32 +59,39 @@ const CardDailyReserve = ({
             ? 0
             : (Number(currentUser) / Number(totalEther)) * 100
 
+    const totalDDOT = 833333 * (percentage / 100)
     return (
-        <div className="bg-white dark:bg-gray-4 border border-primary dark:border-gray-4 px-4 lg:px-5 xl:px-8 pt-5 pb-4 xl:pt-8 xl:pb-6 rounded-xl relative overflow-hidden border-opacity-50">
+        <div className="bg-white dark:bg-gray-4 border border-primary px-4 lg:px-5 xl:px-8 pt-5 pb-3 md:pb-4 xl:pt-8 xl:pb-6 rounded-xl relative overflow-hidden border-opacity-50">
             {loading && (
-                <div className="absolute left-0 top-0 flex justify-center items-center w-full h-full bg-gray-9 bg-opacity-20 z-50">
+                <div className="absolute left-0 top-0 flex justify-center items-center w-full h-full bg-gray-9 bg-opacity-50 z-50">
                     <Spin size="large" />
                 </div>
             )}
             <div className="flex flex-col md:flex-row divide-x-0 divide-y md:divide-x md:divide-y-0">
                 <div className="flex flex-col md:pr-4 lg:pr-5 xl:pr-8 pb-4 md:pb-0">
-                    <div className="text-base lg:text-lg xl:text-2xl text-center md:text-left text-gray-10 dark:text-white leading-none font-medium">
-                        <span className="text-primary">
-                            Day {currentDay}&nbsp;
-                        </span>
-                        <span>reservation</span>
+                    <div className=" flex flex-row justify-between md:justify-start md:flex-col">
+                        <div className="text-lg md:text-base lg:text-lg xl:text-xl md:text-center leading-none font-medium flex flex-col md:flex-row">
+                            <span className="text-primary">
+                                Day {currentDay}&nbsp;
+                            </span>
+                            <span className="text-gray-10 dark:text-gray-3">
+                                Reservation
+                            </span>
+                        </div>
+                        <div className="md:mt-4 xl:mt-8 mb-2">
+                            <div className="text-lg md:text-sm lg:text-lg xl:text-xl text-gray-10 dark:text-gray-3 text-right md:text-left leading-none font-semibold">
+                                833,333
+                            </div>
+                            <div className=" text-xxs md:text-base text-gray-10 dark:text-gray-2 text-right md:text-left mb-2 leading-none mt-1 md:mt-0">
+                                Available DDOT
+                            </div>
+                        </div>
                     </div>
-                    <div className="text-base lg:text-lg xl:text-xl text-gray-10 dark:text-white text-center md:text-left mb-2 mt-4 xl:mt-10 leading-none font-semibold">
-                        833,333
-                    </div>
-                    <div className="text-lg xl:text-xl text-gray-10 dark:text-white text-center md:text-left mb-2 leading-none">
-                        Available DDOT
-                    </div>
-                    <div className="mt-auto">
-                        <div className="input-amount text-center flex flex-row items-end pb-4 xl:pb-6 mt-3 xl:mt-4">
+                    <div className="mt-auto flex flex-col">
+                        <div className="input-amount text-center flex flex-row items-end pb-4 xl:pb-6 mt-3 xl:mt-4 w-10/12 md:w-full mx-auto">
                             <Input
                                 variant="secondary"
-                                className="mr-2 w-full bg-light-2"
+                                className="mr-2 w-full bg-light-2 dark:bg-gray-3"
                                 disabled={disabledButton}
                                 {...bind}
                             />
@@ -92,7 +100,7 @@ const CardDailyReserve = ({
                             </span>
                         </div>
                         <ButtonSpinner
-                            className="w-full"
+                            className="w-8/12 md:w-full mx-auto"
                             disabled={disabledButton}
                             size="normal"
                             onClick={() => {
@@ -107,51 +115,51 @@ const CardDailyReserve = ({
                 </div>
                 <div className="flex flex-shrink w-full md:w-4/6 md:pl-4 lg:pl-5 xl:pl-8 pt-4 md:pt-0">
                     <div className="flex flex-col w-full">
-                        <div className="text-base lg:text-lg xl:text-2xl text-center md:text-left text-gray-14 dark:text-white leading-none font-medium">
+                        <div className="text-lg md:text-base lg:text-lg xl:text-xl text-left text-gray-14 dark:text-gray-3 leading-none font-medium">
                             Day Overview
                         </div>
-                        <div className="flex-1 flex flex-col justify-between mt-4 xl:mt-10">
-                            <div className="flex flex-wrap md:flex-nowrap lg:flex-row justify-center md:justify-between">
-                                <div className="text-center">
-                                    <div className="md:text-xs lg:text-sm xl:text-md text-gray-5 dark:text-gray-7  px-5 md:p-0">
-                                        Total contributions
+                        <div className="flex-1 flex flex-col justify-between mt-4 xl:mt-8">
+                            <div className="flex flex-row md:flex-nowrap lg:flex-row justify-between mb-1 md:mb-0">
+                                <div className="md:text-center">
+                                    <div className="text-xxs md:text-xs lg:text-sm xl:text-md text-gray-5 dark:text-gray-2 md:p-0">
+                                        Total contributors
                                     </div>
-                                    <div className="md:text-sm lg:text-base xl:text-lg text-gray-10 dark:text-white ">
+                                    <div className="text-xs md:text-sm lg:text-base xl:text-lg text-gray-10 dark:text-gray-3 ">
                                         {useCurrency(totalUser, 0)}
                                     </div>
                                 </div>
-                                <div className="text-center">
-                                    <div className="md:text-xs lg:text-sm xl:text-md text-gray-5 dark:text-gray-7  px-5 md:p-0">
+                                <div className="md:text-center">
+                                    <div className="text-xxs md:text-xs lg:text-sm xl:text-md text-gray-5 dark:text-gray-2 md:p-0">
                                         Your contribution
                                     </div>
-                                    <div className="md:text-sm lg:text-base xl:text-lg text-gray-10 dark:text-white">
+                                    <div className="text-xs md:text-sm lg:text-base xl:text-lg text-gray-10 dark:text-gray-3">
                                         {useCurrency(totalEther, 2)} ETH
                                     </div>
                                 </div>
-                                <div className="text-center">
-                                    <div className="md:text-xs lg:text-sm xl:text-md text-gray-5 dark:text-gray-7 px-5 md:p-0">
+                                <div className="text-left md:text-center">
+                                    <div className="text-xxs md:text-sm lg:text-sm xl:text-md text-gray-5 dark:text-gray-2 md:p-0">
                                         Your Tokens
                                     </div>
-                                    <div className="md:text-sm lg:text-base xl:text-lg text-gray-10 dark:text-white">
-                                        {useCurrency(currentUser, 2)} ETH
+                                    <div className="text-xs md:text-sm lg:text-base xl:text-lg text-gray-10 dark:text-gray-3">
+                                        {useCurrency(totalDDOT, 2)} DDOT
                                     </div>
                                 </div>
                             </div>
                             <div className="pt-0 md:pt-5">
                                 <div className="flex flex-col xs:flex-row justify-between">
                                     <div className="">
-                                        <div className="text-sm xl:text-md text-gray-5 dark:text-gray-7">
+                                        <div className="text-xxs md:text-xs lg:text-sm xl:text-md text-gray-5 dark:text-gray-2">
                                             Your share
                                         </div>
-                                        <div className="text-base xl:text-lg text-gray-10 dark:text-white font-bold">
+                                        <div className="text-xs md:text-sm lg:text-base xl:text-lg text-gray-10 dark:text-gray-3 font-bold">
                                             {percentage.toFixed(2)} % ETH
                                         </div>
                                     </div>
                                     <div className="text-right">
-                                        <div className="text-sm xl:text-md text-gray-5 dark:text-gray-7">
+                                        <div className="text-xxs md:text-xs lg:text-sm xl:text-md text-gray-5 dark:text-gray-2">
                                             Total Ether
                                         </div>
-                                        <div className="text-base xl:text-lg text-gray-10 dark:text-white font-bold">
+                                        <div className="text-xs md:text-sm lg:text-base xl:text-lg text-gray-10 dark:text-gray-3  font-bold">
                                             {Number(totalEther).toFixed(2)} ETH
                                         </div>
                                     </div>

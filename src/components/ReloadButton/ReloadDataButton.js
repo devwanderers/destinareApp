@@ -18,7 +18,6 @@ const ReloadDataButton = () => {
     return (
         <button
             disabled={fetchingData}
-            loading={fetchingData}
             className="flex items-start justify-center"
             onClick={() => {
                 reloadData(true)

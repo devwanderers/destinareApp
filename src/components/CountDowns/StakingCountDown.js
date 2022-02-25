@@ -6,21 +6,21 @@ function onFinish() {
     console.log('finished!')
 }
 
-const StakingCountDown = ({ value, valueStyle }) => {
+const StakingCountDown = ({ value, size = '1.1rem', color = '#fff' }) => {
     return (
-        <div className="flex">
-            <div className="flex flex-wrap justify-center items-center bg-benefits-blue-1 text-white px-3 border rounded-xl font-bold">
-                <FaRegClock
-                    size={17}
-                    style={{ marginRight: '10px', color: 'white' }}
-                />
-                <Countdown
-                    value={value}
-                    format="DD:HH:mm:ss"
-                    valueStyle={valueStyle}
-                    onFinish={onFinish}
-                />
-            </div>
+        <div className="flex flex-row justify-center items-center bg-benefits-blue-1 text-white px-3 border rounded-xl font-bold text-sm py-1">
+            <FaRegClock className="mr-1" size={size} color={color} />
+            <Countdown
+                className="text-xxs"
+                value={value}
+                format="DD:HH:mm:ss"
+                valueStyle={{
+                    fontSize: size,
+                    color,
+                    lineHeight: 0,
+                }}
+                onFinish={onFinish}
+            />
         </div>
     )
 }

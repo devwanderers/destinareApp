@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-const IconCheck = ({ size, ...props }) => (
+const IconCheck = ({ size = '1em', ...props }) => (
     <svg
         data-name="Capa 1"
         xmlns="http://www.w3.org/2000/svg"

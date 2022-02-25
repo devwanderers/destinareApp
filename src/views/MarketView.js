@@ -116,7 +116,7 @@ const MarketView = () => {
             </div> */}
             <div className="pt-6 max-w-1650px mx-auto pb-8">
                 <div className="mb-4 flex justify-end"></div>
-                <div className="grid grid-cols-1 md:grid-cols-10 gap-4">
+                <div className="flex flex-col-reverse md:grid md:grid-cols-10 gap-4">
                     <div className="md:col-span-7">
                         <CardDailyReserve
                             currentDay={currentDay}
