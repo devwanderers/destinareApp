@@ -45,7 +45,7 @@ const CardClaimingDay = ({
             <div
                 className={cls(
                     `flex-1 flex flex-col justify-between
-                ${disabledButton && 'opacity-50'}`
+                ${!disabledButton && 'opacity-50'}`
                 )}
             >
                 <div className="flex flex-row justify-between">
@@ -67,7 +67,7 @@ const CardClaimingDay = ({
                 </div>
                 <ButtonSpinner
                     className="w-8/12 md:w-full mx-auto mt-2 md:mt-auto"
-                    disabled={disabledButton}
+                    disabled={!disabledButton}
                     size="normal"
                     loading={claimingToken}
                     onClick={() => {

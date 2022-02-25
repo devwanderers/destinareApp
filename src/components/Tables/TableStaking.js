@@ -8,6 +8,7 @@ import useInterval from './../../hooks/useInterval'
 import useEffectOnce from './../../hooks/useEffectOnce'
 import useSCInteractions from '../../hooks/scInteractions/useSCInteractions'
 import ButtonSpin from '../Buttons/ButtonSpin'
+import useResponsive from './../../hooks/useResponsive'
 
 const columns = [
     {
@@ -55,9 +56,9 @@ const UnStake = ({ item, lockDuration }) => {
     const [enableUnstake, setEnableUnstake] = useState(false)
 
     const lockDurationEnd = () => {
-        const today = new Date().toLocaleString('en-GB')
-        const ends = new Date(lockDuration).toLocaleString('en-GB')
-        setEnableUnstake(today > ends)
+        const today = new Date()
+        const ends = new Date(lockDuration)
+        setEnableUnstake(today.getTime() > ends.getTime())
     }
 
     useEffectOnce(() => {
@@ -82,14 +83,16 @@ const UnStake = ({ item, lockDuration }) => {
     }
 
     return (
-        <ButtonSpin
-            onClick={handleUnstake}
-            className="disabled:opacity-50 bg-primary border-solid border border-primary rounded-md py-1 px-10 text-white text-lg font-bold"
-            disabled={!enableUnstake || loading}
-            loading={loading}
-        >
-            Unstake
-        </ButtonSpin>
+        <div className="flex w-full">
+            <ButtonSpin
+                onClick={handleUnstake}
+                className="disabled:opacity-50 bg-primary border-solid border border-primary rounded-md py-1 w-full md:w-8/12 text-white text-lg font-bold mx-auto"
+                disabled={!enableUnstake || loading}
+                loading={loading}
+            >
+                Unstake
+            </ButtonSpin>
+        </div>
     )
 }
 
@@ -101,9 +104,12 @@ const TableStaking = ({
     getReward,
 }) => {
     const [theme] = useListenCookie('theme')
+    const [widthCell] = useResponsive({ base: 150, md: '100%' })
+
     const data = userStakes.reduce((acc, item, i) => {
         if (Number(item.type) === stake && item.reward != null) {
             const date = new Date(item.stakeTime * 1000).toLocaleString('en-GB')
+            console.log({ date })
             const depositAmount = item.tokensLocked / 1e18
             const reward = (item.reward - item.tokensLocked) / 1e18
             let lockDuration = Number(item.stakeTime) + Number(lokedTime)
@@ -119,9 +125,11 @@ const TableStaking = ({
                     lock_duration: (
                         <StakingCountDown
                             value={lockDuration}
-                            valueStyle={{ fontSize: '1.1rem', color: 'white' }}
+                            size="1rem"
+                            color="white"
                         />
                     ),
+                    width: 100,
                     unStake: (
                         <UnStake
                             item={i}
@@ -146,16 +154,20 @@ const TableStaking = ({
           }
 
     return (
-        <div className="table-info">
+        <div className="table-info overflow-y-auto ">
             {isStakeholder && (
                 <ConfigProvider renderEmpty={customizeRenderEmpty}>
                     <Table
                         style={tableStyle}
                         pagination={false}
-                        columns={columns}
+                        columns={columns.reduce(
+                            (acc, v) => [...acc, { ...v, width: widthCell }],
+                            []
+                        )}
                         dataSource={data}
                         className={theme}
                         bordered
+                        scroll={{ x: '100%' }}
                     />
                 </ConfigProvider>
             )}

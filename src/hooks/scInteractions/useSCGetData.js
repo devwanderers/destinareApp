@@ -129,6 +129,10 @@ const useSCGetData = () => {
                         _userStakes
                     )
 
+                    const userTokens = await contract.methods
+                        .balanceOf(account)
+                        .call({ from: account })
+
                     const totalTokens = await contract.methods
                         .totalTokens(account)
                         .call({ from: account })
@@ -148,6 +152,7 @@ const useSCGetData = () => {
                         getUserInfo,
                         contractStakes,
                         userStakes,
+                        userTokens,
                         totalTokens,
                         isStakeholder,
                         totalUserStakes,

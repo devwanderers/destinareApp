@@ -19,7 +19,7 @@ const ModalStaking = ({
     visibleModal,
     onCloseModal,
     deposit,
-    totalTokens,
+    userTokens,
     loadingStaking,
 }) => {
     // const [amount, setAmount] = useState(0)
@@ -29,8 +29,9 @@ const ModalStaking = ({
         lg: '50%',
         xl: '30%',
     })
-    totalTokens = totalTokens / 1e18
-    const tokens = totalTokens.toFixed(0)
+    console.log({ userTokens })
+    userTokens = userTokens / 1e18
+    const tokens = userTokens.toFixed(0)
 
     const schema = Yup.object({
         stakingAmount: validations.staking(tokens),
@@ -84,7 +85,7 @@ const ModalStaking = ({
                                 <p className="font-bold text-base">
                                     Balance:{' '}
                                     <span className="font-normal">
-                                        {useCurrency(totalTokens, 0)}
+                                        {useCurrency(userTokens, 0)}
                                     </span>
                                 </p>
                             </div>

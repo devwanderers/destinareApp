@@ -6,11 +6,17 @@ const antIcon = (
     <LoadingOutlined className=" text-white" style={{ fontSize: 24 }} spin />
 )
 
-const ButtonSpin = ({ loading, textLoading, children, ...restProps }) => {
+const ButtonSpin = ({
+    loading,
+    disabled,
+    textLoading,
+    children,
+    ...restProps
+}) => {
     return (
         <button
             className=" bg-primary text-lg px-12 py-2 rounded-md text-white disabled:opacity-50"
-            disabled={loading}
+            disabled={disabled}
             {...restProps}
         >
             {loading ? (

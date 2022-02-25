@@ -45,7 +45,7 @@ const HeaderPanel = ({ info: { APR, lockedTime, totalDeposit, active } }) => {
                     Duration:
                 </div>
                 <div className="font-bold text-xxs md:text-base ">
-                    {duration} days
+                    {Math.ceil(duration)} days
                 </div>
             </div>
             <div className=" flex flex-row justify-center items-center leading-none">
@@ -133,7 +133,7 @@ const CollapseStaking = () => {
         isStakeholder,
         totalUserStakes,
     } = data
-
+    console.log({ userTokens })
     const handleShowModal = (index) => {
         setVisibleModal(!visibleModal)
         setIndexModal(index)
