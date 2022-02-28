@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { ConfigProvider, Table } from 'antd'
 import { InboxOutlined } from '@ant-design/icons'
-import useListenCookie from '../../hooks/useListenCookie'
 import useCurrency from '../../hooks/useCurrency'
 import StakingCountDown from '../CountDowns/StakingCountDown'
 import useInterval from './../../hooks/useInterval'
@@ -9,6 +8,7 @@ import useEffectOnce from './../../hooks/useEffectOnce'
 import useSCInteractions from '../../hooks/scInteractions/useSCInteractions'
 import ButtonSpin from '../Buttons/ButtonSpin'
 import useResponsive from './../../hooks/useResponsive'
+import { cls } from './../../services/helpers'
 
 const columns = [
     {
@@ -102,8 +102,8 @@ const TableStaking = ({
     isStakeholder,
     userStakes,
     getReward,
+    isDarkMode,
 }) => {
-    const [theme] = useListenCookie('theme')
     const [widthCell] = useResponsive({ base: 150, md: '100%' })
 
     const data = userStakes.reduce((acc, item, i) => {
@@ -142,30 +142,21 @@ const TableStaking = ({
         }
         return acc
     }, [])
-    const isDarkMode = theme === 'dark'
-    const tableStyle = isDarkMode
-        ? {
-              backgroundColor: '#24262d',
-              padding: '0px',
-          }
-        : {
-              backgroundColor: '#fafafa',
-              padding: '0px',
-          }
 
     return (
         <div className="table-info overflow-y-auto ">
             {isStakeholder && (
                 <ConfigProvider renderEmpty={customizeRenderEmpty}>
                     <Table
-                        style={tableStyle}
                         pagination={false}
                         columns={columns.reduce(
                             (acc, v) => [...acc, { ...v, width: widthCell }],
                             []
                         )}
                         dataSource={data}
-                        className={theme}
+                        className={cls(
+                            `${isDarkMode && 'ant-table-wrapper-dark'}`
+                        )}
                         bordered
                         scroll={{ x: '100%' }}
                     />

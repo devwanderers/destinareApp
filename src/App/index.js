@@ -9,13 +9,9 @@ import useDarkModeInit from './../hooks/DarkMode/useDarkModeInit'
 const App = () => {
     useConnect()
     useSCGetData()
-    useDarkModeInit()
+    const [darkModeInit] = useDarkModeInit()
 
-    return (
-        <div className="h-screen">
-            <Router />
-        </div>
-    )
+    return <div className="h-screen">{darkModeInit && <Router />}</div>
 }
 
 export default App

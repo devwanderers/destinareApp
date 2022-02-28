@@ -12,6 +12,7 @@ import useSCInteractions from '../../hooks/scInteractions/useSCInteractions'
 import useSCData from './../../hooks/scInteractions/useSCData'
 import useWindowSize from './../../hooks/useWindowSize'
 import useResponsive from './../../hooks/useResponsive'
+import useListenCookie from '../../hooks/useListenCookie'
 const { Panel } = Collapse
 
 const HeaderPanel = ({ info: { APR, lockedTime, totalDeposit, active } }) => {
@@ -125,6 +126,8 @@ const CollapseStaking = () => {
     const { width } = useWindowSize()
     const { data } = useSCData()
     const { createStake } = useSCInteractions()
+    const [theme] = useListenCookie('theme')
+    const isDarkMode = theme === 'dark'
 
     const {
         contractStakes,
@@ -133,7 +136,6 @@ const CollapseStaking = () => {
         isStakeholder,
         totalUserStakes,
     } = data
-    console.log({ userTokens })
     const handleShowModal = (index) => {
         setVisibleModal(!visibleModal)
         setIndexModal(index)
@@ -221,6 +223,7 @@ const CollapseStaking = () => {
                                     lokedTime={item.lockedTime}
                                     isStakeholder={isStakeholder}
                                     userStakes={userStakes}
+                                    isDarkMode={isDarkMode}
                                 />
                             </div>
                         </Panel>
