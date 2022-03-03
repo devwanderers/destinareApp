@@ -59,7 +59,7 @@ const CardDailyReserve = ({
             ? 0
             : (Number(currentUser) / Number(totalEther)) * 100
 
-    const totalDDOT = 833333 * (percentage / 100)
+    const totalDDOT = 8333333 * (percentage / 100)
     return (
         <div className="bg-white dark:bg-gray-4 border border-primary px-4 lg:px-5 xl:px-8 pt-5 pb-3 md:pb-4 xl:pt-8 xl:pb-6 rounded-xl relative overflow-hidden border-opacity-50">
             {loading && (
@@ -80,7 +80,7 @@ const CardDailyReserve = ({
                         </div>
                         <div className="md:mt-4 xl:mt-8 mb-2">
                             <div className="text-lg md:text-sm lg:text-lg xl:text-xl text-gray-10 dark:text-gray-3 text-right md:text-left leading-none font-semibold">
-                                833,333
+                                8,333,333
                             </div>
                             <div className=" text-xxs md:text-base text-gray-10 dark:text-gray-2 text-right md:text-left mb-2 leading-none mt-1 md:mt-0">
                                 Available DDOT

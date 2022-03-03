@@ -47,7 +47,7 @@ const CardReserve = ({
                         </span>
 
                         <div className="md:text-base lg:text-lg xl:text-xl font-bold text-black-2 dark:text-gray-3 leading-none">
-                            833,333
+                            8,333,333
                         </div>
                     </div>
                     <div className="flex flex-row justify-between items-end mt-1">

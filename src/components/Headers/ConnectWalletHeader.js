@@ -24,7 +24,7 @@ const ConnectWalletHeader = ({
     const { account } = useWeb3React()
     const { data } = useSCData()
 
-    const decimalsTotalSupply = Number(data.totalSupply) / 1e18
+    const decimalsTotalSupply = (Number(data.totalSupply) / 1e18) + 250000000
     const circulatingSupply = Number(data.circulatingSupply) / 1e18
 
     return (
