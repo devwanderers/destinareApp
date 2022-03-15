@@ -66,12 +66,12 @@ const RenderCards = ({ currentDay, data, loading, initDate }) => {
 }
 
 const MarketView = () => {
+    const { account } = useWeb3React()
     const { fetchedData, data } = useSCData()
     const { reserveToken, claimToken } = useSCInteractions()
 
     const [reservingToken, setReservingToken] = useState(false)
     const [claimingToken, setClaimingToken] = useState(false)
-    const { account } = useWeb3React()
     const { startDate, claimedTokens, ...restData } = data
     const initDate = startDate ? new Date(startDate * 1000) : new Date()
 

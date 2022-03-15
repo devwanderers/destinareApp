@@ -8,6 +8,7 @@ const classes = {
     disabled: 'opacity-50 cursor-not-allowed',
     pill: 'rounded-full',
     size: {
+        none: '',
         small: 'px-2 py-1 text-sm',
         normal: 'px-4 py-2',
         large: 'px-8 py-3 text-lg',
@@ -18,6 +19,8 @@ const classes = {
         secondary:
             'bg-gray-200 hover:bg-gray-800 focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50 text-gray-900 hover:text-white',
         danger: 'bg-red-500 hover:bg-red-800 focus:ring-2 focus:ring-red-500 focus:ring-opacity-50 text-white',
+        primaryborder:
+            'border-primary border hover:bg-blue-green-2 focus:ring-2 focus:ring-primary focus:ring-opacity-50 text-primary',
         warning:
             'bg-yellow-600 hover:bg-yellow-600 focus:ring-2 focus:ring-yellow-600 focus:ring-opacity-50 text-white',
         warningLink:

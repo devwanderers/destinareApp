@@ -55,7 +55,10 @@ const LandingPage = ({ authenticated, userData, logout }) => {
                                 By introducing a cutting edge user experience
                                 and multiple cryptocurrencies and traditional
                                 payment options alongside benefits tied to our
-                                proprietary cryptocurrency DDOT.
+                                proprietary cryptocurrency DDOT, our customers
+                                know they are booking with a platform of the
+                                future with transparent pricing and backed up by
+                                our Best Price Guarantee.
                             </p>
                         </Col>
                         <Col xs={24} sm={12} className="px-0 lg:px-5 xl:px-0">

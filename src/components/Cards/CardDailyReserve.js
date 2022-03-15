@@ -17,7 +17,7 @@ const antIcon = (
     <LoadingOutlined className=" text-white" style={{ fontSize: 24 }} spin />
 )
 
-const minValue = validMinValue(1)
+const minValue = validMinValue(0)
 const maxValue = validMaxValue(1500)
 
 const CardDailyReserve = ({
@@ -101,7 +101,7 @@ const CardDailyReserve = ({
                         </div>
                         <ButtonSpinner
                             className="w-8/12 md:w-full mx-auto"
-                            disabled={disabledButton}
+                            disabled={disabledButton || Number(amount) <= 0}
                             size="normal"
                             onClick={() => {
                                 if (!reservingToken) reserveToken(amount)

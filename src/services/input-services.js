@@ -17,15 +17,24 @@ export const validOnlyNumbers = (value) => {
 }
 
 export const validMinValue = (minValue) => (value) => {
-    if (value === '' || (value && parseFloat(value) >= minValue)) {
+    if (
+        value === '' ||
+        (value && parseFloat(value.replace(/,/g, '')) >= minValue)
+    ) {
         return true
     }
     return false
 }
 
 export const validMaxValue = (maxValue) => (value) => {
-    if (value === '' || (value && parseFloat(value) <= maxValue)) {
+    if (
+        value === '' ||
+        (value && parseFloat(value.replace(/,/g, '')) <= maxValue)
+    ) {
         return true
     }
     return false
 }
+
+export const formatThousand = (v) =>
+    `${v}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
