@@ -57,6 +57,15 @@ const routes = [
         },
         layout: MarketLayout,
     },
+    {
+        name: 'Esqueleto',
+        path: '/esqueleto',
+        route: Route,
+        componentProps: {
+            routes: [],
+        },
+        layout: MarketLayout,
+    },
     // {
     //     name: 'TripvixiaIFrame',
     //     path: paths.TravelPath,
