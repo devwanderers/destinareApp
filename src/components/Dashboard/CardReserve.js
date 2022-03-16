@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import { Progress, Spin } from 'antd'
+import { Progress } from 'antd'
 
 import { AiOutlineUser } from 'react-icons/ai'
 import { FaEthereum } from 'react-icons/fa'
@@ -8,6 +8,7 @@ import useListenCookie from '../../hooks/useListenCookie'
 import useCurrency from '../../hooks/useCurrency'
 import IconCheck from './../../assets/svg/icons/IconCheck'
 import useResponsive from './../../hooks/useResponsive'
+import CardContainer from '../Cards/CardContainer'
 
 const CardReserve = ({
     date,
@@ -24,15 +25,7 @@ const CardReserve = ({
     const cardRef = useRef(null)
 
     return (
-        <div
-            ref={cardRef}
-            className="bg-white dark:bg-gray-4 border border-light-4 dark:border-gray-16 pt-5 xl:pt-8  rounded-xl relative overflow-hidden hover:border-primary"
-        >
-            {loading && (
-                <div className="absolute left-0 top-0 flex justify-center items-center w-full h-full bg-gray-9 bg-opacity-50">
-                    <Spin size="large" />
-                </div>
-            )}
+        <CardContainer loading={loading} ref={cardRef} className="pt-5 xl:pt-8">
             <div className="flex flex-row w-full px-4 lg:px-5 xl:px-8">
                 <span className="mr-2 xl:mr-4">
                     <IconCheck size={iconSize} />
@@ -128,7 +121,7 @@ const CardReserve = ({
                     </div>
                 </div>
             </div>
-        </div>
+        </CardContainer>
     )
 }
 

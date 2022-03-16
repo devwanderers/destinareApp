@@ -124,6 +124,15 @@ export const validations = {
         ),
     number: Yup.number().required('Required'),
     array: Yup.array().required('Required'),
+    walletAddress: Yup.string()
+        .min(3, 'Too Short!')
+        .max(64, 'Too Long!')
+        .test(
+            'alphaNumeric',
+            'Must be a valid wallet address.',
+            (value) => value && validator.isEthereumAddress(value)
+        )
+        .required('Required'),
     staking: (totalTokens) => {
         return Yup.mixed()
             .required('Required')

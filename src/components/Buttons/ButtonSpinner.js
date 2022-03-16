@@ -4,7 +4,7 @@ import { FaSpinner } from 'react-icons/fa'
 import { cls } from './../../services/helpers'
 
 const classes = {
-    base: 'inline-flex items-center justify-center focus:outline-none transition ease-in-out duration-300 rounded-md',
+    base: 'inline-flex items-center justify-center focus:outline-none transition ease-in-out duration-300 rounded-md gap-2',
     disabled: 'opacity-50 cursor-not-allowed',
     pill: 'rounded-full',
     size: {
@@ -67,7 +67,7 @@ const ButtonSpinner = forwardRef(
                 {loading && (
                     <FaSpinner
                         className={cls(
-                            `animate-spin mr-3 ${classes.spinnerSize[spinnerSize]}`
+                            `animate-spin ${classes.spinnerSize[spinnerSize]}`
                         )}
                     />
                 )}

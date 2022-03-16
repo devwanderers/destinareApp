@@ -13,6 +13,7 @@ import useSCData from './../../hooks/scInteractions/useSCData'
 import useWindowSize from './../../hooks/useWindowSize'
 import useResponsive from './../../hooks/useResponsive'
 import useListenCookie from '../../hooks/useListenCookie'
+import utilitiesImages from './../../assets/images/utilities/index'
 const { Panel } = Collapse
 
 const HeaderPanel = ({ info: { APR, lockedTime, totalDeposit, active } }) => {
@@ -151,8 +152,23 @@ const CollapseStaking = () => {
             setVisibleModal(!visibleModal)
         })
     }
-
-    if (!contractStakes) return null
+    if (!contractStakes || (contractStakes && contractStakes.length === 0))
+        return (
+            <div className="flex flex-col justify-center items-center flex-grow opacity-75">
+                <img
+                    className=" w-80 h-auto"
+                    src={utilitiesImages.wallet}
+                    alt={utilitiesImages.wallet}
+                />
+                <p className="text-xl mt-8 font-medium">
+                    In order to stake your wallet should
+                </p>
+                <p className="text-xl font-medium">
+                    be connected to{' '}
+                    <span className="text-orange-2">Destinare</span>
+                </p>
+            </div>
+        )
     return (
         <React.Fragment>
             <ModalStaking

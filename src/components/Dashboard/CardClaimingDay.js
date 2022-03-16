@@ -5,6 +5,7 @@ import { Spin } from 'antd'
 import ButtonSpinner from '../Buttons/ButtonSpinner'
 import { cls } from './../../services/helpers'
 import { formatExponential } from './../../services/format'
+import CardContainer from './../Cards/CardContainer'
 
 const CardClaimingDay = ({
     initDate,
@@ -35,12 +36,11 @@ const CardClaimingDay = ({
     })
 
     return (
-        <div className="bg-gray-0 dark:bg-blue-5 border border-light-4 dark:border-black-0 flex-1 flex px-4 lg:px-5 xl:px-8 pt-5 pb-4 md:pb-4 xl:pt-8 xl:pb-6 rounded-xl relative overflow-hidden">
-            {loading && (
-                <div className="absolute left-0 top-0 flex justify-center items-center w-full h-full bg-gray-9 bg-opacity-50 z-50">
-                    <Spin size="large" />
-                </div>
-            )}
+        <CardContainer
+            loading={loading}
+            variant="secondary"
+            className="flex-1 flex px-4 lg:px-5 xl:px-8 pt-5 pb-4 md:pb-4 xl:pt-8 xl:pb-6"
+        >
             <div
                 className={cls(
                     `flex-1 flex flex-col justify-between
@@ -78,7 +78,10 @@ const CardClaimingDay = ({
                         : 'Claim Destinare token'}
                 </ButtonSpinner>
             </div>
-        </div>
+            {/* <div className="   rounded-xl relative overflow-hidden">
+               
+            </div> */}
+        </CardContainer>
     )
 }
 

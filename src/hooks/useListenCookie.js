@@ -17,22 +17,6 @@ const useListenCookie = (cookieName, delay = 250) => {
         }
     }, delay)
 
-    // useEffect(() => {
-    //     let id
-    //     if (!initialized) {
-    //         setInitialized(true)
-    //         id = setInterval(() => {
-    //             const cookieValue = Cookies.get(cookieName)
-    //             if (cookieValue && cookieValue !== currentValue) {
-    //                 setCurrentValue(cookieValue)
-    //             }
-    //         }, delay)
-    //     }
-
-    //     return () => {
-    //         if (id) clearInterval(id)
-    //     }
-    // }, [])
     return [currentValue]
 }
 

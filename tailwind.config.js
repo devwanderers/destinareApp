@@ -51,9 +51,14 @@ module.exports = {
             '-top-15': 'center top -15rem',
         },
         minWidth: {
+            ...defaultTheme.minWidth,
+            9: '2.25rem',
+            12: '3rem',
+            32: '8rem',
             minMobileWidth: '375px',
         },
         maxWidth: {
+            '960px': '960px',
             '1000px': '1000px',
             '1650px': '1280px',
             full: '100%',

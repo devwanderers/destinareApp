@@ -4,7 +4,7 @@ import { Button } from 'antd'
 import { FaDiscord, FaFacebookF, FaInstagram, FaTwitter } from 'react-icons/fa'
 import { useHistory } from 'react-router'
 import GenericNavBar from './GenericNavbar'
-import { MarketPath } from '../../constants/routerConstants'
+import { InvestPath } from '../../constants/routerConstants'
 import useWindowSize from './../../hooks/useWindowSize'
 import GenericNavbarMobile from './GenericNavbarMobile'
 import MenuNavbar from './MenuNavbar'
@@ -57,7 +57,7 @@ const DefaultNavbar = ({ authenticated, logout, ...rest }) => {
                         </a>
                     </Button>
                     <Button
-                        onClick={() => history.push(MarketPath)}
+                        onClick={() => history.push(InvestPath)}
                         type="link"
                         className="h-full flex-1 btn text-xs lg:text-lg leading-none text-black-3 font-normal hover:text-blue-3 active:text-blue-3 focus:text-blue-3"
                     >

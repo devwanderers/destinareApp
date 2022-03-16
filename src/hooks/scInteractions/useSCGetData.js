@@ -68,12 +68,12 @@ const useSCGetData = () => {
                     )
 
                     const startDate = await contract.methods
-                        .startPresaleDate()
+                        .startPrivateSaleDate()
                         .call()
 
-                    const claimedTokens = await contract.methods
-                        .claimTokens(account)
-                        .call()
+                    // const claimedTokens = await contract.methods
+                    //     .claimTokens(account)
+                    //     .call()
 
                     const circulatingSupply = await contract.methods
                         .circulatingSupply()
@@ -83,13 +83,13 @@ const useSCGetData = () => {
                         .totalSupply()
                         .call()
 
-                    const getPresaleInfo = await contract.methods
-                        .getPresaleInfo()
-                        .call()
+                    // const getPresaleInfo = await contract.methods
+                    //     .getPresaleInfo()
+                    //     .call()
 
-                    const getUserInfo = await contract.methods
-                        .getUserInfo()
-                        .call({ from: account })
+                    // const getUserInfo = await contract.methods
+                    //     .getUserInfo()
+                    //     .call({ from: account })
 
                     const contractStakes = await getStakes(contract)
 
@@ -129,13 +129,15 @@ const useSCGetData = () => {
                         _userStakes
                     )
 
+                    // Balance of user
                     const userTokens = await contract.methods
                         .balanceOf(account)
                         .call({ from: account })
-
+                    // Unclaimed balance of user
                     const totalTokens = await contract.methods
-                        .totalTokens(account)
+                        .totalTokensPrivate(account)
                         .call({ from: account })
+
                     const isStakeholder = await contract.methods
                         .isStakeholder(account)
                         .call()
@@ -148,15 +150,15 @@ const useSCGetData = () => {
                         startDate,
                         circulatingSupply,
                         totalSupply,
-                        getPresaleInfo,
-                        getUserInfo,
+                        // getPresaleInfo,
+                        // getUserInfo,
                         contractStakes,
                         userStakes,
                         userTokens,
                         totalTokens,
                         isStakeholder,
                         totalUserStakes,
-                        claimedTokens,
+                        // claimedTokens,
                     })
                 } catch (err) {
                     console.log({ err })

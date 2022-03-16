@@ -3,7 +3,7 @@ import { persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import globalTypes from './globalTypes'
 import scInteractionReducer from './scInteractionReducer/scInteractionReducer'
-import settingsReducer from './settings/settingsReducer'
+import whiteListReducer from './whitelist/whitelistReducer'
 
 const persistConfig = {
     key: 'root',
@@ -12,8 +12,8 @@ const persistConfig = {
 }
 
 const appReducer = combineReducers({
-    settings: settingsReducer,
     scInteraction: scInteractionReducer,
+    whitelist: whiteListReducer,
 })
 
 const rootReducer = (state, action) => {

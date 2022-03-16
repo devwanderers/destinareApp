@@ -12,6 +12,7 @@ import {
 } from '../../services/input-services'
 import Input from '../Inputs/Input'
 import ButtonSpinner from '../Buttons/ButtonSpinner'
+import CardContainer from '../Cards/CardContainer'
 
 const antIcon = (
     <LoadingOutlined className=" text-white" style={{ fontSize: 24 }} spin />
@@ -61,12 +62,11 @@ const CardDailyReserve = ({
 
     const totalDDOT = 8333333 * (percentage / 100)
     return (
-        <div className="bg-white dark:bg-gray-4 border border-primary px-4 lg:px-5 xl:px-8 pt-5 pb-3 md:pb-4 xl:pt-8 xl:pb-6 rounded-xl relative overflow-hidden border-opacity-50">
-            {loading && (
-                <div className="absolute left-0 top-0 flex justify-center items-center w-full h-full bg-gray-9 bg-opacity-50 z-50">
-                    <Spin size="large" />
-                </div>
-            )}
+        <CardContainer
+            loading={loading}
+            className="bg-white dark:bg-gray-4 border border-primary px-4 lg:px-5 xl:px-8 pt-5 pb-3 md:pb-4 xl:pt-8 xl:pb-6  border-opacity-50"
+            variant="none"
+        >
             <div className="flex flex-col md:flex-row divide-x-0 divide-y md:divide-x md:divide-y-0">
                 <div className="flex flex-col md:pr-4 lg:pr-5 xl:pr-8 pb-4 md:pb-0">
                     <div className=" flex flex-row justify-between md:justify-start md:flex-col">
@@ -178,7 +178,7 @@ const CardDailyReserve = ({
                     </div>
                 </div>
             </div>
-        </div>
+        </CardContainer>
     )
 }
 

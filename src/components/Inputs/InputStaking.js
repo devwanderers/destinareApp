@@ -12,7 +12,7 @@ const initialValues = {
     stakingAmount: '',
 }
 
-const InputStaking = ({ tokens, amount, setAmount, onSubmit }) => {
+const InputStaking = ({ tokens, amount, setAmount, onSubmit, info }) => {
     return (
         <Formik
             validationSchema={schema}

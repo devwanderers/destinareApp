@@ -1,7 +1,7 @@
 import React from 'react'
 import { Layout, Row, Col } from 'antd'
 import { useHistory } from 'react-router'
-import { MarketPath } from '../../constants/routerConstants'
+import { DashboardPath } from '../../constants/routerConstants'
 import DefaultNavbar from '../../components/Navbar/DefaultNavbar'
 import DefaultFooter from '../../components/Footers/DefaultFooter'
 import {
@@ -456,7 +456,7 @@ const LandingPage = ({ authenticated, userData, logout }) => {
                             </div>
                             <div>
                                 <button
-                                    onClick={() => history.push(MarketPath)}
+                                    onClick={() => history.push(DashboardPath)}
                                     className="px-10 py-1 text-white shadow-md rounded-full bg-gradient-to-r from-orange-2 to-orange-3"
                                 >
                                     <span className="font-bold text-2xl lg:text-3xl xl:text-4xl">
@@ -494,7 +494,7 @@ const LandingPage = ({ authenticated, userData, logout }) => {
                     </section>
                 </section>
             </Content>
-            <DefaultFooter history={history} marketPath={MarketPath} />
+            <DefaultFooter history={history} marketPath={DashboardPath} />
         </Layout>
     )
 }

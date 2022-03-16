@@ -8,11 +8,7 @@ import SiderMarket from './Siders/SiderMarket'
 import ConnectWalletHeader from './../Headers/ConnectWalletHeader'
 import useWindowSize from '../../hooks/useWindowSize'
 import useListenCookie from '../../hooks/useListenCookie'
-import {
-    HomePath,
-    MarketPath,
-    StakingView,
-} from '../../constants/routerConstants'
+import * as paths from '../../constants/routerConstants'
 import DefaultMenus from './DefaultMenus'
 import GenericNavbarMobile from './../Navbar/GenericNavbarMobile'
 import { DarkModeSwitch } from './../DarkModeSwitch'
@@ -27,14 +23,28 @@ const menuItems = [
         icon: IconDashboard,
         key: 'home',
         name: 'Home',
-        onClick: HomePath,
+        onClick: paths.HomePath,
+        group: false,
+    },
+    // {
+    //     icon: IconReservation,
+    //     key: 'dashboard',
+    //     name: 'Dashboard',
+    //     onClick: paths.DashboardPath,
+    //     group: false,
+    // },
+    {
+        icon: IconReservation,
+        key: 'invest',
+        name: 'Invest',
+        onClick: paths.InvestPath,
         group: false,
     },
     {
         icon: IconReservation,
-        key: 'dashboard',
-        name: 'Dashboard',
-        onClick: MarketPath,
+        key: 'privatesale',
+        name: 'Private Sale',
+        onClick: paths.PrivateSalePath,
         group: false,
     },
     {
@@ -45,7 +55,7 @@ const menuItems = [
         items: [
             {
                 icon: IconEarn,
-                onClick: StakingView,
+                onClick: paths.StakingView,
                 key: 'staking',
                 name: 'Staking with lock',
             },

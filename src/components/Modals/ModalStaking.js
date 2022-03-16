@@ -101,10 +101,8 @@ const ModalStaking = ({
             visible={visibleModal}
             onCancel={onCloseModal}
             width={widthModal}
-            deposit={deposit}
             maskClosable={false}
             footer={null}
-            centered
         >
             <div>
                 <div className="mb-2">

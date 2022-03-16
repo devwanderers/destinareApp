@@ -1,7 +1,7 @@
 import React from 'react'
 import { Menu } from 'antd'
 import { useHistory } from 'react-router'
-import { MarketPath } from '../../constants/routerConstants'
+import { DashboardPath } from '../../constants/routerConstants'
 import { FaDiscord, FaFacebookF, FaInstagram, FaTwitter } from 'react-icons/fa'
 
 const destinareMenu = [
@@ -27,7 +27,7 @@ const destinareMenu = [
     {
         route: true,
         target_blank: false,
-        onClick: MarketPath,
+        onClick: DashboardPath,
         name: 'APP',
     },
 ]

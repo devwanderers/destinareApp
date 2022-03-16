@@ -1,15 +1,13 @@
 import React, { useState } from 'react'
 import { useWeb3React } from '@web3-react/core'
-import CardReserve from '../components/Cards/CardReserve'
-import CardDailyReserve from '../components/Cards/CardDailyReserve'
-import CardClaimingDay from './../components/Cards/CardClaimingDay'
-// import CardYourContribution from './../components/Cards/CardYourContribution'
-// import CardTokens from './../components/Cards/CardTokens'
+import CardReserve from '../components/Dashboard/CardReserve'
+import CardDailyReserve from '../components/Dashboard/CardDailyReserve'
+import CardClaimingDay from '../components/Dashboard/CardClaimingDay'
 import useSCInteractions from '../hooks/scInteractions/useSCInteractions'
-import useSCData from './../hooks/scInteractions/useSCData'
+import useSCData from '../hooks/scInteractions/useSCData'
 
 import ReloadDataButton from '../components/ReloadButton/ReloadDataButton'
-import { getDifferenceInDays } from './../services/dateServices'
+import { getDifferenceInDays } from '../services/dateServices'
 
 const RenderCards = ({ currentDay, data, loading, initDate }) => {
     const cards = []
@@ -65,7 +63,7 @@ const RenderCards = ({ currentDay, data, loading, initDate }) => {
     )
 }
 
-const MarketView = () => {
+const DashboardView = () => {
     const { account } = useWeb3React()
     const { fetchedData, data } = useSCData()
     const { reserveToken, claimToken } = useSCInteractions()
@@ -164,4 +162,4 @@ const MarketView = () => {
         </div>
     )
 }
-export default MarketView
+export default DashboardView

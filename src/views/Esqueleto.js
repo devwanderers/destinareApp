@@ -137,48 +137,6 @@ const Esqueleto = (props) => {
                         </div>
                     </div>
                 </div>
-                <div className="bg-white dark:bg-gray-4 border border-light-4 dark:border-gray-16 py-3 rounded-xl relative overflow-hidden hover:border-primary mx-auto mt-8">
-                    <div className="flex flex-row w-full px-12 pt-3 pb-2 ">
-                        <div className="flex-1">Date</div>
-                        <div className="flex-1">Type</div>
-                        <div className="flex-1">From</div>
-                        <div className="flex-1">To</div>
-                        <div className="flex-1">Tx</div>
-                        <div className="flex-1">Account</div>
-                    </div>
-                    <div className="px-2 mb-4">
-                        <hr className="border-light-4 dark:border-gray-16" />
-                    </div>
-                    <div className="flex flex-row w-full px-12 pt-3 pb-2 ">
-                        <div className="flex-1">14 March</div>
-                        <div className="flex-1">14 March</div>
-                        <div className="flex-1 flex">
-                            <p className="flex items-center">
-                                0xa5f...fFAf{' '}
-                                <button className="text-xl text-primary ml-3">
-                                    <IoCopyOutline />
-                                </button>
-                            </p>
-                        </div>
-                        <div className="flex-1 flex">
-                            <p className="flex items-center">
-                                0xa5f...fFAf{' '}
-                                <button className="text-xl text-primary ml-3">
-                                    <IoCopyOutline />
-                                </button>
-                            </p>
-                        </div>
-                        <div className="flex-1 flex">
-                            <p className="flex items-center">
-                                0xa5f...fFAf{' '}
-                                <button className="text-xl text-primary ml-3">
-                                    <IoCopyOutline />
-                                </button>
-                            </p>
-                        </div>
-                        <div className="flex-1">$500</div>
-                    </div>
-                </div>
             </div>
         </div>
     )

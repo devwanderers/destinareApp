@@ -33,18 +33,18 @@ const routes = [
     //     },
     //     layout: SignInLayout,
     // },
-    {
-        name: 'MarketView',
-        path: paths.MarketPath,
-        route: Route,
-        componentProps: {
-            routes: [],
-        },
-        layoutProps: {
-            menuKey: 'menu-item-dashboard',
-        },
-        layout: MarketLayout,
-    },
+    // {
+    //     name: 'DashboardView',
+    //     path: paths.DashboardPath,
+    //     route: Route,
+    //     componentProps: {
+    //         routes: [],
+    //     },
+    //     layoutProps: {
+    //         menuKey: 'menu-item-dashboard',
+    //     },
+    //     layout: MarketLayout,
+    // },
     {
         name: 'StakingView',
         path: paths.StakingView,
@@ -57,9 +57,27 @@ const routes = [
         },
         layout: MarketLayout,
     },
+    // {
+    //     name: 'PresaleView',
+    //     path: paths.PresaleView,
+    //     route: Route,
+    //     componentProps: {
+    //         routes: [],
+    //     },
+    //     layout: MarketLayout,
+    // },
     {
-        name: 'Esqueleto',
-        path: '/esqueleto',
+        name: 'PrivateSaleView',
+        path: paths.PrivateSalePath,
+        route: Route,
+        componentProps: {
+            routes: [],
+        },
+        layout: MarketLayout,
+    },
+    {
+        name: 'InvestView',
+        path: paths.InvestPath,
         route: Route,
         componentProps: {
             routes: [],

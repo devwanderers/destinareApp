@@ -156,6 +156,44 @@
     {
         "inputs": [
             {
+                "internalType": "uint8",
+                "name": "_packageId",
+                "type": "uint8"
+            }
+        ],
+        "name": "buyPreSaleTokens",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "_totalTokens",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "payable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint8",
+                "name": "_packageId",
+                "type": "uint8"
+            }
+        ],
+        "name": "buyPrivateSaleTokens",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "_totalTokens",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "payable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
                 "internalType": "address",
                 "name": "_stakeholder",
                 "type": "address"
@@ -191,34 +229,15 @@
         "type": "function"
     },
     {
-        "inputs": [],
-        "name": "claimPresaleTokens",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "_totalTokens",
-                "type": "uint256"
-            }
-        ],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
         "inputs": [
             {
                 "internalType": "uint256",
-                "name": "month",
+                "name": "_id",
                 "type": "uint256"
             }
         ],
-        "name": "claimReleaseTokens",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "_totalTokens",
-                "type": "uint256"
-            }
-        ],
+        "name": "claimPreSaleTokens",
+        "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
     },
@@ -230,7 +249,39 @@
                 "type": "address"
             }
         ],
-        "name": "claimTokens",
+        "name": "claimPreTokens",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint8",
+                "name": "_id",
+                "type": "uint8"
+            }
+        ],
+        "name": "claimPrivateSaleTokens",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "name": "claimPrivateTokens",
         "outputs": [
             {
                 "internalType": "bool",
@@ -294,61 +345,6 @@
             }
         ],
         "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "part",
-                "type": "uint256"
-            },
-            {
-                "internalType": "uint256",
-                "name": "whole",
-                "type": "uint256"
-            }
-        ],
-        "name": "getPercent",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "percent",
-                "type": "uint256"
-            }
-        ],
-        "stateMutability": "pure",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "getPresaleInfo",
-        "outputs": [
-            {
-                "internalType": "uint256[30]",
-                "name": "_totalUsers",
-                "type": "uint256[30]"
-            },
-            {
-                "internalType": "uint256[30]",
-                "name": "_totalEth",
-                "type": "uint256[30]"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "getUserInfo",
-        "outputs": [
-            {
-                "internalType": "uint256[30]",
-                "name": "_totalEthUser",
-                "type": "uint256[30]"
-            }
-        ],
-        "stateMutability": "view",
         "type": "function"
     },
     {
@@ -469,19 +465,6 @@
         "type": "function"
     },
     {
-        "inputs": [],
-        "name": "reserveTokens",
-        "outputs": [
-            {
-                "internalType": "bool",
-                "name": "",
-                "type": "bool"
-            }
-        ],
-        "stateMutability": "payable",
-        "type": "function"
-    },
-    {
         "inputs": [
             {
                 "internalType": "address",
@@ -580,14 +563,34 @@
     },
     {
         "inputs": [],
-        "name": "startPresale",
+        "name": "startPreSale",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
     },
     {
         "inputs": [],
-        "name": "startPresaleDate",
+        "name": "startPreSaleDate",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "startPrivateSale",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "startPrivateSaleDate",
         "outputs": [
             {
                 "internalType": "uint256",
@@ -632,7 +635,26 @@
                 "type": "address"
             }
         ],
-        "name": "totalTokens",
+        "name": "totalTokensPre",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "name": "totalTokensPrivate",
         "outputs": [
             {
                 "internalType": "uint256",
@@ -666,7 +688,7 @@
         "inputs": [
             {
                 "internalType": "address",
-                "name": "recipient",
+                "name": "to",
                 "type": "address"
             },
             {
@@ -690,12 +712,12 @@
         "inputs": [
             {
                 "internalType": "address",
-                "name": "sender",
+                "name": "from",
                 "type": "address"
             },
             {
                 "internalType": "address",
-                "name": "recipient",
+                "name": "to",
                 "type": "address"
             },
             {
@@ -724,6 +746,19 @@
             }
         ],
         "name": "transferOwnership",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address payable",
+                "name": "recipient",
+                "type": "address"
+            }
+        ],
+        "name": "withDrawEth",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
