@@ -1,5 +1,6 @@
 import { useCallback } from 'react'
 import useActiveWeb3React from '../useActiveWeb3React'
+import DestinareContract from '../../abi/DestinareContract.json'
 
 export const useClaimPrivateSale = () => {
     const { library, account } = useActiveWeb3React()
