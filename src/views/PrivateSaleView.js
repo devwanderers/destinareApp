@@ -9,6 +9,8 @@ import {
     useAlreadyRequestWhitelist,
     useWhiteList,
     useFetchWhiteList,
+    useFetchingWhiteList,
+    useUpdateWhitelist,
 } from './../store/reducers/whitelist/hooks'
 import useDebounce from './../hooks/useDebounce'
 import ModalCompromisePackage from '../components/PrivateSale/ModalCompromisePackage'
@@ -16,6 +18,7 @@ import CardCompromisePlan from '../components/PrivateSale/CardCompromisePlan'
 import CardReservePlan from './../components/PrivateSale/CardReservePlan'
 import useDeepCompareEffect from './../hooks/useDeepCompareEffect'
 import PageLoading from '../components/PageLoadings/PageLoading'
+import { useBuyPrivateSale } from '../hooks/scInteractions/privateSaleHooks'
 
 const stakingLvls = [
     {
@@ -27,6 +30,7 @@ const stakingLvls = [
             ['Time', '6 Months'],
         ],
         packageId: 1,
+        amount: 0.2,
     },
     {
         title: 'Trader Plan',
@@ -37,6 +41,7 @@ const stakingLvls = [
             ['Time', '5 Months'],
         ],
         packageId: 2,
+        amount: 0.4,
     },
     {
         title: 'Investor Plan',
@@ -47,6 +52,7 @@ const stakingLvls = [
             ['Time', '4 Months'],
         ],
         packageId: 3,
+        amount: 0.75,
     },
 ]
 
@@ -61,6 +67,19 @@ const PrivateSaleView = () => {
     const alreadyRequest = useAlreadyRequestWhitelist()
     const whitelist = useWhiteList()
     const fetchWhiteList = useFetchWhiteList()
+    const { whiteList: fetchingWhiteList } = useFetchingWhiteList()
+
+    const buyPrivateSale = useBuyPrivateSale()
+    const updateWhitelist = useUpdateWhitelist()
+
+    useDeepCompareEffect(() => {
+        if (whitelist.package !== 0) {
+            const _selectedPackage = stakingLvls.find(
+                (s) => s.packageId === whitelist.package
+            )
+            if (_selectedPackage) setPlanCompromised(_selectedPackage)
+        }
+    }, [whitelist])
 
     const handleSelectPackage = (data) => {
         setVisible(true)
@@ -72,22 +91,17 @@ const PrivateSaleView = () => {
         if (reset) setPlan(null)
     }
 
-    useDeepCompareEffect(() => {
-        if (whitelist.package !== 0) {
-            const _selectedPackage = stakingLvls.find(
-                (s) => s.packageId === whitelist.package
-            )
-            if (_selectedPackage) setPlanCompromised(_selectedPackage)
-        }
-    }, [whitelist])
-
-    // if (!fetchWhiteList.alreadyRequest || !fetchWhiteList.whiteList) {
-    //     return (
-    //         <div className="flex justify-center h-64 mt-12">
-    //             <PageLoading />
-    //         </div>
-    //     )
-    // }
+    const handlePayPlan = () => {
+        buyPrivateSale(planCompromised, (err, message, data) => {
+            console.log(err, message, data)
+            if (err) {
+                console.log({ err })
+            } else {
+                const { events, transactionHash } = data
+                updateWhitelist(data)
+            }
+        })
+    }
 
     return (
         <div className="mx-5" style={{ height: 'calc(100vh - 109.13px)' }}>
@@ -99,7 +113,7 @@ const PrivateSaleView = () => {
             <div className="max-w-960px mx-auto mt-12">
                 {!alreadyRequest ? (
                     <CardContainer
-                        loading={!fetchedData}
+                        loading={fetchingWhiteList}
                         className="px-12 pt-8 pb-6"
                     >
                         <FormPrivateSale account={account} />
@@ -135,9 +149,9 @@ const PrivateSaleView = () => {
                                     title={planCompromised.title}
                                     subtitle={planCompromised.subtitle}
                                     properties={planCompromised.properties}
-                                    onClick={() => {}}
+                                    onClick={handlePayPlan}
                                     verified={whitelist.verified}
-                                    lock
+                                    // lock
                                 />
                             </div>
                         )}

@@ -1,5 +1,6 @@
 import React from 'react'
 import { BiLock } from 'react-icons/bi'
+import { FaEthereum } from 'react-icons/fa'
 import CardContainer from '../Cards/CardContainer'
 import ButtonSpinner from '../Buttons/ButtonSpinner'
 import { cls } from '../../services/helpers'
@@ -18,7 +19,8 @@ const CardReservePlan = ({
             `)}
         >
             <div className="flex flex-col w-full">
-                <div className="md:text-base lg:text-lg xl:text-xl font-bold text-black-2 dark:text-gray-3 leading-none">
+                <div className="md:text-base lg:text-lg xl:text-xl font-bold text-black-2 dark:text-gray-3 leading-none flex gap-1">
+                    <FaEthereum className="relative" style={{ top: '-2px' }} />
                     {subtitle}
                 </div>
                 <div className="mt-6 md:text-base lg:text-lg font-medium leading-none text-primary mb-2">

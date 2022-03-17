@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import {
     accountWhitelistSelector,
     alreadyRequestSelector,
+    whiteListFetchingSelector,
     whiteListFetchSelector,
 } from './selectors'
 import { useWeb3React } from '@web3-react/core'
@@ -18,7 +19,7 @@ export const useAlreadyRequestWhitelist = () => {
     const alreadyRequest = useSelector(alreadyRequestSelector)
     const dispatch = useDispatch()
 
-    useEffect(() => {
+    useEffect(async () => {
         if (account) dispatch(hasRequestWhitelist(account))
     }, [account, dispatch])
 
@@ -31,7 +32,7 @@ export const useWhiteList = () => {
     const whitelist = useSelector(accountWhitelistSelector)
     const dispatch = useDispatch()
 
-    useEffect(() => {
+    useEffect(async () => {
         if (account) dispatch(fetchWhitelist(account))
     }, [account, dispatch])
 
@@ -50,4 +51,8 @@ export const useUpdateWhitelist = () => {
 
 export const useFetchWhiteList = () => {
     return useSelector(whiteListFetchSelector)
+}
+
+export const useFetchingWhiteList = () => {
+    return useSelector(whiteListFetchingSelector)
 }

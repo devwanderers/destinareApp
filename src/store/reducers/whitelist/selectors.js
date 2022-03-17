@@ -19,3 +19,8 @@ export const whiteListFetchSelector = createSelector(
     whitelistSelector,
     (whitelist) => whitelist.fetch
 )
+
+export const whiteListFetchingSelector = createSelector(
+    whitelistSelector,
+    (whitelist) => whitelist.fetching
+)
