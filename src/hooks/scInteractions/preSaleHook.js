@@ -2,27 +2,17 @@
 import { useCallback } from 'react'
 import useActiveWeb3React from '../useActiveWeb3React'
 import DestinareContract from '../../abi/DestinareContract.json'
-import { useReloadData } from './../../store/reducers/scInteractionReducer/hooks'
 
-export const useClaimPrivateSale = () => {
+export const useClaimPreSale = () => {
     const { library, account } = useActiveWeb3React()
-    const reloaData = useReloadData()
 
     return useCallback(
-        async (stakeId, callback) => {
+        async (callback) => {
             try {
                 const contract = new library.eth.Contract(
                     DestinareContract,
                     process.env.REACT_APP_DESTINARE_CONTRACT_ADDRESS
                 )
-                const tokens = await contract.methods
-                    .claimPrivateSaleTokens(stakeId)
-                    .send({ from: account })
-                await reloaData(true)
-                if (typeof callback === 'function') {
-                    const message = 'Tokens were successfully claimed'
-                    callback(undefined, message, tokens)
-                }
             } catch (err) {
                 if (typeof callback === 'function') {
                     const _err = { err }
@@ -34,9 +24,8 @@ export const useClaimPrivateSale = () => {
     )
 }
 
-export const useBuyPrivateSale = () => {
+export const useBuyPreSale = () => {
     const { library, account } = useActiveWeb3React()
-    const reloaData = useReloadData()
     return useCallback(
         async (plan, callback) => {
             try {
@@ -45,14 +34,13 @@ export const useBuyPrivateSale = () => {
                     process.env.REACT_APP_DESTINARE_CONTRACT_ADDRESS
                 )
                 const tx = await contract.methods
-                    .buyPrivateSaleTokens(plan.packageId)
+                    .buyPreSaleTokens(plan.packageId)
                     .send({
                         from: account,
                         value: plan.amount * 1e18,
                     })
                     .then((res) => res)
-                await reloaData(true)
-                console.log('buy private Tokens', tx)
+                console.log('buy presale Tokens', tx)
                 if (typeof callback === 'function') {
                     const message = 'Tokens were successfully purchased'
                     callback(undefined, message, tx)

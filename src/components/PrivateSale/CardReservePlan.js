@@ -1,5 +1,6 @@
 import React from 'react'
 import { BiLock } from 'react-icons/bi'
+import { AiFillCheckCircle } from 'react-icons/ai'
 import { FaEthereum } from 'react-icons/fa'
 import CardContainer from '../Cards/CardContainer'
 import ButtonSpinner from '../Buttons/ButtonSpinner'
@@ -11,6 +12,7 @@ const CardReservePlan = ({
     properties = [],
     onClick,
     lock,
+    paid,
 }) => {
     return (
         <CardContainer
@@ -18,6 +20,11 @@ const CardReservePlan = ({
                 px-8 pt-5 xl:pt-12  pb-5 xl:pb-8
             `)}
         >
+            {paid && (
+                <div className=" absolute right-0 top-0 p-2 text-3xl text-green-500">
+                    <AiFillCheckCircle />
+                </div>
+            )}
             <div className="flex flex-col w-full">
                 <div className="md:text-base lg:text-lg xl:text-xl font-bold text-black-2 dark:text-gray-3 leading-none flex gap-1">
                     <FaEthereum className="relative" style={{ top: '-2px' }} />
@@ -44,20 +51,30 @@ const CardReservePlan = ({
                     })}
                 </div>
             </div>
-            <ButtonSpinner
-                onClick={onClick}
-                size="normal"
-                className="mt-12 w-full transform"
-                disabled={lock}
-            >
-                {lock ? (
-                    <div className="flex gap-2 items-center">
-                        Buy <BiLock />
-                    </div>
-                ) : (
-                    'Buy'
-                )}
-            </ButtonSpinner>
+            {!paid ? (
+                <ButtonSpinner
+                    onClick={onClick}
+                    size="normal"
+                    className="mt-12 w-full transform"
+                    disabled={lock}
+                >
+                    {lock ? (
+                        <div className="flex gap-2 items-center">
+                            Buy <BiLock />
+                        </div>
+                    ) : (
+                        'Buy'
+                    )}
+                </ButtonSpinner>
+            ) : (
+                <ButtonSpinner
+                    onClick={onClick}
+                    size="normal"
+                    className="mt-12 w-full transform"
+                >
+                    Go to investments
+                </ButtonSpinner>
+            )}
         </CardContainer>
     )
 }

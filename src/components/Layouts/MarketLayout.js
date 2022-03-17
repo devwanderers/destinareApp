@@ -16,6 +16,8 @@ import {
     IconDashboard,
     IconReservation,
     IconEarn,
+    IconPrivateSale,
+    IconPresale,
 } from '../../assets/svg/icons'
 
 const menuItems = [
@@ -36,17 +38,24 @@ const menuItems = [
     {
         icon: IconReservation,
         key: 'invest',
-        name: 'Invest',
+        name: 'Investments',
         onClick: paths.InvestPath,
         group: false,
     },
     {
-        icon: IconReservation,
+        icon: IconPrivateSale,
         key: 'privatesale',
         name: 'Private Sale',
         onClick: paths.PrivateSalePath,
         group: false,
     },
+    // {
+    //     icon: IconPresale,
+    //     key: 'presale',
+    //     name: 'Pre Sale',
+    //     onClick: paths.PresalePath,
+    //     group: false,
+    // },
     {
         icon: IconEarn,
         key: 'earn',
@@ -120,7 +129,7 @@ const MarketLayout = ({ children, menuKey, ...rest }) => {
                         <div className="mx-5">
                             <div className="max-w-1650px mx-auto flex flex-col-reverse md:flex-row dark:bg-blue-1 bg-light-2 border-b border-gray-11 dark:border-gray-1 select-none mt-6 pb-6">
                                 <div className="flex items-end justify-center text-2xl lg:text-3xl mt-5 lg:mt-0 md:justify-start  text-black-2 dark:text-white font-medium leading-none">
-                                    Welcome to Destinare
+                                    Welcome to Destinare ICO
                                 </div>
                                 <ConnectWalletHeader
                                     className="ml-auto"

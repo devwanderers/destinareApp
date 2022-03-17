@@ -8,8 +8,11 @@ const initialState = {
         email: '',
         userName: '',
         verified: false,
-        package: 0,
+        packagePreSale: 0,
+        packagePrivateSale: 0,
         stake: 0,
+        privateSale: [],
+        preSale: [],
     },
     fetch: {
         alreadyRequest: false,

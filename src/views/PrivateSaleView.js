@@ -19,88 +19,109 @@ import CardReservePlan from './../components/PrivateSale/CardReservePlan'
 import useDeepCompareEffect from './../hooks/useDeepCompareEffect'
 import PageLoading from '../components/PageLoadings/PageLoading'
 import { useBuyPrivateSale } from '../hooks/scInteractions/privateSaleHooks'
+import useValidate from './../hooks/useValidate'
+import { useHistory } from 'react-router'
+import { InvestPath } from './../constants/routerConstants'
+import { stakingLvlsPrivate } from './../constants/stakingLevels'
 
-const stakingLvls = [
-    {
-        title: 'Basic Plan',
-        subtitle: '0.2 ETH',
-        properties: [
-            ['DDOT', '12, 500'],
-            ['APR', '10%'],
-            ['Time', '6 Months'],
-        ],
-        packageId: 1,
-        amount: 0.2,
-    },
-    {
-        title: 'Trader Plan',
-        subtitle: '0.4 ETH',
-        properties: [
-            ['DDOT', '33, 333'],
-            ['APR', '15%'],
-            ['Time', '5 Months'],
-        ],
-        packageId: 2,
-        amount: 0.4,
-    },
-    {
-        title: 'Investor Plan',
-        subtitle: '0.75 ETH',
-        properties: [
-            ['DDOT', '100, 000'],
-            ['APR', '20%'],
-            ['Time', '4 Months'],
-        ],
-        packageId: 3,
-        amount: 0.75,
-    },
-]
+const initialState = {
+    verified: false,
+    visible: false,
+    selectedPlan: null,
+    paying: false,
+}
 
 const PrivateSaleView = () => {
+    const history = useHistory()
     const { account } = useWeb3React()
     const { fetchedData, data } = useSCData()
-    const [verified, setVerified] = useState(false)
-    const [visible, setVisible] = useState(false)
-    const [selectedPlan, setPlan] = useState(null)
+
+    const [state, setState] = useState(initialState)
+    const { visible, selectedPlan, paying } = state
+    // const [verified, setVerified] = useState(false)
+    // const [visible, setVisible] = useState(false)
+    // const [selectedPlan, setPlan] = useState(null)
+    // const [paying, setPaying] = useState(false)
     const [planCompromised, setPlanCompromised] = useState(null)
 
     const alreadyRequest = useAlreadyRequestWhitelist()
     const whitelist = useWhiteList()
     const fetchWhiteList = useFetchWhiteList()
-    const { whiteList: fetchingWhiteList } = useFetchingWhiteList()
+
+    const {
+        whiteList: fetchingWhiteList,
+        alreadyRequest: fetchingAlreadyRequest,
+    } = useFetchingWhiteList()
 
     const buyPrivateSale = useBuyPrivateSale()
     const updateWhitelist = useUpdateWhitelist()
 
+    useEffect(() => {
+        setState(initialState)
+        setPlanCompromised(null)
+    }, [account])
+
     useDeepCompareEffect(() => {
         if (whitelist.package !== 0) {
-            const _selectedPackage = stakingLvls.find(
-                (s) => s.packageId === whitelist.package
+            const _selectedPackage = stakingLvlsPrivate.find(
+                (s) => s.packageId === whitelist.packagePrivateSale
             )
             if (_selectedPackage) setPlanCompromised(_selectedPackage)
         }
     }, [whitelist])
 
     const handleSelectPackage = (data) => {
-        setVisible(true)
-        setPlan(data)
+        setState({ ...state, visible: true, selectedPlan: data })
     }
 
     const handleOnCloseModal = (reset = true) => {
-        setVisible(false)
-        if (reset) setPlan(null)
+        const newState = { ...state, visible: false }
+        if (reset) newState.selectedPlan = null
+        setState(newState)
     }
 
     const handlePayPlan = () => {
-        buyPrivateSale(planCompromised, (err, message, data) => {
-            console.log(err, message, data)
-            if (err) {
-                console.log({ err })
-            } else {
-                const { events, transactionHash } = data
-                updateWhitelist(data)
-            }
-        })
+        if (whitelist.privateSale.length > 0) {
+            history.push(InvestPath)
+        } else {
+            setState({ ...state, playing: true })
+            buyPrivateSale(planCompromised, async (err, message, data) => {
+                if (err) {
+                    setState({ ...state, playing: false })
+                    console.log({ err })
+                } else {
+                    const { from, to, transactionHash } = data
+
+                    await updateWhitelist({
+                        privateSale: [
+                            new Date().getTime(),
+                            from,
+                            to,
+                            transactionHash,
+                            planCompromised.amount,
+                        ],
+                    })
+
+                    history.push(InvestPath)
+                }
+            })
+        }
+    }
+
+    const loadingPage = useValidate([
+        !account,
+        !fetchWhiteList.alreadyRequest,
+        fetchWhiteList.alreadyRequest &&
+            alreadyRequest &&
+            !fetchWhiteList.whiteList,
+    ])
+
+    if (loadingPage) {
+        return (
+            <div className="mx-5" style={{ height: 'calc(100vh - 109.13px)' }}>
+                <PageLoading />
+            </div>
+        )
     }
 
     return (
@@ -112,17 +133,14 @@ const PrivateSaleView = () => {
             />
             <div className="max-w-960px mx-auto mt-12">
                 {!alreadyRequest ? (
-                    <CardContainer
-                        loading={fetchingWhiteList}
-                        className="px-12 pt-8 pb-6"
-                    >
+                    <CardContainer className="px-12 pt-8 pb-6">
                         <FormPrivateSale account={account} />
                     </CardContainer>
                 ) : (
                     <React.Fragment>
                         {!planCompromised ? (
                             <div className="grid grid-cols-3 gap-4">
-                                {stakingLvls.map((s) => {
+                                {stakingLvlsPrivate.map((s) => {
                                     const {
                                         title,
                                         subtitle,
@@ -144,13 +162,13 @@ const PrivateSaleView = () => {
                                 })}
                             </div>
                         ) : (
-                            <div className="w-4/12 mx-auto">
+                            <div className="w-11/12 md:w-5/12 lg:w-4/12 mx-auto">
                                 <CardReservePlan
                                     title={planCompromised.title}
                                     subtitle={planCompromised.subtitle}
                                     properties={planCompromised.properties}
                                     onClick={handlePayPlan}
-                                    verified={whitelist.verified}
+                                    paid={whitelist.privateSale.length > 0}
                                     // lock
                                 />
                             </div>

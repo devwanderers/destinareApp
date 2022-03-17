@@ -1,20 +1,32 @@
 import React from 'react'
 import CardContainer from './../Cards/CardContainer'
 import { IoCopyOutline } from 'react-icons/io5'
+import { useWeb3React } from '@web3-react/core'
+import useCopyToClipboard from './../../hooks/useCopyToClipboard'
+import { Tooltip } from 'antd'
 
 const WhitelistedAddress = (props) => {
+    const { account } = useWeb3React()
+    const [copyToClipboard, { success }] = useCopyToClipboard()
+
     return (
-        <CardContainer className="py-3 mx-auto">
-            <div className="flex flex-row justify-center w-full pl-4 lg:pl-20 pr-4 lg:pr-12">
-                <div className="flex items-center">
-                    <span className="text-xs lg:text-sm">
-                        0xa5f5A7Aba488d3B240b48689510d9b7c3F95fFAf
-                    </span>
+        <CardContainer
+            onClick={() => copyToClipboard(account)}
+            className="py-3 mx-auto cursor-pointer"
+        >
+            <div className="flex flex-row justify-center w-full px-4 lg:px-12">
+                <div className="flex items-center text-black-2 dark:text-gray-6">
+                    <span className="text-xs lg:text-sm">{account}</span>
                 </div>
                 <div className="ml-auto flex">
-                    <button className="text-sm lg:text-base text-primary">
-                        <IoCopyOutline />
-                    </button>
+                    <Tooltip className="" title={success ? 'copied' : 'copy'}>
+                        <button
+                            onClick={() => copyToClipboard(account)}
+                            className="text-sm lg:text-base text-primary"
+                        >
+                            <IoCopyOutline />
+                        </button>
+                    </Tooltip>
                 </div>
             </div>
         </CardContainer>

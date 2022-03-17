@@ -109,12 +109,12 @@ const TableStaking = ({
     const data = userStakes.reduce((acc, item, i) => {
         if (Number(item.type) === stake && item.reward != null) {
             const date = new Date(item.stakeTime * 1000).toLocaleString('en-GB')
-            console.log({ date })
             const depositAmount = item.tokensLocked / 1e18
-            const reward = (item.reward - item.tokensLocked) / 1e18
+            const reward =
+                (Number(item.reward) - Number(item.tokensLocked)) / 1e18
             let lockDuration = Number(item.stakeTime) + Number(lokedTime)
+            console.log({ item })
             lockDuration = lockDuration * 1000
-
             return [
                 ...acc,
                 {

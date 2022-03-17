@@ -22,7 +22,6 @@ const formattedCurrency = (v) =>
     })
 
 const formatDDOT = (v) => {
-    console.log('entro')
     if (v === '') return '0'
 
     let num = v.replace(/,/g, '')
@@ -57,7 +56,8 @@ const ModalStaking = ({
     loadingStaking,
 }) => {
     userTokens = userTokens / 1e18
-    const tokens = userTokens.toFixed(0)
+    const tokens = Math.floor(userTokens)
+    console.log({ tokens })
     const maxValue = validMaxValue(tokens)
     const {
         value: amount,
@@ -111,7 +111,7 @@ const ModalStaking = ({
                         <p className="font-bold text-base">
                             Balance:{' '}
                             <span className="font-normal">
-                                {useCurrency(userTokens, 0)}
+                                {formatDDOT(userTokens.toString())}
                             </span>
                         </p>
                     </div>
@@ -131,7 +131,7 @@ const ModalStaking = ({
                                 type="button"
                                 className="disabled:opacity-50 bg-primary rounded-md py-1 px-3 text-white text-base font-bold"
                                 onClick={() => {
-                                    setValue(formatDDOT(tokens))
+                                    setValue(formatDDOT(tokens.toString()))
                                     // setFieldValue('stakingAmount', tokens)
                                 }}
                             >

@@ -2,6 +2,7 @@ import React from 'react'
 // import { Row, Col } from 'antd'
 import CollapseStaking from '../components/Collapse/CollapseStaking'
 import ReloadDataButton from '../components/ReloadButton/ReloadDataButton'
+
 const StakingView = (props) => {
     return (
         <div className="mx-5 " style={{ height: '100%' }}>

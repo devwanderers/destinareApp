@@ -59,7 +59,7 @@ const routes = [
     },
     // {
     //     name: 'PresaleView',
-    //     path: paths.PresaleView,
+    //     path: paths.PresalePath,
     //     route: Route,
     //     componentProps: {
     //         routes: [],

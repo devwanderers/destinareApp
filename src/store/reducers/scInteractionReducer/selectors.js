@@ -19,3 +19,13 @@ export const fetchedDataSCSelector = createSelector(
     scInteractionReducerSelector,
     (scInteraction) => scInteraction.fetchedData
 )
+
+export const totalTokensPrivateSelector = createSelector(
+    dataSCSelector,
+    (data) => data.totalTokensPrivate
+)
+
+export const totalTokensPreSelector = createSelector(
+    dataSCSelector,
+    (data) => data.totalTokensPre
+)

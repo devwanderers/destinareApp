@@ -28,13 +28,14 @@ export const useAlreadyRequestWhitelist = () => {
 
 export const useWhiteList = () => {
     const { account } = useWeb3React()
+    const alreadyRequest = useSelector(alreadyRequestSelector)
 
     const whitelist = useSelector(accountWhitelistSelector)
     const dispatch = useDispatch()
 
     useEffect(async () => {
-        if (account) dispatch(fetchWhitelist(account))
-    }, [account, dispatch])
+        if (account && alreadyRequest) dispatch(fetchWhitelist(account))
+    }, [account, alreadyRequest, dispatch])
 
     return whitelist
 }

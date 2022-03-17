@@ -1,13 +1,11 @@
 import { useCallback } from 'react'
 import DestinareContract from '../../abi/DestinareContract.json'
 import useActiveWeb3React from '../useActiveWeb3React'
-import { useDispatch } from 'react-redux'
-import * as scActions from '../../store/reducers/scInteractionReducer/actions'
+import { useReloadData } from './../../store/reducers/scInteractionReducer/hooks'
 
 const useSCInteractions = () => {
     const { library, account } = useActiveWeb3React()
-    const dispatch = useDispatch()
-    const setReload = (reload) => dispatch(scActions.setReload(reload))
+    const reloadData = useReloadData(true)
 
     const reserveToken = useCallback(
         async (amount, callback) => {
@@ -16,7 +14,6 @@ const useSCInteractions = () => {
                     DestinareContract,
                     process.env.REACT_APP_DESTINARE_CONTRACT_ADDRESS
                 )
-                console.log({ account })
                 const tx = await contract.methods
                     .reserveTokens()
                     .send({ from: account, value: amount * 1e18 })
@@ -72,6 +69,7 @@ const useSCInteractions = () => {
                     DestinareContract,
                     process.env.REACT_APP_DESTINARE_CONTRACT_ADDRESS
                 )
+                console.log({ stake, type })
                 const created = await contract.methods
                     .createStake(stake, type)
                     .send({ from: account })
@@ -109,10 +107,6 @@ const useSCInteractions = () => {
         },
         [library, account]
     )
-
-    const reloadData = useCallback((data) => {
-        setReload(data)
-    }, [])
 
     return {
         reserveToken,

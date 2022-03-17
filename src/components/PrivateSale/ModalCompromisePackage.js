@@ -11,7 +11,23 @@ import { validations } from '../../services/yupValidations'
 import { cls } from '../../services/helpers'
 import { useUpdateWhitelist } from '../../store/reducers/whitelist/hooks'
 
-const ModalCompromisePackage = ({ title, packageId, visible, onClose }) => {
+const SALE_TYPES = {
+    PRIVATE: 'private',
+    PRESALE: 'presale',
+}
+
+const SALE_PROPERIE = {
+    [SALE_TYPES.PRIVATE]: 'packagePrivateSale',
+    [SALE_TYPES.PRESALE]: 'packagePreSale',
+}
+
+const ModalCompromisePackage = ({
+    title,
+    packageId,
+    visible,
+    onClose,
+    saleType = SALE_TYPES.PRIVATE,
+}) => {
     const [loading, setLoading] = useState(false)
 
     const updateWhitelist = useUpdateWhitelist()
@@ -19,7 +35,9 @@ const ModalCompromisePackage = ({ title, packageId, visible, onClose }) => {
     const handleCompromise = async () => {
         if (loading) return
         setLoading(true)
-        const res = await updateWhitelist({ package: packageId })
+        const res = await updateWhitelist({
+            [SALE_PROPERIE[saleType]]: packageId,
+        })
 
         setTimeout(() => {
             onClose(!!res?.error)
@@ -41,10 +59,10 @@ const ModalCompromisePackage = ({ title, packageId, visible, onClose }) => {
                 </div>
             }
             visible={visible}
-            onClose={() => onClose()}
             maskClosable={!loading}
             footer={null}
             centered
+            onCancel={() => onClose()}
         >
             <div className="text-center">
                 <p className=" text-center">
