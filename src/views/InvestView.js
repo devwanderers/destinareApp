@@ -87,7 +87,7 @@ const InvestView = (props) => {
                             className="px-8"
                             onClick={handleClaimTokensPrivate}
                             loading={loading}
-                            // disabled={totalTokensPrivate === '0'}
+                            disabled={whitelist.privateSale.length === 0}
                         >
                             {!loading
                                 ? !alreadyClaimedPrivateTokens
@@ -106,7 +106,7 @@ const InvestView = (props) => {
                         <ButtonSpinner
                             size="normal"
                             className="px-8"
-                            disabled={totalTokensPre === '0'}
+                            disabled={true}
                             loading={loading}
                         >
                             {!loading
