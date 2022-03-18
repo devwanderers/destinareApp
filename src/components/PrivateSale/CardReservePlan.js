@@ -13,6 +13,7 @@ const CardReservePlan = ({
     onClick,
     lock,
     paid,
+    loading,
 }) => {
     return (
         <CardContainer
@@ -57,13 +58,16 @@ const CardReservePlan = ({
                     size="normal"
                     className="mt-12 w-full transform"
                     disabled={lock}
+                    loading={loading}
                 >
                     {lock ? (
                         <div className="flex gap-2 items-center">
                             Buy <BiLock />
                         </div>
-                    ) : (
+                    ) : !loading ? (
                         'Buy'
+                    ) : (
+                        ''
                     )}
                 </ButtonSpinner>
             ) : (

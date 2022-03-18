@@ -4,10 +4,10 @@ import CardReserve from '../components/Dashboard/CardReserve'
 import CardDailyReserve from '../components/Dashboard/CardDailyReserve'
 import CardClaimingDay from '../components/Dashboard/CardClaimingDay'
 import useSCInteractions from '../hooks/scInteractions/useSCInteractions'
-import useSCData from '../hooks/scInteractions/useSCData'
 
 import ReloadDataButton from '../components/ReloadButton/ReloadDataButton'
 import { getDifferenceInDays } from '../services/dateServices'
+import { useSCData } from '../store/reducers/scInteractionReducer/hooks'
 
 const RenderCards = ({ currentDay, data, loading, initDate }) => {
     const cards = []

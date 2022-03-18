@@ -57,7 +57,6 @@ const ModalStaking = ({
 }) => {
     userTokens = userTokens / 1e18
     const tokens = Math.floor(userTokens)
-    console.log({ tokens })
     const maxValue = validMaxValue(tokens)
     const {
         value: amount,

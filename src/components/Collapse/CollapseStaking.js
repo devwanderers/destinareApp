@@ -9,7 +9,7 @@ import useCurrency from '../../hooks/useCurrency'
 import { RightOutlined } from '@ant-design/icons'
 import { ImagotipoSVG } from '../../assets/svg/home'
 import useSCInteractions from '../../hooks/scInteractions/useSCInteractions'
-import useSCData from './../../hooks/scInteractions/useSCData'
+import { useSCData } from '../../store/reducers/scInteractionReducer/hooks'
 import useWindowSize from './../../hooks/useWindowSize'
 import useResponsive from './../../hooks/useResponsive'
 import useListenCookie from '../../hooks/useListenCookie'
@@ -51,12 +51,7 @@ const HeaderPanel = ({ info: { APR, lockedTime, totalDeposit, active } }) => {
                 </div>
             </div>
             <div className=" flex flex-row justify-center items-center leading-none">
-                <div className="font-light text-sm md:text-sm text-gray-13 dark:text-white text-center mr-1">
-                    Contract end time:
-                </div>
-                {active ? (
-                    <StakingCountDown value={deadline} size={'0.875rem'} />
-                ) : (
+                {!active && (
                     <div className="bg-red-300 text-red-0 text-center rounded-md px-3 py-1  mx-auto font-medium text-xs md:text-sm ">
                         Inactive
                     </div>

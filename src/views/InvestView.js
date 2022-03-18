@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React from 'react'
+import React, { useState } from 'react'
 import WhitelistedAddress from '../components/Invest/WhitelistedAddress'
 
 import Activity from '../components/Invest/Activity'
@@ -20,25 +20,27 @@ import { stakingLvlsPrivate } from './../constants/stakingLevels'
 import {
     useTotalTokensPrivate,
     useTotalTokensPre,
+    useSCData,
 } from './../store/reducers/scInteractionReducer/hooks'
 
 const InvestView = (props) => {
+    const [loading, setLoading] = useState(false)
     const history = useHistory()
     const { account } = useWeb3React()
+
     const alreadyRequest = useAlreadyRequestWhitelist()
     const whitelist = useWhiteList()
     const fetchWhiteList = useFetchWhiteList()
-    const totalTokensPrivate = useTotalTokensPrivate()
-    const totalTokensPre = useTotalTokensPre()
+    const { fetchedData, data } = useSCData()
+    const { totalTokensPrivate, totalTokensPre } = data
     const claimPrivateTokens = useClaimPrivateSale()
 
-    const loadingPage = useValidate([!account, !fetchWhiteList.alreadyRequest])
     const alreadyClaimedPrivateTokens =
         whitelist.privateSale.length > 0 && totalTokensPrivate === '0'
     const alreadyClaimedPreTokens =
         whitelist.preSale.length > 0 && totalTokensPre === '0'
 
-    if (loadingPage) {
+    if (!account || !fetchWhiteList.alreadyRequest || !fetchedData) {
         return (
             <div className="mx-5" style={{ height: 'calc(100vh - 109.13px)' }}>
                 <PageLoading />
@@ -52,14 +54,15 @@ const InvestView = (props) => {
             return
         }
 
+        setLoading(true)
         const stakeLevel = stakingLvlsPrivate.find(
             (s) => s.packageId === whitelist.packagePrivateSale
         )
-
         claimPrivateTokens(stakeLevel.stakeId, (err, message, res) => {
             if (err) {
                 console.log(err)
             }
+            setLoading(false)
         })
     }
 
@@ -83,11 +86,14 @@ const InvestView = (props) => {
                             size="normal"
                             className="px-8"
                             onClick={handleClaimTokensPrivate}
+                            loading={loading}
                             // disabled={totalTokensPrivate === '0'}
                         >
-                            {!alreadyClaimedPrivateTokens
-                                ? 'Stake'
-                                : 'Go to Staking'}
+                            {!loading
+                                ? !alreadyClaimedPrivateTokens
+                                    ? 'Stake'
+                                    : 'Go to Staking'
+                                : ''}
                         </ButtonSpinner>
                     </div>
                 </div>
@@ -101,10 +107,13 @@ const InvestView = (props) => {
                             size="normal"
                             className="px-8"
                             disabled={totalTokensPre === '0'}
+                            loading={loading}
                         >
-                            {!alreadyClaimedPreTokens
-                                ? 'Stake'
-                                : 'Go to Staking'}
+                            {!loading
+                                ? !alreadyClaimedPreTokens
+                                    ? 'Stake'
+                                    : 'Go to Staking'
+                                : ''}
                         </ButtonSpinner>
                     </div>
                 </div>
@@ -120,12 +129,6 @@ const InvestView = (props) => {
             />
             <p className="text-xl mt-8 font-medium">
                 Apply for whitelist in order to gain access.{' '}
-                {/* <span
-                    onClick={() => history.push(PrivateSalePath)}
-                    className="text-orange-2 cursor-pointer underline"
-                >
-                    Click here to apply
-                </span> */}
             </p>
             <p className="text-xl font-medium">
                 <span

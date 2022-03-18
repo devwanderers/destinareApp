@@ -6,7 +6,7 @@ import useCopyToClipboard from './../../../hooks/useCopyToClipboard'
 import { Tooltip } from 'antd'
 
 const ActivityElement = ({ data }) => {
-    const [timeStamp, from, to, tx, amount] = data
+    const [timeStamp, from, to, tx, amount, tokens] = data
     const [copyToClipboard, { success }] = useCopyToClipboard()
 
     let formatDate = new Date(parseInt(timeStamp))
@@ -15,7 +15,9 @@ const ActivityElement = ({ data }) => {
         month: 'long',
         day: 'numeric',
     })
-
+    console.log({ tokens })
+    const formattedToken = parseInt(tokens).toLocaleString('en-US')
+    console.log({ formattedToken })
     return (
         <div className="flex flex-row w-full  px-4 lg:px-12 pt-3 pb-2 text-black-2 dark:text-gray-6 font-medium text-xs">
             <div className="flex-1">{formatDate}</div>
@@ -62,6 +64,9 @@ const ActivityElement = ({ data }) => {
             <div className="flex-1 flex items-center">
                 <FaEthereum className="relative" style={{ top: '-2px' }} />
                 {amount} ETH
+            </div>
+            <div className="flex-1 flex items-center">
+                {formattedToken} DDOT
             </div>
         </div>
     )

@@ -3,7 +3,7 @@ import React from 'react'
 // import { LoadingOutlined } from '@ant-design/icons'
 
 import useSCInteractions from '../../hooks/scInteractions/useSCInteractions'
-import useSCData from './../../hooks/scInteractions/useSCData'
+import { useSCData } from '../../store/reducers/scInteractionReducer/hooks'
 // import ButtonSpinner from '../Buttons/ButtonSpinner'
 import IconRefresh from './../../assets/svg/icons/IconRefresh'
 import { cls } from './../../services/helpers'

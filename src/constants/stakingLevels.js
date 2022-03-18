@@ -10,6 +10,7 @@ export const stakingLvlsPrivate = [
         packageId: 1,
         stakeId: 0,
         amount: 0.2,
+        tokens: 12500,
     },
     {
         title: 'Trader Plan',
@@ -22,6 +23,7 @@ export const stakingLvlsPrivate = [
         packageId: 2,
         amount: 0.4,
         stakeId: 1,
+        tokens: 33333,
     },
     {
         title: 'Investor Plan',
@@ -34,6 +36,7 @@ export const stakingLvlsPrivate = [
         packageId: 3,
         amount: 0.75,
         stakeId: 2,
+        tokens: 100000,
     },
 ]
 
@@ -49,6 +52,7 @@ export const stakingLvlsPre = [
         packageId: 4,
         amount: 0.2,
         stakeId: 2,
+        tokens: 12500,
     },
     {
         title: 'Trader Plan',
@@ -61,6 +65,7 @@ export const stakingLvlsPre = [
         packageId: 5,
         amount: 0.4,
         stakeId: 3,
+        tokens: 33333,
     },
     {
         title: 'Investor Plan',
@@ -73,5 +78,6 @@ export const stakingLvlsPre = [
         packageId: 6,
         amount: 0.75,
         stakeId: 4,
+        tokens: 100000,
     },
 ]

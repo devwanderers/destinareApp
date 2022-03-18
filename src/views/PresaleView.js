@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react'
 import CardContainer from '../components/Cards/CardContainer'
 import FormPrivateSale from '../components/PrivateSale/FormPrivateSale'
-import useSCData from './../hooks/scInteractions/useSCData'
+import { useSCData } from '../store/reducers/scInteractionReducer/hooks'
 import { useWeb3React } from '@web3-react/core'
 import useTimeout from './../hooks/useTimeout'
 import {

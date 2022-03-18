@@ -7,7 +7,7 @@ import * as scActions from '../../store/reducers/scInteractionReducer/actions'
 import useDeepCompareEffect from '../useDeepCompareEffect'
 import useActiveWeb3React from '../useActiveWeb3React'
 import useInterval from '../useInterval'
-import useSCData from './useSCData'
+import { useSCData } from '../../store/reducers/scInteractionReducer/hooks'
 import { abortablePromise } from '../../services/promises'
 import useSCInteractions from './useSCInteractions'
 

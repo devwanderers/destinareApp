@@ -9,6 +9,7 @@ const ActivityContainer = (props) => {
             <div className="flex-1 ">To</div>
             <div className="flex-1 ">Tx</div>
             <div className="flex-1 ">Amount</div>
+            <div className="flex-1 ">Tokens</div>
         </div>
     )
 }

@@ -3,7 +3,7 @@ import { useWeb3React } from '@web3-react/core'
 import { FaSignOutAlt } from 'react-icons/fa'
 import useAuth from '../../hooks/useAuth'
 import useCurrency from '../../hooks/useCurrency'
-import useSCData from './../../hooks/scInteractions/useSCData'
+import { useSCData } from '../../store/reducers/scInteractionReducer/hooks'
 
 const SupplyCard = ({ title, supply }) => {
     return (
