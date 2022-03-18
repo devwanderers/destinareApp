@@ -16,12 +16,12 @@ import ModalCompromisePackage from '../components/PrivateSale/ModalCompromisePac
 import CardCompromisePlan from '../components/PrivateSale/CardCompromisePlan'
 import CardReservePlan from './../components/PrivateSale/CardReservePlan'
 import useDeepCompareEffect from './../hooks/useDeepCompareEffect'
-import PageLoading from '../components/PageLoadings/PageLoading'
 import { useBuyPrivateSale } from '../hooks/scInteractions/privateSaleHooks'
 
 import { useHistory } from 'react-router'
 import { InvestPath } from './../constants/routerConstants'
 import { stakingLvlsPrivate } from './../constants/stakingLevels'
+import utilitiesImages from './../assets/images/utilities/index'
 
 const initialState = {
     verified: false,
@@ -109,8 +109,19 @@ const PrivateSaleView = () => {
             !fetchWhiteList.whiteList)
     ) {
         return (
-            <div className="mx-5" style={{ height: 'calc(100vh - 109.13px)' }}>
-                <PageLoading />
+            <div className="flex flex-col justify-center items-center flex-grow opacity-75">
+                <img
+                    className=" w-80 h-auto"
+                    src={utilitiesImages.wallet}
+                    alt={utilitiesImages.wallet}
+                />
+                <p className="text-xl mt-8 font-medium">
+                    In order to stake your wallet should
+                </p>
+                <p className="text-xl font-medium">
+                    be connected to{' '}
+                    <span className="text-orange-2">Destinare</span>
+                </p>
             </div>
         )
     }
@@ -129,6 +140,9 @@ const PrivateSaleView = () => {
                     </CardContainer>
                 ) : (
                     <React.Fragment>
+                        <div className="text-3xl font-bold mb-6 text-center text-black-2 dark:text-gray-6">
+                            Select Plan
+                        </div>
                         {!planCompromised ? (
                             <div className="grid grid-cols-3 gap-4">
                                 {stakingLvlsPrivate.map((s) => {

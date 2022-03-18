@@ -66,28 +66,30 @@ const ModalCompromisePackage = ({
         >
             <div className="text-center">
                 <p className=" text-center">
-                    Estas a punto de seleccionar este paquete, una vez que lo
-                    selecciones no podrias cambiarlo. Todos los paquetes
-                    incluyen un periodo de prueba de uso, con un porcentaje de
-                    rendimiento, este periodo es forzoso.
+                    You are about to select this plan, once selected it could
+                    not be changed. All plans have been designed with proof of
+                    use, it means that you should stake it in order to receive
+                    rewards.
                 </p>
-                <div className="text-lg mt-3">Estas de acuerdo?</div>
+                <div className="text-lg mt-2 font-medium">
+                    Do you want to compromise?
+                </div>
             </div>
-            <div className="flex gap-2 mt-8 px-8">
+            <div className="flex gap-2 mt-6 px-8">
                 <ButtonSpinner
                     onClick={() => onClose()}
                     className="w-full"
                     variant="secondary"
                     disabled={loading}
                 >
-                    Close
+                    Cancel
                 </ButtonSpinner>
                 <ButtonSpinner
                     loading={loading}
                     onClick={handleCompromise}
                     className="w-full"
                 >
-                    {!loading && 'Compromise'}
+                    {!loading && 'Yes'}
                 </ButtonSpinner>
             </div>
         </Modal>

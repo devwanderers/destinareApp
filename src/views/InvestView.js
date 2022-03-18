@@ -1,13 +1,15 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import WhitelistedAddress from '../components/Invest/WhitelistedAddress'
+import { useHistory } from 'react-router'
+import { notification } from 'antd'
+import { SmileOutlined } from '@ant-design/icons'
+import { useWeb3React } from '@web3-react/core'
 
 import Activity from '../components/Invest/Activity'
-import { useWeb3React } from '@web3-react/core'
 import PageLoading from '../components/PageLoadings/PageLoading'
 import useValidate from './../hooks/useValidate'
 import utilitiesImages from './../assets/images/utilities/index'
-import { useHistory } from 'react-router'
 import {
     useAlreadyRequestWhitelist,
     useFetchWhiteList,
@@ -17,6 +19,8 @@ import { PrivateSalePath, StakingView } from '../constants/routerConstants'
 import ButtonSpinner from '../components/Buttons/ButtonSpinner'
 import { useClaimPrivateSale } from './../hooks/scInteractions/privateSaleHooks'
 import { stakingLvlsPrivate } from './../constants/stakingLevels'
+
+import useDeepCompareEffect from './../hooks/useDeepCompareEffect'
 import {
     useTotalTokensPrivate,
     useTotalTokensPre,
@@ -40,13 +44,42 @@ const InvestView = (props) => {
     const alreadyClaimedPreTokens =
         whitelist.preSale.length > 0 && totalTokensPre === '0'
 
-    if (!account || !fetchWhiteList.alreadyRequest || !fetchedData) {
-        return (
-            <div className="mx-5" style={{ height: 'calc(100vh - 109.13px)' }}>
-                <PageLoading />
-            </div>
-        )
-    }
+    useEffect(() => {
+        notification.destroy()
+    }, [account])
+
+    useDeepCompareEffect(() => {
+        if (fetchWhiteList.whiteList) {
+            if (whitelist.verified) {
+                notification.success({
+                    key: 'verification',
+                    message: 'Verification process status',
+                    description: (
+                        <div>
+                            The verification proccess has ended. Now you are a
+                            verified member.{' '}
+                            <strong
+                                onClick={() => history.push(PrivateSalePath)}
+                                className="underline cursor-pointer text-orange-2"
+                            >
+                                Go to sale
+                            </strong>
+                        </div>
+                    ),
+                    duration: 60,
+                })
+            } else {
+                notification.info({
+                    key: 'verification',
+                    message: 'Verification process status',
+                    description:
+                        'Thanks for joining us, stay tuned in our discord for future announcements.',
+                    duration: 60,
+                })
+            }
+        }
+        return () => notification.close('verification')
+    }, [whitelist, fetchWhiteList.whiteList])
 
     const handleClaimTokensPrivate = () => {
         if (alreadyClaimedPrivateTokens) {
@@ -64,6 +97,28 @@ const InvestView = (props) => {
             }
             setLoading(false)
         })
+    }
+
+    if (!account || !fetchWhiteList.alreadyRequest || !fetchedData) {
+        return (
+            <div
+                className="flex flex-col justify-center items-center flex-grow opacity-75"
+                style={{ height: 'calc(100vh - 109.13px)' }}
+            >
+                <img
+                    className=" w-80 h-auto"
+                    src={utilitiesImages.wallet}
+                    alt={utilitiesImages.wallet}
+                />
+                <p className="text-xl mt-8 font-medium">
+                    In order to stake your wallet should
+                </p>
+                <p className="text-xl font-medium">
+                    be connected to{' '}
+                    <span className="text-orange-2">Destinare</span>
+                </p>
+            </div>
+        )
     }
 
     return alreadyRequest ? (

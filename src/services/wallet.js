@@ -5,22 +5,41 @@ export const setupNetwork = async () => {
         const chainId = parseInt(process.env.REACT_APP_CHAIN_ID_NETWORK, 10)
         console.log({ chainId })
         try {
+            // await ethereum.request({
+            //     method: 'wallet_addEthereumChain',
+            //     params: [
+            //         {
+            //             chainId: `0x${chainId.toString(16)}`,
+            //             chainName: 'Rinkeby Test Network',
+            //             // chainName: 'Polygon Network',
+            //             nativeCurrency: {
+            //                 name: 'ETH',
+            //                 symbol: 'ETH',
+            //                 decimals: 18,
+            //             },
+            //             // rpcUrls: ['https://polygon-rpc.com/'],
+            //             // blockExplorerUrls: ['https://polygonscan.com/'],
+            //             rpcUrls: ['https://rinkeby.infura.io/v3/'],
+            //             blockExplorerUrls: ['https://rinkeby.etherscan.io'],
+            //         },
+            //     ],
+            // })
             await ethereum.request({
                 method: 'wallet_addEthereumChain',
                 params: [
                     {
                         chainId: `0x${chainId.toString(16)}`,
-                        chainName: 'Mumbai Testnet',
+                        chainName: 'Ethereum Mainnet',
                         // chainName: 'Polygon Network',
-                        nativeCurrency: {
-                            name: 'MATIC',
-                            symbol: 'MATIC',
-                            decimals: 18,
-                        },
+                        // nativeCurrency: {
+                        //     name: 'ETH',
+                        //     symbol: 'ETH',
+                        //     decimals: 18,
+                        // },
                         // rpcUrls: ['https://polygon-rpc.com/'],
                         // blockExplorerUrls: ['https://polygonscan.com/'],
-                        rpcUrls: ['https://rpc-mumbai.maticvigil.com'],
-                        blockExplorerUrls: ['https://polygonscan.com/'],
+                        rpcUrls: ['https://mainnet.infura.io/v3/'],
+                        // blockExplorerUrls: ['https://etherscan.io'],
                     },
                 ],
             })

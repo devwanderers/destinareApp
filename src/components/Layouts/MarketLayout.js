@@ -21,13 +21,13 @@ import {
 } from '../../assets/svg/icons'
 
 const menuItems = [
-    {
-        icon: IconDashboard,
-        key: 'home',
-        name: 'Home',
-        onClick: paths.HomePath,
-        group: false,
-    },
+    // {
+    //     icon: IconDashboard,
+    //     key: 'home',
+    //     name: 'Home',
+    //     onClick: paths.HomePath,
+    //     group: false,
+    // },
     // {
     //     icon: IconReservation,
     //     key: 'dashboard',
@@ -77,7 +77,7 @@ const MarketLayout = ({ children, menuKey, ...rest }) => {
     const { width } = useWindowSize()
     const [theme] = useListenCookie('theme')
     const isDarkMode = theme === 'dark'
-    const [collapsed, setCollapsed] = useState(true)
+    const [collapsed, setCollapsed] = useState(width <= 1024)
     const [showDrawer, setShowDrawer] = useState(false)
 
     const handleOnCollapse = () => setCollapsed(!collapsed)

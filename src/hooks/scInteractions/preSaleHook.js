@@ -1,10 +1,10 @@
 /* eslint-disable no-unused-vars */
 import { useCallback } from 'react'
-import useActiveWeb3React from '../useActiveWeb3React'
 import DestinareContract from '../../abi/DestinareContract.json'
+import { useWeb3React } from '@web3-react/core'
 
 export const useClaimPreSale = () => {
-    const { library, account } = useActiveWeb3React()
+    const { library, account } = useWeb3React()
 
     return useCallback(
         async (callback) => {
@@ -25,7 +25,7 @@ export const useClaimPreSale = () => {
 }
 
 export const useBuyPreSale = () => {
-    const { library, account } = useActiveWeb3React()
+    const { library, account } = useWeb3React()
     return useCallback(
         async (plan, callback) => {
             try {
