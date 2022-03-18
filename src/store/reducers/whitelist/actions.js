@@ -1,7 +1,9 @@
-import { createAsyncThunk } from '@reduxjs/toolkit'
+import { createAsyncThunk, createAction } from '@reduxjs/toolkit'
 import * as types from './types'
 import axiosInstance from './../../services/axiosConfig'
 import { accountWhitelistSelector } from './selectors'
+
+export const clearWhitelistReducer = createAction(types.CLEAR_WHITELIST)
 
 export const hasRequestWhitelist = createAsyncThunk(
     types.HAS_REQUEST_WHITELIST,

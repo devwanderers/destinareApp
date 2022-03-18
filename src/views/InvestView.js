@@ -121,7 +121,10 @@ const InvestView = (props) => {
             </div>
         </div>
     ) : (
-        <div className="flex flex-col justify-center items-center flex-grow opacity-75">
+        <div
+            className="flex flex-col justify-center items-center flex-grow opacity-75"
+            style={{ height: 'calc(100vh - 109.13px)' }}
+        >
             <img
                 className=" w-80 h-auto"
                 src={utilitiesImages.wallet}

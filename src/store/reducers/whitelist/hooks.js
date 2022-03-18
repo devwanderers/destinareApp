@@ -12,7 +12,13 @@ import {
     createWhitelist,
     fetchWhitelist,
     updateWhiteList,
+    clearWhitelistReducer,
 } from './actions'
+
+export const useClearWhiteListReducer = () => {
+    const dispatch = useDispatch()
+    return useCallback(() => dispatch(clearWhitelistReducer(), [dispatch]))
+}
 
 export const useAlreadyRequestWhitelist = () => {
     const { account } = useWeb3React()

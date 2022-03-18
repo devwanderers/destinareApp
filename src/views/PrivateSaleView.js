@@ -9,6 +9,7 @@ import {
     useWhiteList,
     useFetchWhiteList,
     useUpdateWhitelist,
+    useClearWhiteListReducer,
 } from './../store/reducers/whitelist/hooks'
 
 import ModalCompromisePackage from '../components/PrivateSale/ModalCompromisePackage'
@@ -36,28 +37,30 @@ const PrivateSaleView = () => {
     const [state, setState] = useState(initialState)
     const { visible, selectedPlan, paying } = state
 
-    const [planCompromised, setPlanCompromised] = useState(null)
+    // const [planCompromised, setPlanCompromised] = useState(null)
 
     const alreadyRequest = useAlreadyRequestWhitelist()
     const whitelist = useWhiteList()
     const fetchWhiteList = useFetchWhiteList()
+    const clearWhiteListR = useClearWhiteListReducer()
 
     const buyPrivateSale = useBuyPrivateSale()
     const updateWhitelist = useUpdateWhitelist()
 
     useEffect(() => {
         setState(initialState)
-        setPlanCompromised(null)
+        clearWhiteListR()
     }, [account])
 
-    useDeepCompareEffect(() => {
-        if (whitelist.package !== 0) {
-            const _selectedPackage = stakingLvlsPrivate.find(
-                (s) => s.packageId === whitelist.packagePrivateSale
-            )
-            if (_selectedPackage) setPlanCompromised(_selectedPackage)
-        }
-    }, [whitelist])
+    let planCompromised = null
+    if (whitelist.package !== 0) {
+        const _selectedPackage = stakingLvlsPrivate.find(
+            (s) => s.packageId === whitelist.packagePrivateSale
+        )
+        if (_selectedPackage) planCompromised = _selectedPackage
+    }
+
+    useDeepCompareEffect(() => {}, [whitelist])
 
     const handleSelectPackage = (data) => {
         setState({ ...state, visible: true, selectedPlan: data })

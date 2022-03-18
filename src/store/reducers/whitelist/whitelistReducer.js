@@ -56,6 +56,9 @@ const whiteListReducer = createReducer(initialState, (builder) => {
         .addCase(actions.updateWhiteList.fulfilled, (state, { payload }) => {
             state.account = payload.whiteList
         })
+        .addCase(actions.clearWhitelistReducer, (state, { payload }) => {
+            state = initialState
+        })
 })
 
 export default whiteListReducer
