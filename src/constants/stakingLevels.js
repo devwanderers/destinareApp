@@ -51,7 +51,7 @@ export const stakingLvlsPre = [
         ],
         packageId: 4,
         amount: 0.2,
-        stakeId: 2,
+        stakeId: 0,
         tokens: 12500,
     },
     {
@@ -59,7 +59,7 @@ export const stakingLvlsPre = [
         subtitle: '0.4 ETH',
         properties: [
             ['DDOT', '33, 333'],
-            ['APR', '15%'],
+            ['APR', '12%'],
             ['Time', '5 Months'],
         ],
         packageId: 5,
@@ -72,7 +72,7 @@ export const stakingLvlsPre = [
         subtitle: '0.75 ETH',
         properties: [
             ['DDOT', '100, 000'],
-            ['APR', '20%'],
+            ['APR', '15%'],
             ['Time', '4 Months'],
         ],
         packageId: 6,
