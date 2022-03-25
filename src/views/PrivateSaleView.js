@@ -60,7 +60,7 @@ const PrivateSaleView = () => {
         if (_selectedPackage) planCompromised = _selectedPackage
     }
 
-    useDeepCompareEffect(() => {}, [whitelist])
+    useDeepCompareEffect(() => { }, [whitelist])
 
     const handleSelectPackage = (data) => {
         setState({ ...state, visible: true, selectedPlan: data })
@@ -140,39 +140,46 @@ const PrivateSaleView = () => {
                     </CardContainer>
                 ) : (
                     <React.Fragment>
-                        <div className="text-3xl font-bold mb-6 text-center text-black-2 dark:text-gray-6">
-                            Select Plan
-                        </div>
                         {!planCompromised ? (
-                            <div className="grid grid-cols-3 gap-4">
-                                {stakingLvlsPrivate.map((s) => {
-                                    const { title, subtitle, properties } = s
-                                    return (
-                                        <CardCompromisePlan
-                                            key={`package-${title}`}
-                                            title={title}
-                                            subtitle={subtitle}
-                                            properties={properties}
-                                            onClick={() =>
-                                                handleSelectPackage(s)
-                                            }
-                                            verified={whitelist.verified}
-                                        />
-                                    )
-                                })}
-                            </div>
+                            <React.Fragment>
+                                <div className="text-3xl font-bold mb-6 text-center text-black-2 dark:text-gray-6">
+                                    Select Plan
+                                </div>
+                                <div className="grid grid-cols-3 gap-4">
+                                    {stakingLvlsPrivate.map((s) => {
+                                        const { title, subtitle, properties } = s
+                                        return (
+                                            <CardCompromisePlan
+                                                key={`package-${title}`}
+                                                title={title}
+                                                subtitle={subtitle}
+                                                properties={properties}
+                                                onClick={() =>
+                                                    handleSelectPackage(s)
+                                                }
+                                                verified={whitelist.verified}
+                                            />
+                                        )
+                                    })}
+                                </div>
+                            </React.Fragment>
                         ) : (
-                            <div className="w-11/12 md:w-5/12 lg:w-4/12 mx-auto">
-                                <CardReservePlan
-                                    title={planCompromised.title}
-                                    subtitle={planCompromised.subtitle}
-                                    properties={planCompromised.properties}
-                                    onClick={handlePayPlan}
-                                    paid={whitelist.privateSale.length > 0}
-                                    loading={paying}
+                            <React.Fragment>
+                                <div className="text-3xl font-bold mb-6 text-center text-black-2 dark:text-gray-6">
+                                    Selected Plan
+                                </div>
+                                <div className="w-11/12 md:w-5/12 lg:w-4/12 mx-auto">
+                                    <CardReservePlan
+                                        title={planCompromised.title}
+                                        subtitle={planCompromised.subtitle}
+                                        properties={planCompromised.properties}
+                                        onClick={handlePayPlan}
+                                        paid={whitelist.privateSale.length > 0}
+                                        loading={paying}
                                     // lock
-                                />
-                            </div>
+                                    />
+                                </div>
+                            </React.Fragment>
                         )}
                     </React.Fragment>
                 )}
