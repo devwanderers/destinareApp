@@ -72,7 +72,7 @@ const ModalCompromisePackage = ({
                     rewards.
                 </p>
                 <div className="text-lg mt-2 font-medium">
-                    Do you want to compromise?
+                    Are you sure this is the package you want to reserve?
                 </div>
             </div>
             <div className="flex gap-2 mt-6 px-8">

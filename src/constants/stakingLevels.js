@@ -5,7 +5,7 @@ export const stakingLvlsPrivate = [
         properties: [
             ['DDOT', '12, 500'],
             ['APR', '10%'],
-            ['Time', '6 Months'],
+            ['Staking Time', '6 Months'],
         ],
         packageId: 1,
         stakeId: 0,
@@ -18,7 +18,7 @@ export const stakingLvlsPrivate = [
         properties: [
             ['DDOT', '33, 333'],
             ['APR', '15%'],
-            ['Time', '5 Months'],
+            ['Staking Time', '5 Months'],
         ],
         packageId: 2,
         amount: 0.4,
@@ -31,7 +31,7 @@ export const stakingLvlsPrivate = [
         properties: [
             ['DDOT', '100, 000'],
             ['APR', '20%'],
-            ['Time', '4 Months'],
+            ['Staking Time', '4 Months'],
         ],
         packageId: 3,
         amount: 0.75,
@@ -47,7 +47,7 @@ export const stakingLvlsPre = [
         properties: [
             ['DDOT', '12, 500'],
             ['APR', '10%'],
-            ['Time', '6 Months'],
+            ['Staking Time', '6 Months'],
         ],
         packageId: 4,
         amount: 0.2,
@@ -60,7 +60,7 @@ export const stakingLvlsPre = [
         properties: [
             ['DDOT', '33, 333'],
             ['APR', '12%'],
-            ['Time', '5 Months'],
+            ['Staking Time', '5 Months'],
         ],
         packageId: 5,
         amount: 0.4,
@@ -73,7 +73,7 @@ export const stakingLvlsPre = [
         properties: [
             ['DDOT', '100, 000'],
             ['APR', '15%'],
-            ['Time', '4 Months'],
+            ['Staking Time', '4 Months'],
         ],
         packageId: 6,
         amount: 0.75,

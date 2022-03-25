@@ -144,7 +144,7 @@ const PrivateSaleView = () => {
                             Select Plan
                         </div>
                         {!planCompromised ? (
-                            <div className="grid grid-cols-3 gap-4">
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                                 {stakingLvlsPrivate.map((s) => {
                                     const { title, subtitle, properties } = s
                                     return (

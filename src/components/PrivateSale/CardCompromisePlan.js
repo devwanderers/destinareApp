@@ -71,7 +71,7 @@ const CardCompromisePlan = ({
                         size="normal"
                         className="mt-12 w-full transform"
                     >
-                        Compromise
+                        Reserve
                     </ButtonSpinner>
                 </React.Fragment>
             )}

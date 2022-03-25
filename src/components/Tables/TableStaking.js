@@ -30,7 +30,7 @@ const columns = [
         ellipsis: true,
     },
     {
-        title: 'Lock duration',
+        title: 'Staking Duration',
         dataIndex: 'lock_duration',
         key: 'lock_duration',
         ellipsis: true,
