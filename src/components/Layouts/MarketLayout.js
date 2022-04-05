@@ -66,7 +66,7 @@ const menuItems = [
                 icon: IconEarn,
                 onClick: paths.StakingView,
                 key: 'staking',
-                name: 'Staking with lock',
+                name: 'Staking',
             },
         ],
     },
@@ -121,7 +121,7 @@ const MarketLayout = ({ children, menuKey, ...rest }) => {
                             </React.Fragment>
                         }
                         enableWallet
-                        // hideLogo={true}
+                    // hideLogo={true}
                     />
                 )}
                 <Content className="flex flex-col flex-1 flex-shrink flex-grow">
@@ -133,7 +133,7 @@ const MarketLayout = ({ children, menuKey, ...rest }) => {
                                 </div>
                                 <ConnectWalletHeader
                                     className="ml-auto"
-                                    // containerClassName=""
+                                // containerClassName=""
                                 />
                             </div>
                         </div>
